@@ -1,5 +1,0 @@
-; A page construction file
-libraries[]		=jquery
-libraries[]		=d3
-scripts[]		=ws
-styles[]		=main
