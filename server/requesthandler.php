@@ -20,33 +20,35 @@ final class RequestHandler
 	}
 
 	public function handleContentRequest (array $action = null) {
-		if (empty ($action)) {
-			return;
+		if (!empty ($action)) {
+			$root = Config::path ('server', 'root');
+			require "${root}/server/login.php";
+			if (!isLoggedIn () && !login ()) {
+				return; # Login failed.
+			}
+			resolveCall ($this->method, $action, Config::path ('server', 'content'), "Content", "Lora\Content", $this->req, $this->mess);
+			// \Lib::dump ($this->mess->getData ());
 		}
-		$root = Config::path ('server', 'root');
-		require "${root}/login.php";
-		if (!isLoggedIn () && !login ()) {
-			return; # Login failed.
-		}
-		resolveCall ($this->method, $action, Config::path ('server', 'content'), "Content", "Lora\Content", $this->req, $this->mess);
-		// \Lib::dump ($this->mess->getData ());
-
-		require '../frameworks/Twig/Autoloader.php';
+		require 'frameworks/Twig/Autoloader.php';
 		$page = $this->mess->getPage ();
 		\Twig_Autoloader::register ();
-		$loader 	= new \Twig_Loader_Filesystem ([
+		$loader = new \Twig_Loader_Filesystem ([
 			Config::path ('twig', 'templates'),
+			Config::path ('twig', 'layouts'),
 			Config::path ('twig', 'content'),
-			Config::path ('twig', 'macros')
+			Config::path ('twig', 'macros'),
+			$page->path ()
 		]);
-		$twig 		= new \Twig_Environment ($loader, [ 'debug' => debug (), 'cache' => Config::path ('twig', 'cache') ]);
-		$twig->addExtension(new \Twig_Extension_Debug());
-		$template 	= $twig->loadTemplate ($page->content ());
+		$twig = new \Twig_Environment ($loader, [ 'debug' => debug (), 'cache' => Config::path ('twig', 'cache') ]);
+		$twig->addExtension (new \Twig_Extension_Debug ());
+		$template = $twig->loadTemplate ($page->content ());
 		$template->display ([
 			'page' 				=> $page,
-			'public_ext' 		=> Config::path ('client', 'ext'),
-			'public_scripts' 	=> Config::path ('client', 'scripts'),
-			'public_styles' 	=> Config::path ('client', 'styles'),
+			'data'				=> $this->mess->getData (),
+			'public_pages' 		=> Config::get ('client', 'pages'),
+			'public_ext' 		=> Config::get ('client', 'ext'),
+			'public_scripts' 	=> Config::get ('client', 'scripts'),
+			'public_styles' 	=> Config::get ('client', 'styles'),
 		]);
 	}
 
@@ -55,7 +57,9 @@ final class RequestHandler
 			return;
 		}
 		resolveCall ($this->method, $action, Config::path ('server', 'api'), "Action", "Lora\Api", $this->req, $this->mess);
-		\Lib::dump ($this->mess->getData ());
+		# TODO: Use out buffer processing instead of echo.
+		echo json_encode ($this->mess->getData ());
+		// \Lib::dump ($this->mess->getData ());
 	}
 
 }

@@ -1,7 +1,7 @@
 ; A page construction file
 template		=default
-content			=asd
+content			=rtfeed
 libraries[]		=jquery
 libraries[]		=d3
-; scripts[]		=test
+scripts[]		=ws
 styles[]		=main

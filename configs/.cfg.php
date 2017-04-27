@@ -1,29 +1,19 @@
 <?php
 
-require 'config.php';
-
-$configs = parse_ini_file ("config.ini.php", true);
-if ($configs === false) {
+require __DIR__.'/../../../config/config.php';
+if (($config = parse_ini_file ("config.ini.php", true)) === false) {
 	return false;
 }
-if (isset ($configs ['system']['debug'])) {
-	define ('DEBUG', $configs ['system']['debug'] == true);
+if (($globalConfig = parse_ini_file (__DIR__."/../../../config/config.ini.php", true)) === false) {
+	return false;
 }
-$conf = Lora\Config::instance ();
-$conf->init ($configs);
-$conf->setExclude ($conf->get ('system', 'autoload_exclude'));
-$conf->registerAutoloaders ();
+if (isset ($config ['system']['debug'])) {
+	define ('DEBUG', $config ['system']['debug'] == true);
+}
+Lora\Config::loadConfig ($config);
+Lora\Config::loadConfig ($globalConfig);
+Lora\Config::registerAutoloaders ();
 
 function debug () {
 	return defined ('DEBUG') && DEBUG === true;
-}
-
-function setConfig ($value, ...$key) {
-	global $configs;
-	$temp = $configs;
-	$count = count ($key) - 1;
-	for ($i = 0; $i < $count; ++$i) {
-		$temp = $temp [$key [$i]];
-	}
-	$temp [$key [$i]] = $value;
 }

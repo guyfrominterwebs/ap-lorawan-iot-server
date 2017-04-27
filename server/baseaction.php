@@ -14,6 +14,10 @@ class BaseAction
 		$this->id		= md5 (get_class ($this));
 	}
 
+	public function getId () {
+		return $this->id;
+	}
+
 	public function run (RequestData $req, $method) {
 		if (method_exists ($this, $method)) {
 			$this->$method ($req);

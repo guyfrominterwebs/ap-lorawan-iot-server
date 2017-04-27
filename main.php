@@ -1,5 +1,5 @@
 <?php
-
+chdir (__DIR__);
 if (!require 'configs/.cfg.php') {
 	internalError ();
 	return;

@@ -13,7 +13,7 @@ final class Content_Test extends \Lora\BaseAction
 			$this->mess->getPage ($page);
 		} else {
 			$page = $this->mess->getPage ();
-			$page->loadIni ('test');
+			$page->loadView ('test');
 			$pm->cache ($page, $this->id);
 		}
 		$this->mess->addData ('Get content.');

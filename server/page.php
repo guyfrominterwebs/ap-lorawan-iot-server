@@ -5,20 +5,24 @@ namespace Lora;
 final class Page
 {
 
-	private $_template 		= 'default',
-			$_content 		= 'front',
+	private $_path			= '',
+			$_template 		= 'default_template',
+			$_layout		= 'default_layout',
+			$_view			= 'front',
 			$_libraries 	= [],
 			$_scripts		= [],
 			$_block			= [],
 			$_styles		= [];
 
 	public function __construct () {
+		$this->_path = Config::path ('server', 'pages')."/views/";
 	}
 
-	public function loadIni (string $file) : bool {
-		$file = Config::path ('server', 'pages').'/'.$this->checkExtension ($file, Config::ext ('server', 'page'));
-		$config = parse_ini_file ($file, true, INI_SCANNER_TYPED);
-		if ($config === false) {
+	public function loadView (string $view) : bool {
+		$this->_view = $view;
+		$this->_path .= "/{$this->_view}";
+		$file = "{$this->_path}/view.".Config::ext ('server', 'page');
+		if (file_exists ($file) && ($config = parse_ini_file ($file, true, INI_SCANNER_TYPED)) === false) {
 			return false;
 		}
 		$property = '';
@@ -27,16 +31,23 @@ final class Page
 			if (isset ($config [$property]) && gettype ($config [$property]) === gettype ($this->$member)) {
 				$this->$member = $config [$property];
 			}
-		}
-		return true;
+		} return true;
+	}
+
+	public function path () : string {
+		return $this->_path;
 	}
 
 	public function template () : string {
 		return $this->_template = $this->checkExtension ($this->_template, Config::ext ('twig', 'twig'));
 	}
 
+	public function layout () : string {
+		return $this->_layout = $this->checkExtension ($this->_layout, Config::ext ('twig', 'twig'));
+	}
+
 	public function content () : string {
-		return $this->_content = $this->checkExtension ($this->_content, Config::ext ('twig', 'twig'));
+		return $this->_content = $this->checkExtension ("content", Config::ext ('twig', 'twig'));
 	}
 
 	public function scripts () : array {
@@ -57,7 +68,7 @@ final class Page
 		} return $this->_libraries;
 	}
 
-	public function debug () {
+	public function debug () : bool {
 		return \debug ();
 	}
 

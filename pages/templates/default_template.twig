@@ -1,4 +1,5 @@
 {% import "importers.twig" as importers  %}
+{% import "generators.twig" as generators  %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -52,14 +53,14 @@
 		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMh++////+oymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNhysssymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 		-->
-		{% block content %}
+		{% block view %}
 			<p>Hello LoRaWAN!</p>
-		{% endblock content %}
+		{% endblock view %}
 		{% if page.debug %}
 		<div id="debug">
-			{% block debug %}
-				<pre>{{ dump () }}</pre>
-			{% endblock debug %}
+			<!-- {% block debug %} -->
+				<!-- <pre>{{ dump () }}</pre> -->
+			<!-- {% endblock debug %} -->
 		</div>
 		{% endif %}
 		{% block scripts %}

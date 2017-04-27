@@ -4,7 +4,7 @@ namespace Lora\Content;
 
 use \Lora\PageManager, \RequestData;
 
-final class Content_Asd extends \Lora\BaseAction
+final class Content_Rtfeed extends \Lora\BaseAction
 {
 
 	public function _get (RequestData $req) {
@@ -13,11 +13,10 @@ final class Content_Asd extends \Lora\BaseAction
 			$this->mess->getPage ($page);
 		} else {
 			$page = $this->mess->getPage ();
-			$page->loadView ('asd');
+			$page->loadView ('rtfeed');
 			$pm->cache ($page, $this->id);
 		}
 		$this->mess->addData ('Get content.');
-		$this->mess->addData ($req->getInt ('asd', 0));
 	}
 
 	public function _post (RequestData $req) {

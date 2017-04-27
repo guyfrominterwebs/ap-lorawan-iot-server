@@ -1,0 +1,33 @@
+{% macro collapse_menu_item (heading, items, _cntx) %}
+	<div class="collapse_menu_item">
+		<div>{{ heading }}</div>
+	{% if items is iterable %}
+		{% for i in items %}
+			<div><a href="">{{ i }}</a></div>
+		{% endfor %}
+	{% endif %}
+	</div>
+{% endmacro collapse_menu_item %}
+
+{% macro navigation (items, _cntx) %}
+	{% import _self as generators %}
+	{%- spaceless %}
+	<ul>
+		{% if items is iterable %}
+			{% for target, text in items %}
+		<li>{{- generators.link (target, text, _cntx) -}}</li>
+			{% endfor %}
+		{% endif %}
+	</ul>
+	{% endspaceless -%}
+{% endmacro navigation %}
+
+{% macro link (target, text, _cntx) %}
+<a{% if target is not empty  %} href="{{- _cntx.public_pages ~ target -}}"{% endif %}>{{- text -}}</a>
+{% endmacro link %}
+
+{% macro device_item (device, _cntx) %}
+	<div>
+		<p>{{ device._id }}</p>
+	</div>
+{% endmacro device_item %}
