@@ -1,0 +1,7 @@
+
+db.data.group ({ cond: { hardware_serial: { $in: db.data.distinct ('hardware_serial') } }, reduce: function () {}, initial: {}, key: { dev_id: 1, hardware_serial: 1 }}).forEach (function (doc) {
+	db.devices.insert ({ _id: doc.hardware_serial, hardware_serial: doc.hardware_serial, dev_id: doc.dev_id, name: '' });
+});
+db.devices.find ().forEach (function (doc) {
+	db.data.update ({ hardware_serial: doc._id }, { $unset: { dev_id: 1, hardware_serial: 1 }, $set: { device_id: doc._id }}, { multi: true });
+});

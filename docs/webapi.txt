@@ -1,0 +1,8 @@
+
+
+
+www.domain.net/api/data
+	search 				- optional, enabled search
+	device=[string]		- optional, filters by device
+	start=[integer]		- optional, filters by start time. No older entries are included.
+	end=[integer]		- optional, filters by end time. No later entries are included.
