@@ -1,0 +1,75 @@
+{% import "importers.twig" as importers  %}
+{% import "generators.twig" as generators  %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>AP LoRaWAN</title>
+		{% block styles %}
+			{% if page.styles %}
+				{{ importers.css (page.styles, _context) }}
+			{% endif %}
+		{% endblock styles %}
+	</head>
+	<body>
+		<!--
+		
+		It just works (TM)
+		
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNmN
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNyhNM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNm/ddMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMdd:hdMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNhdNss+oNMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNmdhhhhhhddmmdNMMNo+yooo/NMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmyso++//++ossymNyoh:y/mMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmyo++os/-:/:::/ydsy/oohMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm:`-+++/-:+sossosh/y:sohMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMs`:h+osoo:++sd+o+oo/oo- -hMMMMMMMMMMMM
+		MNdMMMMMMMMMMMMMMMMMMMMMMMNmdddddmNMMMMMMMMMMMMMMMMMMMMMMMMMMMNs+osss++/...:-`:+s/:``:++/yMMMMMMMMMM
+		MMyydMMMMMMMMMMMMMMMMMMMMmysssssssssydNMMMMMMMMMMMMMMMMMMMMMmy/:-/sh+.o:```````````.dMd-m::mMMMMMMMM
+		MMmssyhNMMMMMMMMMMMMMMMNdysss++++oosssshNMMMMMMMMMMMMMMNmdysoo+ooyy/..s``.+hho.````-MMMMM/ `hMMMMMMM
+		MMMhsossyhmNMMMMNNNNmdhssso+/::--:::/oyhyhyysssoooohhysssssshshmhy-.`/+``o/hMMm.````:oso:`` `mMMMMMM
+		MMMNys++ossssyyhyysssoo/::-::///+++so+:---------------------dhos+-```/+``:NMMMm.```````````` :MMMMMM
+		MMMMmss+/:/+ooooooo+//:-:/+++oooosy:-------..`````````````.-h/--.````-y```-+o/.```./++oooooo+:NMMMMM
+		MMMMMmsso+:---:::::://+++oooooooys------.`````````````````.--..``````.y-```````./oo+//////+//+NMMMMM
+		MMMMMMmysso/:-:/++ooooooooooooosh-----.```````````````````````````````:y.````.os/////////omy++MMMMMM
+		MMMMMMMNhssso+/::/++oooooooooooh/----.````````````````````````````````./s.``:y+///yy//////+s+dMMMMMM
+		MMMMMMMMMNdyssso+//::://+++++++h:---.``````````````````````````````````-/d:-h++//hhy///////+dMMMMMMM
+		MMMMMMMMMMMMmdyssssoo+/:-:::::-s/---```````````````````````````````````-mMMmy++//oo//////ohMMMMMMMMM
+		MMMMMMMMMMMMMMMNmdysso+/++oooo/os--.```````````````````````````````````hMMMMMNdyo///+oshNMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMdyssssssssssssssd/-.``````````````````````````````````sdsoooshNMMMMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMNNmdddmmmmhsyhmm/.````````````````````````````````.yy/-.`````/dMMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMNNMMMMNs.``````````````````````````````/hMMMNs-.:+++odMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd+.`````````````````````````.os:.hMMMMhs+////oMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMNhsoho///:-../oo-```````````````````-+hMMo.`.NMMMd+/////hMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMs+++h.```````.mMMNs+/:-..`...-:/oydNMMMNs-```dMMMN+///smMMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMM+///h```````:mMMMMd-..-/MMMMMMMMMMMMmsooy.``.MMMMMMmmMMMMMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMh///s/````-yMMMMMMs.````hMMMMMMMMMMM++//+s`.dMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMNdysd+oymMMMMMMMy.`````oMMMMMMMMMMMd+///hoNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNy:.````` sMMMMMMMMMMMMMNmNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNys+.`````` mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMs+++so/:.` oMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMh++////+oymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+		MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNhysssymMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+		-->
+		{% block view %}
+			<p>Hello LoRaWAN!</p>
+		{% endblock view %}
+		{% if page.debug %}
+		<div id="debug">
+			<!-- {% block debug %} -->
+				<!-- <pre>{{ dump () }}</pre> -->
+			<!-- {% endblock debug %} -->
+		</div>
+		{% endif %}
+		{% block scripts %}
+		{% if page.libraries %}
+			{{ importers.jsext (page.libraries, _context) }}	
+		{% endif %}
+		{% if page.scripts %}
+			{{ importers.js (page.scripts, _context) }}
+		{% endif %}
+		{% endblock scripts %}
+	</body>
+</html>

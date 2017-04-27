@@ -1,0 +1,29 @@
+{% set nav = { 'devices': 'Devices', 'compare': 'Compare', 'test': 'Lorem' } %}
+<nav id="navigation top-nav">
+	<!-- Top menu -->
+	<!--
+		Hover menu
+	-->
+	{% block view_top_navigation %}
+		{{ generators.navigation (nav, _context) }}
+	{% endblock view_top_navigation %}
+</nav>
+<div>
+	<!-- Left menu -->
+	<!--
+		Collapse menu
+	-->
+	{% set nav = { 'devices/data': 'Data', 'devices/graphs': 'Graphs' } %}
+	<div class="navigation side-nav">
+		<p>Devices</p>
+		{{ generators.navigation (nav, _context) }}
+	</div>
+	{% set foo = [ 1, 2, 3, 4 ] %}
+	{{ generators.collapse_menu_item ('lorem', foo, _context) }}
+	{% block view_content %}
+	{% endblock view_content %}
+</div>
+<main>
+</main>
+<footer>
+</footer>

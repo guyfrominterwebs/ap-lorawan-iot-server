@@ -1,7 +1,0 @@
-; A page construction file
-template		=default
-content			=asd
-libraries[]		=jquery
-libraries[]		=d3
-; scripts[]		=test
-styles[]		=main
