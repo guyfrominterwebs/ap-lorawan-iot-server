@@ -1,0 +1,20 @@
+{#
+	page - Page
+	devices - array
+#}
+{% extends page.template %}
+{% block view %}
+	{% embed page.layout %}
+		{% block view_content %}
+			<h1>GO FUCK YISELF YI LIL ARSE!</h1>
+			<div>
+			{% if data.devices is iterable %}
+				{% for d in data.devices %}
+					{{ generators.device_item (d, _context) }}
+				{% endfor %}
+			{% endif %}
+			</div>
+		{% endblock view_content %}
+	{% endembed %}
+	This is a fishing pole.
+{% endblock %}

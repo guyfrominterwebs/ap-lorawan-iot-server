@@ -1,0 +1,7 @@
+; A page construction file
+template		=default
+content			=rtfeed
+libraries[]		=jquery
+libraries[]		=d3
+scripts[]		=ws
+styles[]		=main
