@@ -7,7 +7,8 @@ use \RequestData;
 class BaseAction
 {
 	protected	$mess,
-				$id;
+				$id,
+				$url;
 
 	public function __construct (Messenger $mess) {
 		$this->mess 	= $mess;
@@ -18,8 +19,9 @@ class BaseAction
 		return $this->id;
 	}
 
-	public function run (RequestData $req, $method) {
+	public function run (RequestData $req, string $method, array $excessUrl) {
 		if (method_exists ($this, $method)) {
+			$this->url = $excessUrl;
 			$this->$method ($req);
 		}
 	}

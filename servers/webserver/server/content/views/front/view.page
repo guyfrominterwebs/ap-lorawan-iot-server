@@ -1,0 +1,18 @@
+{
+	"settings": {
+		"view_name": "Home",
+		"side_nav": [{
+			"heading": "Information",
+			"items": [
+				{ "text": "Instructions", "target": "front?show=instructions" },
+				{ "text": "LoRaWAN", "target": "front?show=lorawan" }
+			]
+		}]
+	},
+	"libraries": [
+		"jquery"
+	],
+	"styles": [
+		"main"
+	]
+}

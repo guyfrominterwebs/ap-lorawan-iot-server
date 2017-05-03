@@ -15,7 +15,7 @@ path_root				=.
 path_frameworks			=frameworks
 path_api				=server/api
 path_content			=server/content
-path_pages				=pages
+path_pages				=server/content
 path_page_cache			=pages/page_cache/
 ext_page				=page
 autoload_exclude[]		=api
@@ -26,18 +26,21 @@ autoload_exclude[]		=public
 
 ; 
 [twig]
-path_cache				=pages/cache/
-path_layouts			=pages/layouts/
-path_templates			=pages/templates/
-path_content			=pages/content/
-path_macros				=pages/macros/
+path_root				=server/content/
+path_cache				=server/content/cache/
+path_layouts			=server/content/layouts/
+path_templates			=server/content/templates/
+path_content			=server/content/content/
+path_macros				=server/content/macros/
+path_common				=server/content/common/
 ext_twig				=twig
 
 ; Client side configs
 [client]
 path_pages				=/lora/
-path_assets				=assets/
-path_styles				=assets/styles/
-path_ext				=assets/ext/
-path_scripts			=assets/scripts/
+path_assets				=/lora/assets/
+path_styles				=/lora/assets/styles/
+path_ext				=/lora/assets/ext/
+path_images				=/lora/assets/imgs/
+path_scripts			=/lora/assets/scripts/
 path_ws_server			=localhost

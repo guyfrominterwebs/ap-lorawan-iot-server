@@ -1,0 +1,23 @@
+{#
+	page - Page
+	data.devices - array
+#}
+{% extends page.template %}
+{% block view %}
+	{% embed page.layout %}
+		{% block view_left_panel %}
+			{% include 'left_bar.twig' %}
+		{% endblock view_left_panel %}
+		{% block view_content %}
+			<div>
+			<h1>Devices</h1>
+			{% if data.devices is iterable %}
+				{% for d in data.devices %}
+					{{ generators.device_item (d, _context) }}
+				{% endfor %}
+			{% endif %}
+			</div>
+		{% endblock view_content %}
+	{% endembed %}
+	This is a fishing pole.
+{% endblock %}

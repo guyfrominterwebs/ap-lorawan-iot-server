@@ -1,0 +1,18 @@
+{% extends page.template %}
+{% block view %}
+	{% embed page.layout %}
+		{% block view_left_panel %}
+			{% include 'left_bar.twig' %}
+		{% endblock view_left_panel %}
+		{% block view_content %}
+			<h1>This is a front page.</h1>
+			{% if page.settings ['show'] == 'instructions' %}
+				How the fuck do I use this?
+			{% elseif page.settings ['show'] == 'lorawan' %}
+				Something about LoRaWAN.
+			{% else %}
+				This is a fishing pole.
+			{% endif %}
+		{% endblock view_content %}
+	{% endembed %}
+{% endblock %}

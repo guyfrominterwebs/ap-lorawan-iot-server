@@ -1,0 +1,41 @@
+<div id="layout-table" class="table">
+	<div class="row">
+		<div id="top-panel" class="cell panel">
+				{% block view_top_panel %}
+					{% include 'top_bar.twig' %}
+				{% endblock view_top_panel %}
+		</div>
+	</div>
+	<hr>
+	<div class="panel-container row">
+		<div id="content-table" class="table">
+			<div class="row">
+				<div id="left-panel" class="cell">
+					<!-- Left menu -->
+					<!--
+						Collapse menu
+					-->
+					{% block view_left_panel %}
+					{% endblock view_left_panel %}
+				</div>
+				<div id="main-panel" class="cell">
+					<main>
+						{% block view_content %}
+						{% endblock view_content %}
+					</main>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="bottom-row row">
+		<div id="bottom-panel" class="panel cell">
+			<footer>
+				{% block view_footer %}
+					sihisfl;
+				{% endblock view_footer %}
+			</footer>
+		</div>
+	</div>
+</div>
+

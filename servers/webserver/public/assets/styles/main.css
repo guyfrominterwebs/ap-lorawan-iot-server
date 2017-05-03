@@ -1,0 +1,110 @@
+@charset "UTF-8";
+html, body {
+	height: 100%;
+	margin: 0px;
+	min-height: 100%;
+}
+.cell {
+	display: table-cell;
+}
+#layout-table, #content-table {
+	width: 100%;
+	height: 100%;
+}
+#top-panel {
+	left: 0;
+	right: 0;
+	height: 4em;
+	border: 2px solid #0000FF;
+}
+#left-panel {
+	width: 250px;
+	border: 2px solid #00FF00;
+	background-color: #CCCCCC;
+}
+#main-panel {
+	border: 2px solid #FF0000;
+}
+#bottom-panel {
+	text-align: center;
+	border: 2px solid #000000;
+    height: 10%;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+#logo {
+	float: left;
+	width: 200px;
+	height: 200px;
+	margin-left: 30px;
+}
+#logo img, #logo a {
+	user-drag: none;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+.navigation.top-nav {
+	float: left;
+	margin-top: 130px;
+	margin-left: 80px;
+}
+.panel-container {
+	height: 100%;
+}
+.float-clear {
+	clear: both;
+}
+.navigation {
+}
+.navigation ul {
+	margin: 0px;
+	padding: 0px;
+}
+.navigation li {
+	list-style-type: none;
+}
+.navigation.top-nav li{
+    float: left;
+    margin: 16px;
+}
+
+.navigation.top-nav li a {
+	display: block;
+    text-align: center;
+    list-style-type: none;
+}
+.side-nav {
+	height: 100%;
+}
+.navigation h3 {
+	padding: 10px 0px 0px 10px;
+	margin: 0px;
+}
+.collapse-menu h4 {
+	padding: 15px 0px 0px 10px;
+	margin: 0px;
+}
+.collapse-menu-item {
+	padding: 3px 0px 0px 30px;
+	margin: 0px;
+}
+.table { display: table }
+.row { display: table-row }
+.cell { display: table-cell }
+.hidden {
+	display: none;
+}
+.collapse-menu h4::after {
+	content: "\25BD";
+	content: "\25B3";
+	float: right;
+	margin-right: 15px;
+	display: none;
+}
+hr {
+	margin: 0px;
+}
