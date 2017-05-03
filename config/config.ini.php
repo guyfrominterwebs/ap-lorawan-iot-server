@@ -7,7 +7,7 @@
 ;
 
 [system]
-debug					=true
+debug					=false
 
 [server]
 path_root				=.

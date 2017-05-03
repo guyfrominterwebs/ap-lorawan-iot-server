@@ -1,0 +1,12 @@
+{% set top_nav = { 'front': 'Home', 'devices': 'Devices', 'info': 'Info' } %}
+<div id="logo">
+	<a href="{{ _context.public_pages }}" draggable="false" ondragstart="return false;">{{ importers.local_img ('logo.png', 'Logo', _context) }}</a>
+</div>
+<nav class="navigation top-nav">
+	<!-- Top menu -->
+	<!--
+		Hover menu
+	-->
+	{{ generators.navigation (top_nav, _context) }}
+</nav>
+<div class="float-clear"></div>

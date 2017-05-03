@@ -1,4 +1,6 @@
 <?php
 $before = microtime (true);
 require '../main.php';
-echo microtime (true) - $before, 's';
+if (debug ()) {
+	echo microtime (true) - $before, 's';
+}

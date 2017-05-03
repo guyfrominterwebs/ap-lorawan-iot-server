@@ -1,0 +1,71 @@
+{% macro navigation (items, _cntx) %}
+	{% import _self as generators %}
+	{%- spaceless %}
+	<ul>
+		{% if items is iterable %}
+			{% for target, text in items %}
+		<li>{{- generators.link (target, text, _cntx) -}}</li>
+			{% endfor %}
+		{% endif %}
+	</ul>
+	<div class="float-clear"></div>
+	{% endspaceless -%}
+{% endmacro navigation %}
+
+{% macro collapse_navigation (heading, sections, _cntx) %}
+	{% import _self as generators %}
+	{%- spaceless %}
+	<h3>{{ heading }}</h3>
+	{% if sections is iterable %}
+	<ul>
+			{% for s in sections %}
+		<li>{{ generators.collapse_menu (s.heading, s.items, _cntx) }}</li>
+			{% endfor %}
+	</ul>
+	{% endif %}
+	{% endspaceless -%}
+{% endmacro collapse_navigation %}
+
+{% macro collapse_menu (heading, items, _cntx) %}
+	{% import _self as generators %}
+	<div class="collapse-menu">
+		<h4>{{ heading }}</h4>
+	{% if items is iterable %}
+		{% for i in items %}
+			{{ generators.collapse_menu_item (i, _cntx) }}
+		{% endfor %}
+	{% endif %}
+	</div>
+{% endmacro collapse_menu %}
+
+{% macro collapse_menu_item (i, _cntx) %}
+	{% import _self as generators %}
+	<div class="collapse-menu-item">{{ generators.param_link (i.target, i.text, i.params, _cntx) }}</div>
+{% endmacro collapse_menu_item %}
+
+{% macro link (target, text, _cntx) %}
+<a href="{{- _cntx.public_pages ~ target -}}">{{- text -}}</a>
+{% endmacro link %}
+
+{% macro device_item (device, _cntx) %}
+	<div>
+		<p><a href="{{ _cntx.public_pages }}device?id={{ device._id }}">{{ device._id }}</a></p>
+	</div>
+{% endmacro device_item %}
+
+{% macro param_link (target, text, params, _cntx) %}
+	{%- spaceless -%}
+		<a href="{{- _cntx.public_pages ~ target -}}
+		{%- if params is iterable -%}
+			{{- '?' -}}
+			{%- for key, val in params -%}
+				{{- key -}}
+				{%- if val is not empty -%}
+					{{- '=' ~val -}}
+				{%- endif -%}
+				{{- not loop.last ? '&' : '' -}}
+			{%- endfor -%}
+		{%- endif -%}
+		">{{ text }}</a>
+	{%- endspaceless -%}
+{% endmacro param_link %}

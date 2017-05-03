@@ -1,0 +1,27 @@
+{% macro css (styles, _cntx) %}
+	{% if styles is iterable %}
+		{% for s in styles %}
+			<link rel="stylesheet" type="text/css" href="{{ _cntx.public_styles ~ s }}">
+		{% endfor %}
+	{% endif %}
+{% endmacro css %}
+
+{% macro js (scripts, _cntx) %}
+	{% if scripts is iterable %}
+		{% for s in scripts %}
+			<script type="text/javascript" src="{{ _cntx.public_scripts ~ s }}"></script>
+		{% endfor %}
+	{% endif %}
+{% endmacro js %}
+
+{% macro jsext (scripts, _cntx) %}
+	{% if scripts is iterable %}
+		{% for s in scripts %}
+			<script type="text/javascript" src="{{ _cntx.public_ext ~ s }}"></script>
+		{% endfor %}
+	{% endif %}
+{% endmacro jsext %}
+
+{% macro local_img (img, alt, _cntx) %}
+	<img src="{{ _cntx.public_images ~ img }}" alt="{{ alt }}" draggable="false" ondragstart="return false;">
+{% endmacro local_img %}
