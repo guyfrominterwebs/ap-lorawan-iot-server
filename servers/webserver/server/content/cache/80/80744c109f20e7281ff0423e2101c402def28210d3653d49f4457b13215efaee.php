@@ -28,7 +28,7 @@ class __TwigTemplate_867ea6e4f12c8d26eed06bce63d23f3b41edb19be6047b0276c52a90c5a
     {
         // line 3
         echo "\t";
-        $this->loadTemplate("content.twig", "content.twig", 3, "1150315233")->display($context);
+        $this->loadTemplate("content.twig", "content.twig", 3, "324437877")->display($context);
     }
 
     public function getTemplateName()
@@ -65,7 +65,7 @@ class __TwigTemplate_867ea6e4f12c8d26eed06bce63d23f3b41edb19be6047b0276c52a90c5a
 \t\t{% block view_content %}
 \t\t\t<h1>This is a front page.</h1>
 \t\t\t{% if page.settings ['show'] == 'instructions' %}
-\t\t\t\tHow the fuck do I use this?
+\t\t\t\t{% include 'instructions.twig' %}
 \t\t\t{% elseif page.settings ['show'] == 'lorawan' %}
 \t\t\t\tSomething about LoRaWAN.
 \t\t\t{% else %}
@@ -74,13 +74,13 @@ class __TwigTemplate_867ea6e4f12c8d26eed06bce63d23f3b41edb19be6047b0276c52a90c5a
 \t\t{% endblock view_content %}
 \t{% endembed %}
 {% endblock %}
-", "content.twig", "C:\\Users\\jparrila\\school\\belgium\\code\\server_side\\servers\\webserver\\server\\content\\views\\front\\content.twig");
+", "content.twig", "C:\\Users\\Tim\\Documents\\ap-lorawan-iot-webserver\\servers\\webserver\\server\\content\\views\\front\\content.twig");
     }
 }
 
 
 /* content.twig */
-class __TwigTemplate_867ea6e4f12c8d26eed06bce63d23f3b41edb19be6047b0276c52a90c5afe778_1150315233 extends Twig_Template
+class __TwigTemplate_867ea6e4f12c8d26eed06bce63d23f3b41edb19be6047b0276c52a90c5afe778_324437877 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -121,10 +121,11 @@ class __TwigTemplate_867ea6e4f12c8d26eed06bce63d23f3b41edb19be6047b0276c52a90c5a
         // line 9
         if (($this->getAttribute($this->getAttribute(($context["page"] ?? null), "settings", array()), "show", array(), "array") == "instructions")) {
             // line 10
-            echo "\t\t\t\tHow the fuck do I use this?
-\t\t\t";
-        } elseif (($this->getAttribute($this->getAttribute(        // line 11
-($context["page"] ?? null), "settings", array()), "show", array(), "array") == "lorawan")) {
+            echo "\t\t\t\t";
+            $this->loadTemplate("instructions.twig", "content.twig", 10)->display($context);
+            // line 11
+            echo "\t\t\t";
+        } elseif (($this->getAttribute($this->getAttribute(($context["page"] ?? null), "settings", array()), "show", array(), "array") == "lorawan")) {
             // line 12
             echo "\t\t\t\tSomething about LoRaWAN.
 \t\t\t";
@@ -149,7 +150,7 @@ class __TwigTemplate_867ea6e4f12c8d26eed06bce63d23f3b41edb19be6047b0276c52a90c5a
 
     public function getDebugInfo()
     {
-        return array (  137 => 16,  133 => 14,  129 => 12,  127 => 11,  124 => 10,  122 => 9,  119 => 8,  116 => 7,  112 => 6,  109 => 5,  106 => 4,  30 => 3,  27 => 2,  18 => 1,);
+        return array (  138 => 16,  134 => 14,  130 => 12,  127 => 11,  124 => 10,  122 => 9,  119 => 8,  116 => 7,  112 => 6,  109 => 5,  106 => 4,  30 => 3,  27 => 2,  18 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -171,7 +172,7 @@ class __TwigTemplate_867ea6e4f12c8d26eed06bce63d23f3b41edb19be6047b0276c52a90c5a
 \t\t{% block view_content %}
 \t\t\t<h1>This is a front page.</h1>
 \t\t\t{% if page.settings ['show'] == 'instructions' %}
-\t\t\t\tHow the fuck do I use this?
+\t\t\t\t{% include 'instructions.twig' %}
 \t\t\t{% elseif page.settings ['show'] == 'lorawan' %}
 \t\t\t\tSomething about LoRaWAN.
 \t\t\t{% else %}
@@ -180,6 +181,6 @@ class __TwigTemplate_867ea6e4f12c8d26eed06bce63d23f3b41edb19be6047b0276c52a90c5a
 \t\t{% endblock view_content %}
 \t{% endembed %}
 {% endblock %}
-", "content.twig", "C:\\Users\\jparrila\\school\\belgium\\code\\server_side\\servers\\webserver\\server\\content\\views\\front\\content.twig");
+", "content.twig", "C:\\Users\\Tim\\Documents\\ap-lorawan-iot-webserver\\servers\\webserver\\server\\content\\views\\front\\content.twig");
     }
 }

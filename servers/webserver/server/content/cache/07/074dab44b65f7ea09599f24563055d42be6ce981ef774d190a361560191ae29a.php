@@ -273,6 +273,6 @@ class __TwigTemplate_2ff19df223e7a3bb9bf954b5d175391480ef20b6c617719aa008080f538
 \t\t\t});
 \t\t</script>
 \t</body>
-</html>", "default_template.twig", "C:\\Users\\jparrila\\school\\belgium\\code\\server_side\\servers\\webserver\\server\\content\\templates\\default_template.twig");
+</html>", "default_template.twig", "C:\\Users\\Tim\\Documents\\ap-lorawan-iot-webserver\\servers\\webserver\\server\\content\\templates\\default_template.twig");
     }
 }
