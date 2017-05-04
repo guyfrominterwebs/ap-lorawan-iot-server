@@ -13,24 +13,17 @@ final class Content_Devices extends \Lora\BaseAction
 		if (!empty ($this->url)) {
 			switch ($this->url [0]) {
 				case 'graphs':
-						echo 'I like this system';
+						$page->show ('graphs');
+					break;
+				case 'latest':
+						$page->show ('latest');
 					break;
 				default:
-						echo 'Fuck you all!';
+						$page->show ('devices');
 					break;
 			}
 		}
 		$this->fetchDevices ();
-		$left_nav = [[
-				'heading' => 'Devices',
-				'items' => [
-					[ 'text' => 'Device list', 'target' => 'devices' ],
-					[ 'text' => 'Graphs', 'target' => 'devices/graphs' ],
-					[ 'text' => 'Latest', 'target' => 'devices/latest' ]
-				]
-			]];
-		$page->setDetail ('Devices', 'view_name');
-		$page->setDetail ($left_nav, 'side_nav');
 	}
 
 	public function _post (RequestData $req) {

@@ -14,8 +14,8 @@ class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9
 
     protected function doGetParent(array $context)
     {
-        // line 5
-        return $this->loadTemplate($this->getAttribute(($context["page"] ?? null), "template", array()), "content.twig", 5);
+        // line 6
+        return $this->loadTemplate($this->getAttribute(($context["page"] ?? null), "template", array()), "content.twig", 6);
     }
 
     protected function doDisplay(array $context, array $blocks = array())
@@ -23,13 +23,13 @@ class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9
         $this->getParent($context)->display($context, array_merge($this->blocks, $blocks));
     }
 
-    // line 6
+    // line 7
     public function block_view($context, array $blocks = array())
     {
-        // line 7
+        // line 8
         echo "\t";
-        $this->loadTemplate("content.twig", "content.twig", 7, "2083784763")->display($context);
-        // line 22
+        $this->loadTemplate("content.twig", "content.twig", 8, "1722346551")->display($context);
+        // line 23
         echo "\tThis is a fishing pole.
 ";
     }
@@ -46,7 +46,7 @@ class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9
 
     public function getDebugInfo()
     {
-        return array (  33 => 22,  30 => 7,  27 => 6,  18 => 5,);
+        return array (  33 => 23,  30 => 8,  27 => 7,  18 => 6,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -61,6 +61,7 @@ class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9
     {
         return new Twig_Source("{#
 \tpage - Page
+\tpage.settings
 \tdata.devices - array
 #}
 {% extends page.template %}
@@ -88,7 +89,7 @@ class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9
 
 
 /* content.twig */
-class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9cc266_2083784763 extends Twig_Template
+class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9cc266_1722346551 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
     {
@@ -102,8 +103,8 @@ class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9
 
     protected function doGetParent(array $context)
     {
-        // line 7
-        return $this->loadTemplate($this->getAttribute(($context["page"] ?? null), "layout", array()), "content.twig", 7);
+        // line 8
+        return $this->loadTemplate($this->getAttribute(($context["page"] ?? null), "layout", array()), "content.twig", 8);
     }
 
     protected function doDisplay(array $context, array $blocks = array())
@@ -111,31 +112,31 @@ class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9
         $this->getParent($context)->display($context, array_merge($this->blocks, $blocks));
     }
 
-    // line 8
+    // line 9
     public function block_view_left_panel($context, array $blocks = array())
     {
-        // line 9
-        echo "\t\t\t";
-        $this->loadTemplate("left_bar.twig", "content.twig", 9)->display($context);
         // line 10
+        echo "\t\t\t";
+        $this->loadTemplate("left_bar.twig", "content.twig", 10)->display($context);
+        // line 11
         echo "\t\t";
     }
 
-    // line 11
+    // line 12
     public function block_view_content($context, array $blocks = array())
     {
-        // line 12
+        // line 13
         echo "\t\t\t<div>
 \t\t\t<h1>Devices</h1>
 \t\t\t";
-        // line 14
+        // line 15
         if (twig_test_iterable($this->getAttribute(($context["data"] ?? null), "devices", array()))) {
-            // line 15
+            // line 16
             echo "\t\t\t\t";
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute(($context["data"] ?? null), "devices", array()));
             foreach ($context['_seq'] as $context["_key"] => $context["d"]) {
-                // line 16
+                // line 17
                 echo "\t\t\t\t\t";
                 echo twig_escape_filter($this->env, $this->getAttribute(($context["generators"] ?? null), "device_item", array(0 => $context["d"], 1 => $context), "method"), "html", null, true);
                 echo "
@@ -144,10 +145,10 @@ class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['d'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 18
+            // line 19
             echo "\t\t\t";
         }
-        // line 19
+        // line 20
         echo "\t\t\t</div>
 \t\t";
     }
@@ -164,7 +165,7 @@ class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9
 
     public function getDebugInfo()
     {
-        return array (  151 => 19,  148 => 18,  139 => 16,  134 => 15,  132 => 14,  128 => 12,  125 => 11,  121 => 10,  118 => 9,  115 => 8,  106 => 7,  33 => 22,  30 => 7,  27 => 6,  18 => 5,);
+        return array (  152 => 20,  149 => 19,  140 => 17,  135 => 16,  133 => 15,  129 => 13,  126 => 12,  122 => 11,  119 => 10,  116 => 9,  107 => 8,  33 => 23,  30 => 8,  27 => 7,  18 => 6,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -179,6 +180,7 @@ class __TwigTemplate_a512bddf8808af8c600cdd21841a8d5916d8f073f10119681c6dd36b0b9
     {
         return new Twig_Source("{#
 \tpage - Page
+\tpage.settings
 \tdata.devices - array
 #}
 {% extends page.template %}
