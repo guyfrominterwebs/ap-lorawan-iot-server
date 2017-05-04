@@ -101,9 +101,6 @@ final class RequestHandler
 					$consumed [] = $part;
 					$excess = $action;
 					$path = $lastPath;
-					
-					
-					
 				}
 				$file .= '_';
 			}
