@@ -23,7 +23,7 @@ final class RequestHandler
 
 	public function handleContentRequest (array $action = null) {
 		if (empty ($action)) {
-			$action = [ 'front' ];
+			$action = [ 'home' ];
 		}
 		require "{$this->root}/server/login.php";
 		if (!isLoggedIn () && !login ()) {
@@ -86,8 +86,8 @@ final class RequestHandler
 
 	private function notFound (array &$action, string &$path, string $folder) : void {
 		$file = '';
-		$action = [ 'front' ];
-		$path = "${folder}/views/front/front.php";
+		$action = [ 'home' ];
+		$path = "${folder}/views/home/home.php";
 	}
 
 	private function actionToPath (array $action, array &$consumed, array &$excess, string &$path, string $folder) : bool {
