@@ -7,7 +7,7 @@
 		{% block view_content %}
 			<h1>This is a front page.</h1>
 			{% if page.settings ['show'] == 'instructions' %}
-				How the fuck do I use this?
+				{% include 'instructions.twig' %}
 			{% elseif page.settings ['show'] == 'lorawan' %}
 				Something about LoRaWAN.
 			{% else %}
