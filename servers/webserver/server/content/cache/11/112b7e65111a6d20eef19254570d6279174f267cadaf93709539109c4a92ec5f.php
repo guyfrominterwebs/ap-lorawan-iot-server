@@ -250,6 +250,6 @@ class __TwigTemplate_fde33a78b0b8eb457edc3f7e0b851b54276f669bb42da837ce386d951ab
 {% macro local_img (img, alt, _cntx) %}
 \t<img src=\"{{ _cntx.public_images ~ img }}\" alt=\"{{ alt }}\" draggable=\"false\" ondragstart=\"return false;\">
 {% endmacro local_img %}
-", "importers.twig", "C:\\Users\\jparrila\\school\\belgium\\code\\server_side\\servers\\webserver\\server\\content\\macros\\importers.twig");
+", "importers.twig", "C:\\Users\\Tim\\Documents\\ap-lorawan-iot-webserver\\servers\\webserver\\server\\content\\macros\\importers.twig");
     }
 }
