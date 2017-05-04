@@ -1,5 +1,25 @@
-; A page construction file
-libraries[]		=jquery
-libraries[]		=d3
-scripts[]		=ws
-styles[]		=main
+{
+	"settings": {
+		"view_name": "Devices",
+		"side_nav": [
+			{
+				"heading": "Devices",
+				"items": [
+					{ "text": "Device list", "target": "devices" },
+					{ "text": "Graphs", "target": "devices/graphs" },
+					{ "text": "Latest", "target": "devices/latest" }
+				]
+			}
+		]
+	},
+	"libraries": [
+		"jquery",
+		"d3"
+	],
+	"scripts": [
+		"ws"
+	],
+	"styles": [
+		"main"
+	]
+}
