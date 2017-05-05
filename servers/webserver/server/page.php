@@ -8,7 +8,7 @@ final class Page
 	private $_path			= '',
 			$_template 		= 'default_template',
 			$_layout		= 'default_layout',
-			$_view			= 'front',
+			$_view			= 'home',
 			$_libraries 	= [],
 			$_scripts		= [],
 			$_block			= [],
@@ -40,6 +40,12 @@ final class Page
 	public function addScript (string $script) : void {
 		if (!in_array ($script, $this->_scripts)) {
 			$this->_scripts [] = $script;
+		}
+	}
+
+	public function addLibrary (string $lib) : void {
+		if (!in_array ($lib, $this->_libraries)) {
+			$this->_libraries [] = $lib;
 		}
 	}
 

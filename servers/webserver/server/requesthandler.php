@@ -74,7 +74,7 @@ final class RequestHandler
 		$excess = [];
 		convertMethod ($method);
 		if (!$this->actionToPath ($action, $consumed, $excess, $path, $filePath)) {
-			$this->notFound ($action, $path, $filePath);
+			$this->notFound ($consumed, $path, $filePath);
 		}
 		if (buildClassName ($consumed, $class, $fileType, $namespace) && loadFile ($path)) {
 			if (class_exists ($class, false) && method_exists ($class, $method)) {
@@ -84,9 +84,9 @@ final class RequestHandler
 		}
 	}
 
-	private function notFound (array &$action, string &$path, string $folder) : void {
+	private function notFound (array &$consumed, string &$path, string $folder) : void {
 		$file = '';
-		$action = [ 'home' ];
+		$consumed = [ 'home' ];
 		$path = "${folder}/views/home/home.php";
 	}
 

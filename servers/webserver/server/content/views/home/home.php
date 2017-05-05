@@ -4,12 +4,12 @@ namespace Lora\Content;
 
 use \Lora\PageManager, \RequestData;
 
-final class Content_Front extends \Lora\BaseAction
+final class Content_Home extends \Lora\BaseAction
 {
 
 	public function _get (RequestData $req) {
 		$pm = new PageManager ($this->mess);
-		$page = $pm->load ($this, 'front');
+		$page = $pm->load ($this, 'home');
 		if (!empty ($this->url)) {
 			switch ($this->url [0]) {
 				case 'instructions':

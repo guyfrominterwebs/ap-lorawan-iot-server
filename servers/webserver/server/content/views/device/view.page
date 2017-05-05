@@ -1,7 +1,6 @@
 ; A page construction file
 template		=default_template
 libraries[]		=jquery
-libraries[]		=d3
 styles[]		=main
 scripts[]		=main
 scripts[]		=singlepage

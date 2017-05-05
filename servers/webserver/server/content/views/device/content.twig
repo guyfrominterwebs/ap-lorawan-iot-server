@@ -12,8 +12,8 @@
 				{% set show_rt = (page.settings ['show'] != 'rt' ? 'hidden') %}
 				{% set show_history = (page.settings ['show'] != 'history' ? 'hidden') %}
 			{% endif %}
-			<div id="rt-feed" class="{{ show_rt }}">
-				{{ dump (data) }}
+			<div class="{{ show_rt }}">
+				<canvas id="rt-feed" width="1000" height="300"></canvas>
 			</div>
 			<div id="history-feed" class="{{ show_history }}">
 				{{ dump (data) }}

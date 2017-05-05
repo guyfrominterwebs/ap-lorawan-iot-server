@@ -4,8 +4,8 @@
 		"side_nav": [{
 			"heading": "Information",
 			"items": [
-				{ "text": "Instructions", "target": "front/instructions" },
-				{ "text": "LoRaWAN", "target": "front/lorawan" }
+				{ "text": "Instructions", "target": "instructions" },
+				{ "text": "LoRaWAN", "target": "lorawan" }
 			]
 		}]
 	},

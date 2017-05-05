@@ -17,6 +17,8 @@ final class Content_Device extends \Lora\BaseAction
 		if ($req->has ('rt')) {
 			// TODO: RT view engage.
 			$page->addScript ('ws');
+			$page->addScript ('rt');
+			$page->addLibrary ('smoothie');
 		} else if ($req->has ('history')) {
 			$this->fetchData ($req, $id);
 			$visible = 'history';
