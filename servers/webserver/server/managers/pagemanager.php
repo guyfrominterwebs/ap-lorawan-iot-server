@@ -16,7 +16,7 @@ final class PageManager
 	}
 
 	public function cache (Page $page, string $id) : bool {
-		return $this->cacheEnabled && file_put_contents ("{$this->path}\\${id}", serialize ($page)) !== false;
+		return $this->cacheEnabled && file_put_contents ("{$this->path}/${id}", serialize ($page)) !== false;
 	}
 
 	public function load (BaseAction $action, string $view) {
