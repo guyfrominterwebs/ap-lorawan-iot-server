@@ -1,0 +1,26 @@
+{
+	"settings": {
+		"view_name": "Home"
+	},
+	"views": {
+		"views": [{
+				"name": "instructions",
+				"default": true
+			}, {
+				"name": "lorawan"
+		}],
+		"navigation": [{
+			"heading": "Information",
+			"items": [
+				{ "view": "instructions", "text": "Instructions" },
+				{ "view": "lorawan", "text": "LoRaWAN" }
+			]
+		}]
+	},
+	"libraries": [
+		"jquery"
+	],
+	"styles": [
+		"main"
+	]
+}

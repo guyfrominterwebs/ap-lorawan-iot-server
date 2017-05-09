@@ -1,0 +1,20 @@
+{
+	"id": "graphs-container",
+	"template": "graph.twig",
+	"appearance": {
+		"classes": []
+	},
+	"dependencies": {
+		"libraries": [
+			"smoothie"
+		],
+		"scripts": [
+			"graphs",
+			"ws",
+			"rt"
+		],
+		"styles": [
+			"graphs"
+		]
+	}
+}

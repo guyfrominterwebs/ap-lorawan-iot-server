@@ -14,5 +14,6 @@ path_root				=.
 hosted_servers			=../servers
 ws_port					=9000
 intern_port				=9001
+autoload_exclude[]		=vagrant
 autoload_exclude[]		=servers
 autoload_exclude[]		=config

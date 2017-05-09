@@ -8,21 +8,23 @@ final class Content_Devices extends \Lora\BaseAction
 {
 
 	public function _get (RequestData $req) {
-		$pm = new PageManager ($this->mess, false);
-		$page = $pm->load ($this, 'devices');
-		if (!empty ($this->url)) {
-			switch ($this->url [0]) {
-				case 'graphs':
-						$page->show ('graphs');
-					break;
-				case 'latest':
-						$page->show ('latest');
-					break;
-				default:
-						$page->show ('devices');
-					break;
+		foreach (array_keys ($this->page->subViews ()) as $view) {
+			if ($req->has ($view)) {
+				$this->page->showSingle ($view);
+				break;
 			}
 		}
+		// if (!empty ($this->url)) {
+			// switch ($this->url [0]) {
+				// case 'graphs':
+				// case 'latest':
+						// $this->page->show ($this->url [0]);
+					// break;
+				// default:
+						// $this->page->show ('devices');
+					// break;
+			// }
+		// }
 		$this->fetchDevices ();
 	}
 

@@ -7,15 +7,11 @@ class Messenger
 
 	private $data		= [],
 			$errors		= [],
-			$logs		= [],
-			$page		= null;
+			$logs		= [];
 
 	public function __construct () {
 	}
 
-	public function getPage (Page $page = null) {
-		return $page !== null ? $this->page = $page : $this->page ?? $this->page = new Page ();
-	}
 	public function getData () {
 		return $this->data;
 	}

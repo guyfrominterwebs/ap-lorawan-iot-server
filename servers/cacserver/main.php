@@ -18,10 +18,10 @@ function broadcast ($data) {
 	static $client = null;
 	if (!$client) {
 		$url = "ws://127.0.0.1:".\Lora\Config::get ('server', 'intern_port');
-		echo "Connecting to ${url}".PHP_EOL;
+		msg_print ("Connecting to ${url}");
 		$client = new \WebSocket\Client ($url);
 		if (!$client->connect ()) {
-			echo "Connection failed: ".$client->lastError ();
+			msg_print ("Connection failed: ".$client->lastError ());
 		}
 	}
 	$msg = '';
@@ -30,6 +30,10 @@ function broadcast ($data) {
 		return false;
 	}
 	return true;
+}
+
+function msg_print ($msg) {
+	echo "CAC Says: ${msg}".PHP_EOL;
 }
 /*
 	$query = new MongoDB\Driver\Query ([]);

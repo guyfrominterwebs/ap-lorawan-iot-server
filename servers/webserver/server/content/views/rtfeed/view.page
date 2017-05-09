@@ -1,5 +1,5 @@
 ; A page construction file
 libraries[]		=jquery
-libraries[]		=d3
+libraries[]		=smoothie
 scripts[]		=ws
 styles[]		=main

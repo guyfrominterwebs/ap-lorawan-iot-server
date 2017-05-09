@@ -1,16 +1,27 @@
 {
 	"settings": {
-		"view_name": "Devices",
-		"side_nav": [
-			{
-				"heading": "Devices",
-				"items": [
-					{ "text": "Device list", "target": "devices" },
-					{ "text": "Graphs", "target": "devices/graphs" },
-					{ "text": "Latest", "target": "devices/latest" }
+		"view_name": "Devices"
+	},
+	"views": {
+		"views": [{
+				"name": "device-list",
+				"default": true
+			}, {
+				"name": "device-measurements",
+				"components": [
+					"graphs"
 				]
-			}
-		]
+			}, {
+				"name": "latest-devices"
+		}],
+		"navigation": [{
+			"heading": "Devices",
+			"items": [
+				{ "view": "device-list", "text": "Device list" },
+				{ "view": "device-measurements", "text": "Graphs" },
+				{ "view": "latest-devices", "text": "Latest" }
+			]
+		}]
 	},
 	"libraries": [
 		"jquery",

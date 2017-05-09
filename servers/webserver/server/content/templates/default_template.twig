@@ -72,6 +72,7 @@
 		{% endif %}
 		{% endblock scripts %}
 		<script type="text/javascript">
+			{{ generators.inject_globals (page.globals, _context) }}
 			var  modules = modules || [];
 			$ (document).ready (function () {
 				if (window.start) {

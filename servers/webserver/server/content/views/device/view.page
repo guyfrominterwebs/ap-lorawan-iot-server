@@ -1,7 +1,35 @@
-; A page construction file
-template		=default_template
-libraries[]		=jquery
-libraries[]		=d3
-styles[]		=main
-scripts[]		=main
-scripts[]		=singlepage
+{
+	"settings": {
+		"view_name": "Device"
+	},
+	"views": {
+		"views": [{
+				"name": "rt-view",
+				"default": true,
+				"components": [
+					"graph"
+				]
+			}, {
+				"name": "history-view",
+				"components": [
+					"device_history"
+				]
+		}],
+		"navigation": [{
+			"heading": "Data",
+			"items": [
+				{ "view": "rt-view", "text": "Realtime data" },
+				{ "view": "history-view", "text": "Existing data" }
+			]
+		}]
+	},
+	"libraries": [
+		"jquery"
+	],
+	"scripts": [
+		"main"
+	],
+	"styles": [
+		"main"
+	]
+}
