@@ -2,37 +2,38 @@
 
 namespace Lora\Content;
 
-use \Lora\PageManager, \RequestData;
+use \Lora\{PageManager, PageView};
+use \RequestData;
 
 final class Content_Device extends \Lora\BaseAction
 {
 
 	public function _get (RequestData $req) {
 		if ($req->readString ('id', $id)) {
-			$this->mess->addData ($id, 'device');
+			$this->mess->addData ($id, $this->name);
 		}
-		$pm = new PageManager ($this->mess, false);
-		$page = $pm->load ($this, 'device');
-		$visible = 'rt';
-		if ($req->has ('rt')) {
+		$this->page->addSubViewParameter ('id', $id);
+		if ($req->has ('rt-view')) {
 			// TODO: RT view engage.
-			$page->addScript ('ws');
-			$page->addScript ('rt');
-			$page->addLibrary ('smoothie');
-		} else if ($req->has ('history')) {
+		} else if ($req->has ('history-view')) {
 			$this->fetchData ($req, $id);
-			$visible = 'history';
+		} else if ($req->has ('madness')) {
+			$this->fetchData ($req, $id);
 		}
-		$page->setDetail ($visible, 'show');
-		$page->setDetail ('Device', 'view_name');
-		$left_nav = [[
-				'heading' => 'Data',
-				'items' => [
-					[ 'text' => 'Realtime data', 'target' => 'device?rt' ],
-					[ 'text' => 'Existing data', 'target' => 'device?history' ]
-				]
-		]];
-		$page->setDetail ($left_nav, 'side_nav');
+		// $rt->addComponent ('graph');
+		// $history->addComponent ('device_history');
+		// $left_nav = [[
+				// 'heading' => 'Data',
+				// 'items' => [
+					// $rt->link ($this->page, 'Realtime data', [ 'id' => $id ]),
+					// $history->link ($this->page, 'Existing data', [ 'id' => $id ]),
+					// new \Html\Link ('Absolute madness!', $this->page->name (), [ 'madness' => '', 'id' => $id ])
+				// ]
+		// ]];
+		// $this->page->setSetting ($left_nav, 'side_nav');
+		// $this->page->addView ($rt);
+		// $this->page->addView ($history);
+		$this->page->addGlobal ('device_id', $id);
 	}
 
 	public function _post (RequestData $req) {

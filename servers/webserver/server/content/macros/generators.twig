@@ -1,3 +1,33 @@
+
+{% macro sub_view (view, _cntx) %}
+	<div id="{{ view.id }}" class="{{ view.show ? '' : 'hidden' }}">
+		{% for component in view.components %}
+			{% include component.template with { 'component': component, '_cntx': _cntx } %}
+		{% endfor %}
+		{#
+			{% if view.layout is not empty %}
+				{% include view.layout %}
+			{% endif %}
+		#}
+	</div>
+{% endmacro sub_view %}
+
+{% macro inject_globals (globals, _cntx) %}
+	{% if globals is iterable %}
+		{% for name, value in globals %}
+			{% if value [0] %}
+				{% if value [1] == 'string' %}
+					var {{ name }} = "{{ value [2] | raw }}";
+				{% else %}
+					var {{ name }} = {{ value [2] | raw }};
+				{% endif %}
+			{% else %}
+				var {{ name }} = {{ value [2] | json_encode() | raw }};
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+{% endmacro inject_globals %}
+
 {% macro navigation (items, _cntx) %}
 	{% import _self as generators %}
 	{%- spaceless %}
@@ -40,7 +70,7 @@
 
 {% macro collapse_menu_item (i, _cntx) %}
 	{% import _self as generators %}
-	<div class="collapse-menu-item">{{ generators.param_link (i.target, i.text, i.params, _cntx) }}</div>
+	<div class="collapse-menu-item">{{ i.print | raw }}</div>
 {% endmacro collapse_menu_item %}
 
 {% macro link (target, text, _cntx) %}

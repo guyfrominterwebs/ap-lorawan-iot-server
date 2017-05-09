@@ -10,7 +10,7 @@ final class Content_Info extends \Lora\BaseAction
 	public function _get (RequestData $req) {
 		$pm = new PageManager ($this->mess);
 		$page = $pm->load ($this, 'info');
-		$page->setDetail ('Info', 'view_name');
+		$page->setSetting ('Info', 'view_name');
 	}
 
 	public function _post (RequestData $req) {

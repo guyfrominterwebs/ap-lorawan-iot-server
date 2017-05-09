@@ -10,7 +10,7 @@ final class Content_Asd extends \Lora\BaseAction
 	public function _get (RequestData $req) {
 		$pm = new PageManager ($this->mess);
 		$page = $pm->load ($this, 'asd');
-		$page->setDetail ('Asd', 'view_name');
+		$page->setSetting ('Asd', 'view_name');
 		$this->mess->addData ('Get content.');
 		$this->mess->addData ($req->getInt ('asd', 0));
 	}

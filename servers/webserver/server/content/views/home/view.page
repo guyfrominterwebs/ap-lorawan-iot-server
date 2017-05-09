@@ -1,11 +1,19 @@
 {
 	"settings": {
-		"view_name": "Home",
-		"side_nav": [{
+		"view_name": "Home"
+	},
+	"views": {
+		"views": [{
+				"name": "instructions",
+				"default": true
+			}, {
+				"name": "lorawan"
+		}],
+		"navigation": [{
 			"heading": "Information",
 			"items": [
-				{ "text": "Instructions", "target": "instructions" },
-				{ "text": "LoRaWAN", "target": "lorawan" }
+				{ "view": "instructions", "text": "Instructions" },
+				{ "view": "lorawan", "text": "LoRaWAN" }
 			]
 		}]
 	},

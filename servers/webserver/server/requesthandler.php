@@ -10,6 +10,8 @@ final class RequestHandler
 	private $slim = null,
 			$req = null,
 			$mess = null,
+			$page = null,
+			$pm = null,
 			$method = '',
 			$root = '';
 
@@ -29,57 +31,41 @@ final class RequestHandler
 		if (!isLoggedIn () && !login ()) {
 			return; # Login failed.
 		}
-		$this->resolveCall ($this->method, $action, Config::path ('server', 'content'), "Content", "Lora\Content", false, $this->req, $this->mess);
-		// \Lib::dump ($this->mess->getData ());
-		require "{$this->root}/frameworks/Twig/Autoloader.php";
-		$page = $this->mess->getPage ();
-		\Twig_Autoloader::register ();
-		$loader = new \Twig_Loader_Filesystem ([
-			Config::path ('twig', 'templates'),
-			Config::path ('twig', 'layouts'),
-			Config::path ('twig', 'content'),
-			Config::path ('twig', 'macros'),
-			Config::path ('twig', 'common'),
-			$page->path ()
-		]);
-		$twig = new \Twig_Environment ($loader, [ 'debug' => debug (), 'cache' => Config::path ('twig', 'cache') ]);
-		$twig->addExtension (new \Twig_Extension_Debug ());
-		$template = $twig->loadTemplate ($page->content ());
-		$template->display ([
-			'page' 				=> $page,
-			'data'				=> $this->mess->getData (),
-			'public_pages' 		=> Config::get ('client', 'pages'),
-			'public_ext' 		=> Config::get ('client', 'ext'),
-			'public_scripts' 	=> Config::get ('client', 'scripts'),
-			'public_styles' 	=> Config::get ('client', 'styles'),
-			'public_images' 	=> Config::get ('client', 'images'),
-		]);
+		$this->pm = new PageManager ();
+		$this->resolveCall ($this->method, $action, Config::path ('server', 'content'), "Content", "Lora\Content");
+		$this->buildPage ();
 	}
 
 	public function handleApiRequest (array $action = null) : void {
 		if (empty ($action)) {
 			return;
 		}
-		$this->resolveCall ($this->method, $action, Config::path ('server', 'api'), "Action", "Lora\Api", true, $this->req, $this->mess);
+		$this->resolveCall ($this->method, $action, Config::path ('server', 'api'), "Action", "Lora\Api");
 		# TODO: Use out buffer processing instead of echo.
 		echo json_encode ($this->mess->getData ());
 		// \Lib::dump ($this->mess->getData ());
 	}
 
-	private function resolveCall (string $method, array $action, string $filePath, string $fileType, string $namespace, bool $apiCall, \RequestData $req, Messenger $mess) : void {
+	private function resolveCall (string &$method, array $action, string $filePath, string $fileType, string $namespace) {
 		# TODO: 400, 403, 404, 405, 
 		$path = '';
 		$class = '';
+		$className = '';
 		$consumed = [];
 		$excess = [];
 		convertMethod ($method);
 		if (!$this->actionToPath ($action, $consumed, $excess, $path, $filePath)) {
 			$this->notFound ($consumed, $path, $filePath);
 		}
-		if (buildClassName ($consumed, $class, $fileType, $namespace) && loadFile ($path)) {
+		if (buildClassName ($consumed, $class, $className, $fileType, $namespace) && loadFile ($path)) {
 			if (class_exists ($class, false) && method_exists ($class, $method)) {
-				(new $class ($mess))->run ($req, $method, $excess);
-				return;
+				$action = new $class ($className, $this->mess);
+				if ($this->pm !== null && ($this->page = $this->pm->load ($action)) !== null) {
+					$this->page->finalize ();
+					$this->defaultVisibility ();
+					$this->pm->cache ($this->page, $action->getId ());
+				}
+				$action->run ($this->req, $this->method, $excess, $this->page);
 			}
 		}
 	}
@@ -106,14 +92,49 @@ final class RequestHandler
 			}
 		} return !empty ($path);
 	}
+
+	private function buildPage () {
+		require "{$this->root}/frameworks/Twig/Autoloader.php";
+		\Twig_Autoloader::register ();
+		$loader = new \Twig_Loader_Filesystem ([
+			Config::path ('twig', 'templates'),
+			Config::path ('twig', 'layouts'),
+			Config::path ('twig', 'content'),
+			Config::path ('twig', 'macros'),
+			Config::path ('twig', 'common'),
+			$this->page->path ()
+		]);
+		$twig = new \Twig_Environment ($loader, [ 'debug' => debug (), 'cache' => Config::path ('twig', 'cache') ]);
+		$twig->addExtension (new \Twig_Extension_Debug ());
+		$template = $twig->loadTemplate ($this->page->content ());
+		$template->display ([
+			'page' 				=> $this->page,
+			'data'				=> $this->mess->getData (),
+			'public_pages' 		=> Config::get ('client', 'pages'),
+			'public_ext' 		=> Config::get ('client', 'ext'),
+			'public_scripts' 	=> Config::get ('client', 'scripts'),
+			'public_styles' 	=> Config::get ('client', 'styles'),
+			'public_images' 	=> Config::get ('client', 'images'),
+		]);
+	}
+
+	private function defaultVisibility () {
+		foreach (array_keys ($this->page->subViews ()) as $view) {
+			if ($this->req->has ($view)) {
+				$this->page->showSingle ($view);
+				return;
+			}
+		}
+	}
 }
 
-function buildClassName (array $action, string &$class, string $prefix, string $namespace) : bool {
+function buildClassName (array $action, string &$class, string &$plainName, string $prefix, string $namespace) : bool {
 	foreach ($action as $part) {
 		if (!empty ($part) && preg_match ('/^[a-z\/]+$/i', $part) === 1) {
 			$class .= ucfirst ($part);
 		}
 	}
+	$plainName = $class;
 	$class = "${namespace}\\${prefix}_${class}";
 	return true;
 }

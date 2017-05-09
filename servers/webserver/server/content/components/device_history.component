@@ -1,0 +1,20 @@
+{
+	"id": "history-view",
+	"template": "device_history.twig",
+	"appearance": {
+		"classes": []
+	},
+	"dependencies": {
+		"libraries": [
+			"smoothie"
+		],
+		"scripts": [
+			"graphs",
+			"ws",
+			"rt"
+		],
+		"styles": [
+			"graphs"
+		]
+	}
+}
