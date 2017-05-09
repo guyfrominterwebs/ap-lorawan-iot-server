@@ -86,7 +86,7 @@ final class RequestHandler
 				if (file_exists ($lastPath = "${folder}/views/${file}/{$file}.php")) {
 					$consumed [] = $part;
 					$excess = $action;
-					$path = $lastPath;	
+					$path = $lastPath;
 				}
 				$file .= '_';
 			}
