@@ -7,9 +7,7 @@ final class Link extends HtmlTag
 
 	private $text			= '',
 			$refs 			= '',
-			$params 		= [],
-			$attrs 			= [],
-			$classes		= [];
+			$params 		= [];
 
 	public function __construct (string $text = '', string $ref = '', array $params = [], array $attrs = [], array $classes = []) {
 		$this->tag 			= 'a';

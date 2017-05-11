@@ -1,14 +1,12 @@
 
 {% macro sub_view (view, _cntx) %}
 	<div id="{{ view.id }}" class="{{ view.show ? '' : 'hidden' }}">
+		{% if view.content is not empty %}
+			{% include view.content with { 'view': view, '_cntx': _cntx } %}
+		{% endif %}
 		{% for component in view.components %}
 			{% include component.template with { 'component': component, '_cntx': _cntx } %}
 		{% endfor %}
-		{#
-			{% if view.layout is not empty %}
-				{% include view.layout %}
-			{% endif %}
-		#}
 	</div>
 {% endmacro sub_view %}
 

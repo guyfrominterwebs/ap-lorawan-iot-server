@@ -8,7 +8,8 @@ final class PageView
 {
 
 	private $_name			= '',
-			$_sub_layout	= '', # TODO: Use this is css can not be used.
+			$_sub_layout	= '', # TODO: Use this if css can not be used.
+			$_content		= '',
 			$components		= [],
 			$visible		= false,
 			$link 			= null;
@@ -37,6 +38,10 @@ final class PageView
 
 	public function layout () : string {
 		return $this->_sub_layout = \Lib::checkExtension ($this->_sub_layout, Config::ext ('twig', 'twig'));
+	}
+
+	public function content () : string {
+		return $this->_content = \Lib::checkExtension ($this->_content, Config::ext ('twig', 'twig'));
 	}
 
 	public function addComponent (string $component) : void {

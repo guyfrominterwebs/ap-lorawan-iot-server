@@ -15,7 +15,8 @@ final class Page
 			$_styles		= [ 'main' ],
 			$_settings		= [],
 			$_globals		= [],
-			$views 			= [];
+			$views 			= [],
+			$static			= false;
 
 	public function __construct () {
 		$this->_path = Config::path ('server', 'pages')."/views/";
@@ -36,6 +37,14 @@ final class Page
 			$v->show (false);
 		}
 		$this->views [$view]->show (true);
+	}
+
+	public function markStatic () {
+		$this->static = true;
+	}
+
+	public function isStatic () {
+		return $this->static;
 	}
 
 	public function addView (PageView $view) : void {
@@ -95,11 +104,14 @@ final class Page
 	}
 
 	public function globals () : array {
-		foreach ($this->views as $view) {
-			foreach ($view->components () as $comp) {
-				$this->_globals = array_merge ($this->_globals, $comp->globals ());
+		/*
+		# Might be used later. Components require a way to define global values and there has to be a system for them to request such values.
+			foreach ($this->views as $view) {
+				foreach ($view->components () as $comp) {
+					$this->_globals = array_merge ($this->_globals, $comp->globals ());
+				}
 			}
-		}
+		*/
 		return $this->_globals;
 	}
 
@@ -192,19 +204,8 @@ final class Page
 		}
 	}
 
-	private function configurableFields (array $exclude = []) {
-		return array_filter (
-			array_map (function ($field) { return $field->name; }, (new \ReflectionClass ($this))->getProperties ()),
-			function ($field) use ($exclude) {
-				return @$field [0] === '_' && !in_array ($field, $exclude); }
-		);
-	}
-
 	private function parseViews (array $views) {
-		if (!isset ($views ['views'], $views ['navigation'])) {
-			return;
-		}
-		if (!is_array ($views ['views']) || !is_array ($views ['navigation'])) {
+		if (!isset ($views ['views']) || !is_array ($views ['views'])) {
 			return;
 		}
 		foreach ($views ['views'] as $view) {
@@ -219,21 +220,27 @@ final class Page
 			$this->views [$pv->id ()] = $pv;
 		}
 		$this->_settings ['side_nav'] = [];
-		foreach ($views ['navigation'] as $entry) {
-			if (!is_array ($entry)) {
-				continue;
-			}
-			$heading = isset ($entry ['heading']) && is_string ($entry ['heading']) ? $entry ['heading'] : '';
-			$items = isset ($entry ['items']) && is_array ($entry ['items']) ? $entry ['items'] : [];
-			$entry = [ 'heading' => $heading, 'items' => [] ];
-			foreach ($items as $link) {
-				$view = isset ($link ['view']) && is_string ($link ['view']) ? $link ['view'] : '';
-				$text = isset ($link ['text']) && is_string ($link ['text']) ? $link ['text'] : '';
-				if (!empty ($temp = $this->views [$link ['view']])) {
-					$entry ['items'][] = $temp->link ($this, $text);
+		if (isset ($views ['navigation']) && is_array ($views ['navigation'])) {
+			foreach ($views ['navigation'] as $entry) {
+				if (!is_array ($entry)) {
+					continue;
 				}
+				$heading = isset ($entry ['heading']) && is_string ($entry ['heading']) ? $entry ['heading'] : '';
+				$items = isset ($entry ['items']) && is_array ($entry ['items']) ? $entry ['items'] : [];
+				$entry = [ 'heading' => $heading, 'items' => [] ];
+				foreach ($items as $link) {
+					$view = isset ($link ['view']) && is_string ($link ['view']) ? $link ['view'] : '';
+					$text = isset ($link ['text']) && is_string ($link ['text']) ? $link ['text'] : '';
+					if (!empty ($temp = $this->views [$link ['view']])) {
+						$entry ['items'][] = $temp->link ($this, $text);
+					} else {
+						$target = isset ($link ['target']) && is_string ($link ['target']) ? $link ['target'] : '';
+						$params = isset ($link ['params']) && is_array ($link ['params']) ? $link ['params'] : [];
+						$entry ['items'][] = [ 'text' => $text, 'params' => $params, 'target' => $target ];
+					}
+				}
+				$this->_settings ['side_nav'][] = $entry;
 			}
-			$this->_settings ['side_nav'][] = $entry;
 		}
 	}
 
@@ -247,4 +254,13 @@ final class Page
 	private function verifyConfig (array $config) {
 		return isset ($config ['views']);
 	}
+
+	private function configurableFields (array $exclude = []) {
+		return array_filter (
+			array_map (function ($field) { return $field->name; }, (new \ReflectionClass ($this))->getProperties ()),
+			function ($field) use ($exclude) {
+				return @$field [0] === '_' && !in_array ($field, $exclude); }
+		);
+	}
+
 }

@@ -1,5 +1,27 @@
-; A page construction file
-libraries[]		=jquery
-libraries[]		=smoothie
-scripts[]		=ws
-styles[]		=main
+{
+	"__comment": "Page definition for realtime test page.",
+	"settings": {
+		"view_name": "Realtime testing"
+	},
+	"views": {
+		"views":[{
+			"name": "near-realtime",
+			"default": true,
+			"components": [
+				"graph"
+			]
+		}],
+		"navigation": [{
+			"heaading": "Mumble mumble",
+			"items": [
+				{ "view": "near-realtime", "text": "Real dime" }
+			]
+		}]
+	},
+	"libraries": [
+		"jquery"
+	],
+	"styles": [
+		"main"
+	]
+}

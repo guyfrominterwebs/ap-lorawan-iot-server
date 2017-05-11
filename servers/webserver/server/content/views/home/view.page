@@ -1,13 +1,16 @@
 {
+	"__comment": "Page definition for home page.",
 	"settings": {
 		"view_name": "Home"
 	},
 	"views": {
 		"views": [{
 				"name": "instructions",
-				"default": true
+				"default": true,
+				"content": "instructions"
 			}, {
-				"name": "lorawan"
+				"name": "lorawan",
+				"content": "lorawan"
 		}],
 		"navigation": [{
 			"heading": "Information",

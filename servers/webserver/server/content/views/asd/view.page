@@ -1,5 +1,18 @@
-; A page construction file
-template		=default_template
-libraries[]		=jquery
-; scripts[]		=test
-styles[]		=main
+{
+	"__comment": "Page definition file for asd page.",
+	"settings": {
+		"view_name": "A random test page."
+	},
+	"views": {
+		"views": [{
+				"name": "test-asd",
+				"default": true
+		}]
+	},
+	"libraries": [
+		"jquery"
+	],
+	"styles": [
+		"main"
+	]
+}

@@ -36,6 +36,7 @@ path_templates			=server/content/templates/
 path_content			=server/content/content/
 path_macros				=server/content/macros/
 path_common				=server/content/common/
+path_components			=server/content/components/
 ext_twig				=twig
 
 ; Client side configs

@@ -16,16 +16,25 @@ final class PageComponent
 	}
 
 	public static function Create (string $component) {
-		$temp = new PageComponent ($component);
-		$component = \Lib::checkExtension ($component, Config::ext ('server', 'component'));
-		$file = Config::path ('server', 'components')."/${component}";
-		if (!file_exists ($file) || empty ($config = $temp->parseFile ($file)) || !$temp->inspectConfig ($config)) {
-			return null;
+		$temp 				= new PageComponent ($component);
+		$twig 				= \Lib::checkExtension ($component, Config::ext ('twig', 'twig'));
+		$definition 		= \Lib::checkExtension ($component, Config::ext ('server', 'component'));
+		$folder 			= Config::path ('server', 'components');
+		$file 				= "$folder/$definition";
+		if (file_exists ($file)) {
+			if (empty ($config = $temp->parseFile ($file)) || !$temp->inspectConfig ($config)) {
+				return null;
+			}
+			$temp->_id = $config ['id'];
+			$temp->_template = $config ['template'];
+			$temp->populate ($config ['dependencies']);
+			$temp->populate ($config ['appearance']);
+		} else {
+			if (file_exists ($file = "$folder/$twig")) {
+				$this->_template = $file;
+				$this->_id = pathinfo ($component, PATHINFO_FILENAME);
+			}
 		}
-		$temp->_id = $config ['id'];
-		$temp->_template = $config ['template'];
-		$temp->populate ($config ['dependencies']);
-		$temp->populate ($config ['appearance']);
 		return $temp;
 	}
 

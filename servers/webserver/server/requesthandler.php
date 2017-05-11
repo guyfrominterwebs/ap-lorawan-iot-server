@@ -47,7 +47,8 @@ final class RequestHandler
 	}
 
 	private function resolveCall (string &$method, array $action, string $filePath, string $fileType, string $namespace) {
-		# TODO: 400, 403, 404, 405, 
+		# TODO: 400, 403, 404, 405, ...
+		# TODO: Separate page and action routines.
 		$path = '';
 		$class = '';
 		$className = '';
@@ -102,6 +103,7 @@ final class RequestHandler
 			Config::path ('twig', 'content'),
 			Config::path ('twig', 'macros'),
 			Config::path ('twig', 'common'),
+			Config::path ('twig', 'components'),
 			$this->page->path ()
 		]);
 		$twig = new \Twig_Environment ($loader, [ 'debug' => debug (), 'cache' => Config::path ('twig', 'cache') ]);

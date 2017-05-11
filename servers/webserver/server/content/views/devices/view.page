@@ -1,4 +1,5 @@
 {
+	"__comment": "Page definition for devices page.",
 	"settings": {
 		"view_name": "Devices"
 	},
@@ -24,11 +25,7 @@
 		}]
 	},
 	"libraries": [
-		"jquery",
-		"d3"
-	],
-	"scripts": [
-		"ws"
+		"jquery"
 	],
 	"styles": [
 		"main"

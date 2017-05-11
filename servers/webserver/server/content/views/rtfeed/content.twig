@@ -1,4 +1,8 @@
 {% extends page.template %}
 {% block view %}
-	<div id="rt_feed"></div>
+	{% embed page.layout %}
+		{% block view_content %}
+			<div id="rt_feed"></div>
+		{% endblock view_content %}
+	{% endembed %}
 {% endblock %}
