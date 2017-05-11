@@ -13,6 +13,7 @@ final class Content_Home extends \Lora\BaseAction
 				case 'instructions':
 				case 'lorawan':
 				case 'why':
+				case 'penis':
 						$this->page->showSingle ($this->url [0]);
 					break;
 			}
