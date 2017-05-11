@@ -25,6 +25,9 @@ html, body {
 #main-panel {
 	border: 2px solid #FF0000;
 }
+#main-panel main {
+	padding-left: 15px;
+}
 #bottom-panel {
 	text-align: center;
 	border: 2px solid #000000;

@@ -11,6 +11,9 @@
 			}, {
 				"name": "lorawan",
 				"content": "lorawan"
+			}, {
+				"name": "why",
+				"content": "why"
 		}],
 		"navigation": [{
 			"heading": "Information",
@@ -24,6 +27,7 @@
 		"jquery"
 	],
 	"styles": [
-		"main"
+		"main",
+		"home"
 	]
 }

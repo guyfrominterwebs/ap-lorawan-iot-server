@@ -23,10 +23,7 @@ final class RequestHandler
 		$this->root			= Config::path ('server', 'root');
 	}
 
-	public function handleContentRequest (array $action = null) {
-		if (empty ($action)) {
-			$action = [ 'home' ];
-		}
+	public function handleContentRequest (array $action) {
 		require "{$this->root}/server/login.php";
 		if (!isLoggedIn () && !login ()) {
 			return; # Login failed.
@@ -36,10 +33,7 @@ final class RequestHandler
 		$this->buildPage ();
 	}
 
-	public function handleApiRequest (array $action = null) : void {
-		if (empty ($action)) {
-			return;
-		}
+	public function handleApiRequest (array $action) : void {
 		$this->resolveCall ($this->method, $action, Config::path ('server', 'api'), "Action", "Lora\Api");
 		# TODO: Use out buffer processing instead of echo.
 		echo json_encode ($this->mess->getData ());
@@ -56,6 +50,7 @@ final class RequestHandler
 		$excess = [];
 		convertMethod ($method);
 		if (!$this->actionToPath ($action, $consumed, $excess, $path, $filePath)) {
+			$excess = $action;
 			$this->notFound ($consumed, $path, $filePath);
 		}
 		if (buildClassName ($consumed, $class, $className, $fileType, $namespace) && loadFile ($path)) {

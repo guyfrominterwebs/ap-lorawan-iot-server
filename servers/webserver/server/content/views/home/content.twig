@@ -8,8 +8,6 @@
 			{% include 'left_bar.twig' %}
 		{% endblock view_left_panel %}
 		{% block view_content %}
-			<h1>This is a front page.</h1>
-			This is a fishing pole.
 			{% for view in page.subViews %}
 				{{ generators.sub_view (view, _context) }}
 			{% endfor %}

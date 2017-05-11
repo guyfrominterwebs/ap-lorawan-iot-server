@@ -12,6 +12,7 @@ final class Content_Home extends \Lora\BaseAction
 			switch ($this->url [0]) {
 				case 'instructions':
 				case 'lorawan':
+				case 'why':
 						$this->page->showSingle ($this->url [0]);
 					break;
 			}
