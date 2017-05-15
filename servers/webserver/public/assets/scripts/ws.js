@@ -23,7 +23,7 @@ function RTSocket (_parser, _devices, _values) {
 		values			= _values;
 
 	this.connect = function () {
-		socket = new WebSocket ("ws://127.0.0.1:9000");
+		socket = new WebSocket ("ws://" + window.location.hostname + ":9000");
 		try {
 			socket.onopen = onopen;
 			socket.onmessage = onmessage;

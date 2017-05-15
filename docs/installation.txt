@@ -1,0 +1,13 @@
+
+
+Installation instructions
+'''''''''''''''''''''''''
+
+	Requires following programs to be installed in order to run.
+		- PHP 7.1
+		- MongoDB, preferable v3.14 or higher.
+		- Apache or some other webserver. In order to use some other 
+			webserver, .htaccess file in webserver code's public folder 
+			has to be replaced with said server's equivalent.
+
+
