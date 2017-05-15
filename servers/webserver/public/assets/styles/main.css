@@ -15,22 +15,22 @@ html, body {
 	left: 0;
 	right: 0;
 	height: 4em;
-	border: 2px solid #0000FF;
+	/* border: 2px solid #0000FF; */
 }
 #left-panel {
 	width: 250px;
-	border: 2px solid #00FF00;
+	/* border: 2px solid #00FF00; */
 	background-color: #CCCCCC;
 }
 #main-panel {
-	border: 2px solid #FF0000;
+	/* border: 2px solid #FF0000; */
 }
 #main-panel main {
 	padding-left: 15px;
 }
 #bottom-panel {
 	text-align: center;
-	border: 2px solid #000000;
+	/* border: 2px solid #000000; */
     height: 10%;
 	left: 0;
 	right: 0;

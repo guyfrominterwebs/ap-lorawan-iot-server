@@ -10,7 +10,7 @@ final class PageManager
 
 	public function __construct () {
 		$this->path 			= Config::path ('server', 'page_cache');
-		$this->cacheEnabled 	= Config::path ('server', 'enable_page_cache');
+		$this->cacheEnabled 	= Config::get ('server', 'enable_page_cache');
 	}
 
 	public function cache (Page $page, string $id) : bool {

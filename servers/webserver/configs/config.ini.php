@@ -27,7 +27,7 @@ autoload_exclude[]		=pages
 autoload_exclude[]		=config
 autoload_exclude[]		=public
 
-; 
+; Twig templating engine related settings.
 [twig]
 path_root				=server/content/
 path_cache				=server/content/cache/
