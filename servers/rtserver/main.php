@@ -5,7 +5,7 @@
 chdir (__DIR__);
 require '../../frameworks/wsserver/websockets.php';
 
-use \Lora\Server;
+use \Lora\Server\Command as Command;
 
 class echoServer extends WebSocketServer {
 	// protected $maxBufferSize = 1048576; //1MB... overkill for an echo server, but potentially plausible for other applications.
@@ -74,10 +74,10 @@ class ControlServer extends WebSocketServer
 	private function resolveCommand (string $command, string $data) {
 		// $this->broadcast ($command);
 		switch ($command) {
-			case "terminate":
+			case Command::TERMINATE:
 					$this->terminate ();
 				break;
-			case "data":
+			case Command::DATA:
 					$this->publicServer->broadcast ($data);
 				break;
 		}

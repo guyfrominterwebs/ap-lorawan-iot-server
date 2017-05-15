@@ -37,7 +37,7 @@ class DataServer
 			$confs 				= null,
 			$rt_client 			= null,
 			$rt_address 		= '',
-			$allowPrint			= false;
+			$allowPrint			= true;
 
 	private function __construct () {
 		$this->confs = \Lora\Config::instance ();
@@ -77,7 +77,7 @@ class DataServer
 	}
 
 	# TODO: Internal message processing (terminate).
-	private function broadcast ($data) {
+	private function broadcast ($data, $measurements) {
 		$this->print ("Broadcasting data.");
 		if (!$this->rt_client) {
 			$this->print ("Establishing realtime server connection; {$this->rt_address}");
@@ -89,7 +89,8 @@ class DataServer
 			$this->print ("Realtime connection established.");
 		}
 		$msg = null;
-		$data = $this->craftRtPackage (Command::DATA, $data);
+		$temp = [ 'device' => $data ['dev']['_id'], 'values' => $measurements ];
+		$data = $this->craftRtPackage (Command::DATA, $temp);
 		if (!$this->rt_client->send ($data)) {
 			if (!$this->rt_client->isConnected ()) {
 				$this->print ($this->rt_client->lastError ());
@@ -116,8 +117,6 @@ class DataServer
 	private function craftRtPackage (int $type, array $data) : string {
 		switch ($type) {
 			case Command::DATA:
-					return "{$type}:".json_encode ($data);
-				break;
 			case Command::COMMAND:
 					return "{$type}:".json_encode ($data);
 				break;

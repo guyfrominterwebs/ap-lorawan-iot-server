@@ -11,3 +11,8 @@ Installation instructions
 			has to be replaced with said server's equivalent.
 
 
+Start up
+''''''''
+
+	To start MQTT or realtime server, run main.php found in the project
+	root folder (not any of the server root folder) with mqtt or rt as an argument.
