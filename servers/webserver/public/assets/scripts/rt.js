@@ -55,8 +55,8 @@ function RtLineChart () {
 	this.addFeed = function (id, colour, lineType) {
 		// TODO: Line type support. (Solid, dashed, dotted, ...);
 		var feed = new TimeSeries ();
-		feeds [id] = Object.create (null);
-		feeds [id][lineType] = feed;
+		feeds [id] = feeds [id] || Object.create (null);
+		feeds [id][colour] = feed;
 		smoothie.addTimeSeries (feed, { lineWidth: 1.7, strokeStyle: colour });
 	};
 
