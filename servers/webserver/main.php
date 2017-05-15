@@ -1,6 +1,7 @@
 <?php
 chdir (__DIR__);
-if (!require 'configs/.cfg.php') {
+$server_name = 'web';
+if (!require '../../main.php') {
 	internalError ();
 	return;
 }
