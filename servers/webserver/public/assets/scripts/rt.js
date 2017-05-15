@@ -41,7 +41,7 @@ initiators.push (
 function RtLineChart () {
 
 	var self = this,
-		smoothie = new SmoothieChart ({ millisPerPixel: 50, grid: { strokeStyle: '#4fff4f', lineWidth: 1, verticalSections: 6 }, labels: { fontSize: 18, precision: 6 }, responsive: true }),
+		smoothie = new SmoothieChart ({ millisPerPixel: 50, grid: { strokeStyle: '#4fff4f', lineWidth: 1, verticalSections: 6 }, labels: { fontSize: 18, precision: 6 }, responsive: true, yRangeFunction: chartYBoundaries }),
 		feeds = Object.create (null);
 
 	this.setCanvas = function (node) {
@@ -82,5 +82,11 @@ function RtLineChart () {
 			feeds [id][type].append (Date.now (), data);
 		}
 	};
+
+	function chartYBoundaries (boundaries) {
+		boundaries.min--;
+		boundaries.max++;
+		return boundaries;
+	}
 
 }
