@@ -4,8 +4,7 @@
 	CLI management functions.
 */
  
-function getPathsFromStdIn() {
+function readInput () {
 	echo 'Input command: ';
-	$stdin = fopen('php://stdin', 'r');
-	return fgets ($stdin);
+	return fgets (fopen ('php://stdin', 'r'));
 }

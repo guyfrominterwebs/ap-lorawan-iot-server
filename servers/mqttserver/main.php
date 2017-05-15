@@ -73,6 +73,10 @@ class DataServer
 			$data ['topic'] = $topic;
 			$this->insert ($data, $measurements);
 			$this->broadcast ($data, $measurements);
+		} else if (($data = parseActivation ($msg)) !== null) {
+			$this->insertDevice ($data);
+		} else {
+			$this->print ("Failed to parse message.");
 		}
 	}
 
@@ -90,7 +94,7 @@ class DataServer
 		}
 		$msg = null;
 		$temp = [ 'device' => $data ['dev']['_id'], 'values' => $measurements ];
-		$data = $this->craftRtPackage (Command::DATA, $temp);
+		$data = InternalMSG::buildMsg (Command::DATA, $temp);
 		if (!$this->rt_client->send ($data)) {
 			if (!$this->rt_client->isConnected ()) {
 				$this->print ($this->rt_client->lastError ());
@@ -114,6 +118,7 @@ class DataServer
 		return $this->rt_client->connect ();
 	}
 
+	# TODO: Move this to higher apllication level to avoid code duplication.
 	private function craftRtPackage (int $type, array $data) : string {
 		switch ($type) {
 			case Command::DATA:
@@ -133,14 +138,31 @@ class DataServer
 			'event'
 		];
 		foreach ($topic as $key => $value) {
+			if (!isset ($keys [$key])) {
+				continue;
+			}
 			$topic [$keys [$key]] = $value;
 			unset ($topic [$key]);
 		}
 		return $topic;
 	}
 
+	private function parseActivation ($data) {
+		$required = [
+			'dev_eui'
+		];
+		if ($data === null) {
+			return null;
+		}
+		foreach ($required as $r) {
+			if (!isset ($data [$r])) {
+				return null;
+			}
+		}
+		return [ 'dev' => [ '_id' => $data ['dev_eui'] ] ];
+	}
+
 	private function parseData ($data) {
-		# TODO: Timezone fuckery.
 		$required = [
 			'metadata',
 			'dev_id',
@@ -203,6 +225,17 @@ class DataServer
 
 	private function insert (array $data, $measurements) : bool {
 		try {
+			$this->insertDevice ($data);
+			$this->insertMeasurement ($data, $measurements);
+			$this->insertRaw ($data);
+		} catch (Exception $e) {
+			$this->print ('Failed to store data; '.$e->getMessage ());
+			return false;
+		} return true;
+	}
+
+	private function insertDevice ($device) {
+		try {
 			if (!$this->mongo) {
 				$this->print ("Establishing database connection...");
 				$this->mongo = new \MongoDB\Driver\Manager ("mongodb://localhost:27017");
@@ -210,22 +243,45 @@ class DataServer
 			}
 			# Insert device information or update existing.
 			$writer = new MongoDB\Driver\BulkWrite ([ 'ordered' => true ]);
-			$writer->update ([ '_id' => $data ['dev']['_id'] ], $data ['dev'], [ 'upsert' => true ]);
+			$writer->update ([ '_id' => $device ['dev']['_id'] ], $device ['dev'], [ 'upsert' => true ]);
 			$result = $this->mongo->executeBulkWrite ('lorawan.devices', $writer);
+		} catch (Exception $e) {
+			$this->print ('Failed to create device; '.$e->getMessage ());
+			return false;
+		} return true;
+	}
 
+	private function insertMeasurement ($data, $measurements) {
+		try {
+			if (!$this->mongo) {
+				$this->print ("Establishing database connection...");
+				$this->mongo = new \MongoDB\Driver\Manager ("mongodb://localhost:27017");
+				$this->print ("Database connection established.");
+			}
 			# Insert parsed measurement data for actual use.
 			$writer = new MongoDB\Driver\BulkWrite ([ 'ordered' => true ]);
 			$writer->insert ([ '_id' => $data ['dev']['_id'], $measurements ]);
 			$result = $this->mongo->executeBulkWrite ('lorawan.data', $writer);
+		} catch (Exception $e) {
+			$this->print ('Failed to create device; '.$e->getMessage ());
+			return false;
+		} return true;
+	}
 
+	private function insertRaw ($data) {
+		try {
+			if (!$this->mongo) {
+				$this->print ("Establishing database connection...");
+				$this->mongo = new \MongoDB\Driver\Manager ("mongodb://localhost:27017");
+				$this->print ("Database connection established.");
+			}
 			# Insert whole data blob for archiving purposes
 			$writer = new MongoDB\Driver\BulkWrite ([ 'ordered' => true ]);
 			$writer->insert ($data ['msg']);
 			$result = $this->mongo->executeBulkWrite ('lorawan.raw_data', $writer);
 		} catch (Exception $e) {
-			$this->print ('Failed to store data;'.$e->getMessage ());
-			return false;
-		} return true;
+			$this->print ('Failed to insert raw message data; '.$e->getMessage ());
+		}
 	}
 
 	private function print ($msg, $eol = true) {

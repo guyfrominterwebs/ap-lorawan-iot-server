@@ -113,7 +113,6 @@ final class Configuration
 	}
 
 	public function includeScript (string $class) {
-		var_dump ($class, $this->systemFiles);
 		if (isset ($this->systemFiles [$class]) && file_exists ($this->systemFiles [$class])) {
 			require_once $this->systemFiles [$class];
 			return true;
