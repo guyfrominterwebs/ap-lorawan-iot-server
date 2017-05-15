@@ -24,8 +24,8 @@ function newGraph (container, heading) {
 	graph = new Graph (heading);
 	graph.addItem (devices [0]);
 	var view = new GraphView (heading);
-	view.setGraph (graph);
 	view.setContainer (container);
+	view.setGraph (graph);
 	return graph;
 }
 
@@ -44,12 +44,12 @@ function Graph () {
 
 	var self			= this,
 		items			= [],
-		values			= [],
+		types			= [],
 		viewer			= null;
 
 	this.addItem = function (item) {
 		// Add entry to items.
-		var index = items.indexOf ();
+		var index = items.indexOf (item);
 		if (index === -1) {
 			items.push (item);
 			if (viewer) {
@@ -68,23 +68,23 @@ function Graph () {
 		}
 	};
 
-	this.addValue = function (value) {
-		// Add entry to values
-		var index = values.indexOf (value);
+	this.addType = function (type) {
+		// Add entry to types
+		var index = types.indexOf (type);
 		if (index === -1) {
-			values.push (value);
+			types.push (type);
 			if (viewer) {
-				viewer.onValue (value, true);
+				viewer.onType (type, true);
 			}
 		}
 	};
 
-	this.removeValue = function (value) {
-		var index = values.indexOf (value);
+	this.removeType = function (type) {
+		var index = types.indexOf (type);
 		if (index !== -1) {
-			values.splice (index, 1);
+			types.splice (index, 1);
 			if (viewer) {
-				viewer.onValue (value, false);
+				viewer.onType (type, false);
 			}
 		}
 	};
@@ -99,8 +99,8 @@ function Graph () {
 		return items;
 	};
 
-	this.getValues = function () {
-		return values;
+	this.getTypes = function () {
+		return types;
 	};
 
 	this.attachModel = function (model) {
@@ -114,16 +114,16 @@ function Graph () {
 
 function GraphView (_heading) {
 
-	var self			= this,
-		node			= null,
-		graph			= null,
-		visible			= true,
-		heading			= _heading,
-		itemColours		= {},
-		valueLines		= {},
-		colour			= 0,
-		type			= 0,
-		chart			= new RtLineChart ();
+	var self				= this,
+		node				= null,
+		graph				= null,
+		visible				= true,
+		heading				= _heading,
+		itemLines			= {},
+		typeLines			= {},
+		colour_counter		= 0,
+		type_counter		= 0,
+		chart				= new RtLineChart ();
 
 	this.hide = function () {
 		visible = false;
@@ -145,7 +145,7 @@ function GraphView (_heading) {
 	};
 
 	this.onData = function (item, type, data) {
-		chart.addData (item, valueLines [type], data);
+		chart.addData (item, typeLines [type], data);
 	};
 
 	this.onItem = function (item, added) {
@@ -154,17 +154,17 @@ function GraphView (_heading) {
 			addItem (item);
 		} else {
 			chart.removeFeedsById (item);
-			delete itemColours [item];
+			delete itemLines [item];
 		}
 	};
 
-	this.onValue = function (value, added) {
+	this.onType = function (type, added) {
 		// NOTE: Added could be replaced with presence check.
 		if (added) {
-			addValue (value);
+			addType (type);
 		} else {
-			chart.removeFeedsByType (value);
-			delete valueLines [value];
+			chart.removeFeedsByType (type);
+			delete typeLines [type];
 		}
 	};
 
@@ -184,103 +184,123 @@ function GraphView (_heading) {
 	};
 
 	function applyGraph () {
-		var values = graph.getValues ();
+		var types = graph.getTypes ();
 		var items = graph.getItems ();
-		for (var n in values) {
-			addValue (values [n], true);
+		for (var n in types) {
+			addType (types [n], true);
 		}
 		for (var n in items) {
 			addItem (items [n]);
 		}
-		for (var n in values) {
-			addValue (values [n]);
+		for (var n in types) {
+			addType (types [n]);
 		}
 	}
 
 	function addItem (item, noFeed) {
-		if (itemColours [item]) {
+		if (itemLines [item]) {
 			return;
 		}
-		var values = graph.getValues ();
-		itemColours [item] = GraphView.line_colours [colour];
+		var types = graph.getTypes ();
+		itemLines [item] = GraphView.line_types [colour_counter];
+		itemsGraphical ();
 		if (!noFeed) {
-			for (var n in values) {
-				chart.addFeed (item, itemColours [item], valueLines [values [n]]);
+			for (var n in types) {
+				chart.addFeed (item, typeLines [types [n]], itemLines [item]);
 			}
 		}
-		++colour;
-		if (GraphView.line_colours.length <= colour) {
-			colour = 0;
+		++colour_counter;
+		if (GraphView.line_types.length <= colour_counter) {
+			colour_counter = 0;
 		}
 	}
 
-	function addValue (value, noFeed) {
-		// TODO: Update type value once line type support has been added.
-		if (valueLines [value]) {
+	function addType (type, noFeed) {
+		// TODO: Update type type once line type support has been added.
+		if (typeLines [type]) {
 			return;
 		}
 		var items = graph.getItems ();
-		valueLines [value] = GraphView.line_types [type];
-		valuesGraphical ();
+		typeLines [type] = GraphView.line_colours [type_counter];
+		typesGraphical ();
 		if (!noFeed) {
 			for (var n in items) {
-				chart.addFeed (items [n], itemColours [items [n]], valueLines [value]);
+				chart.addFeed (items [n], typeLines [type], itemLines [items [n]]);
 			}
 		}
-		++type;
-		if (GraphView.line_types.length <= type) {
-			type = 0;
+		++type_counter;
+		if (GraphView.line_colours.length <= type_counter) {
+			type_counter = 0;
 		}
 	}
 
 	function populateNode () {
-		// TODO: More flexible item and value categories.
+		// TODO: More flexible item and type categories.
 		var layout = window.graphModels.find (".graph-layout").clone (),
 			canvas = layout.find ('canvas');
 		if (graph) {
 			layout.find ('.graph-heading h4').text (heading);
-			var itemLine = window.graphModels.find (".line-entry"),
-				valueLegend = window.graphModels.find (".legend-entry"),
-				table = layout.find (".line-table"),
-				items = graph.getItems (),
-				line = null,
-				box = null;
-			for (var n in items) {
-				// TODO: Generate legend node from item n
-				line = itemLine.clone ();
-				line.html ('Device: ' + items [n]);
-				box = $ ('<div/>', { class: 'line-colour-box' }).css ('background-color', itemColours [items [n]]);
-				table.append (line.append (box));
-			}
-			// table = layout.find (".legend-table");
-			// items = graph.getValues ();
+			itemsGraphical (layout.find (".line-table"));
+			// var itemLine = window.graphModels.find (".line-entry"),
+				// valueLegend = window.graphModels.find (".legend-entry"),
+				// table = layout.find (".line-table"),
+				// items = graph.getItems (),
+				// line = null,
+				// box = null;
 			// for (var n in items) {
-				// // TODO: Generate line node from item n
+				// line = itemLine.clone ();
+				// line.html ('Device: ' + items [n]);
+				// box = $ ('<div/>', { class: 'line-colour-box' }).css ('background-color', itemLines [items [n]]);
+				// table.append (line.append (box));
+			// }
+			// table = layout.find (".legend-table");
+			// items = graph.getTypes ();
+			// for (var n in items) {
 				// line = valueLegend.clone ();
-				// line.html (valueLines [items [n]] + ': ' + items [n]);
+				// line.html (typeLines [items [n]] + ': ' + items [n]);
 				// table.append (line);
 			// }
-			valuesGraphical (layout.find (".legend-table"));
+			typesGraphical (layout.find (".legend-table"));
 		}
 		node.html (layout);
 		sizeCanvas (canvas)
 		chart.setCanvas (canvas);
 	}
 
-	function valuesGraphical (table) {
+	function itemsGraphical () {
 		if (!graph || !node) {
 			return;
 		}
-		var table = node.find (".legend-table") || table,
-			valueLegend = window.graphModels.find (".legend-entry"),
-			values = graph.getValues ();
-		if (!table) {
+		var table = node.find (".line-table"),
+			itemLine = window.graphModels.find (".line-entry"),
+			items = graph.getItems ();
+		if (!table || table.length === 0) {
 			return;
 		}
 		table.empty ();
-		for (var n in values) {
-			table.append (valueLegend.clone ().html (valueLines [values [n]] + ': ' + values [n]));
+		for (var n in items) {
+			table.append (itemLine.clone ().html (itemLines [items [n]] + ': ' + items [n]));
 		}
+		return table;
+	}
+
+	function typesGraphical () {
+		if (!graph || !node) {
+			return;
+		}
+		var table = node.find (".legend-table"),
+			valueLegend = window.graphModels.find (".legend-entry"),
+			types = graph.getTypes (),
+			box = null;
+		if (!table || table.length === 0) {
+			return;
+		}
+		table.empty ();
+		for (var n in types) {
+			box = $ ('<div/>', { class: 'line-colour-box' }).css ('background-color', typeLines [types [n]]);
+			table.append (valueLegend.clone ().html (types [n]).prepend (box));
+		}
+		return table;
 	}
 
 	function sizeCanvas (canvas) {
@@ -299,5 +319,6 @@ GraphView.line_colours = [
 ];
 
 GraphView.line_types = [
-	"Solid"
+	"Solid",
+	"More solid"
 ];

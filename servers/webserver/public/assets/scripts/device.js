@@ -28,7 +28,7 @@ function receiveData (data) {
 	dev_graph.addItem (data.device);
 	for (; i < count; ++i) {
 		for (var value in data.values [i]) {
-			dev_graph.addValue (value);
+			dev_graph.addType (value);
 			dev_graph.addData (data.device, value, data.values [i][value]);
 		}
 	}

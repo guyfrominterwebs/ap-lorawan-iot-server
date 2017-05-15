@@ -10,17 +10,17 @@ require 'server/climanager.php';
 use \Lora\Server\Command as Command;
 
 $command = readInput ();
-resolveCommand ($command);
+foreach (explode (' ', $command) as $c) {
+	broadcast (resolveCommand ($c));
+}
 exit ();
 
 function resolveCommand ($command) {
 	switch ($command) {
-		case "terminate":
-				broadcast (InternalMSG::buildMsg (Command::ACTION, 'terminate'));
-			break;
-		case "temperature":
-				broadcast (fakeTemperature ());
-			break;
+		case "terminate": return InternalMSG::buildMsg (Command::ACTION, 'terminate');
+		case "temperature": return fakeTemperature ();
+		case "light": return fakeLight ();
+		case "many": return fakeMany ();
 	}
 		// broadcast (trim ($command));
 }
@@ -29,6 +29,9 @@ function resolveCommand ($command) {
 # using ws from browser doing the same.
 function broadcast ($data) {
 	static $client = null;
+	if (empty ($data)) {
+		return false;
+	}
 	if (!$client) {
 		$url = "ws://127.0.0.1:".\Lora\Config::get ('server', 'intern_port');
 		msg_print ("Connecting to ${url}");
@@ -49,6 +52,27 @@ function fakeTemperature () {
 		"device" => "0039ABFB7C0F69F5",
 		"values" => [
 			[ "TMP" => 21 ]
+		]
+	];
+	return InternalMSG::buildMsg (Command::DATA, $data);
+}
+
+function fakeLight () {
+	$data = [
+		"device" => "0039ABFB7C0F69F5",
+		"values" => [
+			[ "LT." => 1 ]
+		]
+	];
+	return InternalMSG::buildMsg (Command::DATA, $data);
+}
+
+function fakeMany () {
+	$data = [
+		"device" => "0039ABFB7C0F69F5",
+		"values" => [
+			[ "TMP" => 21 ],
+			[ "LT." => 1 ]
 		]
 	];
 	return InternalMSG::buildMsg (Command::DATA, $data);
