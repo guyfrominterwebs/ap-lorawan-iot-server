@@ -6,11 +6,24 @@ chdir (__DIR__);
 require '../../frameworks/wsclient/Client.php';
 require 'server/climanager.php';
 
+use \Lora\Server\Command as Command;
+
+var_dump (json_encode ('aeiotigaoposk'));
+
 $stdin = fopen('php://stdin', 'r');
 
-$command = getPathsFromStdIn ();
-broadcast (trim ($command));
+$command = readInput ();
+resolveCommand ($command);
 exit ();
+
+function resolveCommand ($command) {
+	switch ($command) {
+		case "terminate":
+				broadcast ();
+			break;
+	}
+		// broadcast (trim ($command));
+}
 
 # TODO: Better server machine support. Should have a way to differ a server machine 
 # using ws from browser doing the same.
