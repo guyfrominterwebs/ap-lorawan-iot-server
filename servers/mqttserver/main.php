@@ -151,6 +151,7 @@ class DataServer
 		$required = [
 			'dev_eui'
 		];
+		$data = json_decode ($data, true);
 		if ($data === null) {
 			return null;
 		}
