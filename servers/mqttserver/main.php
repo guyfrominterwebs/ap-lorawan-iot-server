@@ -73,7 +73,7 @@ class DataServer
 			$data ['topic'] = $topic;
 			$this->insert ($data, $measurements);
 			$this->broadcast ($data, $measurements);
-		} else if (($data = parseActivation ($msg)) !== null) {
+		} else if (($data = $this->parseActivation ($msg)) !== null) {
 			$this->insertDevice ($data);
 		} else {
 			$this->print ("Failed to parse message.");
