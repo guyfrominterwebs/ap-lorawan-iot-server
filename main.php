@@ -14,10 +14,17 @@ if (isset ($configs ['system']['debug'])) {
 	define ('DEBUG', $configs ['system']['debug'] == true);
 }
 
-if (!isset ($argv [1])) {
-	return 1;
+if (isCli ()) {
+	if (!isset ($argv [1])) {
+		return 1;
+	}
+	$server = $argv [1];
+} else {
+	if (!isset ($server_name)) {
+		return false;
+	}
+	$server = $server_name;
 }
-$server = $argv [1];
 
 loadConfig ($configs);
 $serverPath = serverPath ($server);
@@ -38,6 +45,8 @@ function serverPath (string $server) : string {
 			return "${path}/mqttserver";
 		case "rt":
 			return "${path}/rtserver";
+		case "web":
+			return "${path}/webserver";
 		default:
 			return '';
 	}
@@ -45,7 +54,10 @@ function serverPath (string $server) : string {
 
 function startServer (string $serverPath) {
 	Lora\Config::registerAutoloaders ();
-	include "$serverPath/main.php";
+	if (isCli ()) {
+		include "$serverPath/main.php";
+	}
+	chdir ($serverPath);
 }
 
 function loadConfig (array $config) : void {
@@ -60,4 +72,8 @@ function loadServerConfig (string $serverPath) : bool {
 	$config ['server']['path_root'] = $serverPath;
 	Lora\Config::loadConfig ($config);
 	return true;
+}
+
+function isCli () {
+	return php_sapi_name () === 'cli';
 }

@@ -68,7 +68,7 @@ class DataServer
 	public function process (string $topic, string $msg) {
 		$topic = $this->parseTopic ($topic);
 		if (($data = $this->parseData ($msg)) !== null) {
-			$measurements = $this->parsePayload ($data ['payload']);
+			$measurements = $this->parsePayload ($data ['msg']['payload']);
 			$this->print ("Msg Received: ".date ("r")."\nTopic:".print_r ($topic, true)."\n".print_r ($data, true).PHP_EOL);
 			$data ['topic'] = $topic;
 			$this->insert ($data, $measurements);
@@ -116,16 +116,6 @@ class DataServer
 		}
 		$this->rt_client = new \WebSocket\Client ($this->rt_address);
 		return $this->rt_client->connect ();
-	}
-
-	# TODO: Move this to higher apllication level to avoid code duplication.
-	private function craftRtPackage (int $type, array $data) : string {
-		switch ($type) {
-			case Command::DATA:
-			case Command::COMMAND:
-					return "{$type}:".json_encode ($data);
-				break;
-		}
 	}
 
 	private function parseTopic ($topic) {
@@ -239,7 +229,7 @@ class DataServer
 		try {
 			if (!$this->mongo) {
 				$this->print ("Establishing database connection...");
-				$this->mongo = new \MongoDB\Driver\Manager ("mongodb://localhost:27017");
+				$this->mongo = \DBConnection::connection ('measurements');
 				$this->print ("Database connection established.");
 			}
 			# Insert device information or update existing.
@@ -256,12 +246,12 @@ class DataServer
 		try {
 			if (!$this->mongo) {
 				$this->print ("Establishing database connection...");
-				$this->mongo = new \MongoDB\Driver\Manager ("mongodb://localhost:27017");
+				$this->mongo = \DBConnection::connection ('measurements');
 				$this->print ("Database connection established.");
 			}
 			# Insert parsed measurement data for actual use.
 			$writer = new MongoDB\Driver\BulkWrite ([ 'ordered' => true ]);
-			$writer->insert ([ '_id' => $data ['dev']['_id'], $measurements ]);
+			$writer->insert ([ 'device' => $data ['dev']['_id'], $measurements ]);
 			$result = $this->mongo->executeBulkWrite ('lorawan.data', $writer);
 		} catch (Exception $e) {
 			$this->print ('Failed to create device; '.$e->getMessage ());
@@ -273,7 +263,7 @@ class DataServer
 		try {
 			if (!$this->mongo) {
 				$this->print ("Establishing database connection...");
-				$this->mongo = new \MongoDB\Driver\Manager ("mongodb://localhost:27017");
+				$this->mongo = \DBConnection::connection ('measurements');
 				$this->print ("Database connection established.");
 			}
 			# Insert whole data blob for archiving purposes
@@ -320,6 +310,32 @@ function msg_print ($msg) {
 			"snr":-6.5,
 			"rf_chain":1
 		}]
+	}
+}
+
+
+
+{
+	"app_eui":"70B3D57EF0003E41",
+	"dev_eui":"0004A30B001B0E5F",
+	"dev_addr":"26012A45",
+	"metadata":{
+		"time":"2017-05-15T12:01:35.971795498Z",
+		"frequency":868.3,
+		"modulation":"LORA",
+		"data_rate":"SF7BW125",
+		"coding_rate":"4/5",
+		"gateways":[
+			{
+				"gtw_id":"eui-000000000000beef",
+				"timestamp":3824575339,
+				"time":"",
+				"channel":1,
+				"rssi":-107,
+				"snr":-8,
+				"rf_chain":1
+			}
+		]
 	}
 }
 */
