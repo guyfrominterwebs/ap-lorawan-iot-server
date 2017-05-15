@@ -1,46 +1,91 @@
-var modules = modules || [];
+var initiators = initiators || [];
 
-modules.push (
+initiators.push (
 	function () {
 		if (!("WebSocket" in window)) {
 			return;
 		}
-		var socket = new ws ();
+		var socket = new RTSocket ();
 		socket.connect ();
 });
 
-function ws () {
-	var self = this,
-		rtsocket = null,
-		closing = false,
-		rtFeed = new rt ();
+// TODO:
+//	- Device and value subscribing.
+//	- Delegate registering.
+
+function RTSocket (_parser, _devices, _values) {
+
+	var self 			= this,
+		socket 			= null,
+		closing 		= false,
+		parser			= _parser,
+		devices			= _devices,
+		values			= _values;
 
 	this.connect = function () {
-		var rtsocket = self.rtsocket = new WebSocket ("ws://127.0.0.1:9000");
+		socket = new WebSocket ("ws://127.0.0.1:9000");
 		try {
-			rtsocket.onopen = function () {
-				console.log ("Opened;" + rtsocket.readyState);
-			}
-			rtsocket.onmessage = function (e) {
-				console.log (e);
-				// rtFeed.receiveData (data);
-			}
-			rtsocket.onclose = function(e){
-				if (!closing) {
-					setTimeout (function () {
-						self.connect ();
-					}, 10000);
-				}
-				rtsocket.onclose = function () {};
-				rtsocket.close()
-				console.log ("Closed;" + rtsocket.readyState);
-				rtsocket = null;
-			}
-			rtsocket.onerror = function (err) {
-				console.error ('Web socket connection error.');
-			}
+			socket.onopen = onopen;
+			socket.onmessage = onmessage;
+			socket.onclose = onclose;
+			socket.onerror = onerror;
 		} catch (exception) {
 			console.error (exception);
 		}
 	};
+
+	this.subscribe = function (_parser, _devices, _values) {
+		var changed = false;
+		if (_parser && parser != _parser) {
+			parser = _parser;
+			changed = true;
+		}
+		if (_devices && devices != _devices) {
+			devices = _devices;
+			changed = true;
+		}
+		if (_values && values != _values) {
+			values = _values;
+			changed = true;
+		}
+		if (changed && socket) {
+			socket.send (JSON.stringify ({ devices: devices, values: values }));
+		}
+	};
+
+	this.close = function () {
+		closing = true;
+		socket.close ();
+	};
+
+	this.fakeMsg = function (msg) {
+		onmessage ({ data: msg });
+	};
+
+	function onopen () {
+		console.log ("Opened;" + socket.readyState);
+		self.subscribe (parser, devices, values);
+	}
+
+	function onmessage (event) {
+		console.log (event.data);
+		parser (event.data);
+	}
+
+	function onclose (event) {
+		if (!closing) {
+			setTimeout (function () {
+				self.connect ();
+			}, 10000);
+		}
+		socket.onclose = function () {};
+		socket.close ()
+		console.log ("Closed;" + socket.readyState);
+		closing = false;
+		socket = null;
+	}
+
+	function onerror (err) {
+		console.error ('Web socket connection error.');
+	}
 }

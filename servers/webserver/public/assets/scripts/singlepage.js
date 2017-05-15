@@ -1,6 +1,6 @@
-var modules = modules || [];
+var initiators = initiators || [];
 
-modules.push (
+initiators.push (
 	function singlepage () {
 		
 });

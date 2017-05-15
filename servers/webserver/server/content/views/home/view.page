@@ -1,13 +1,22 @@
 {
+	"__comment": "Page definition for home page.",
 	"settings": {
 		"view_name": "Home"
 	},
 	"views": {
 		"views": [{
 				"name": "instructions",
-				"default": true
+				"default": true,
+				"content": "instructions"
 			}, {
-				"name": "lorawan"
+				"name": "lorawan",
+				"content": "lorawan"
+			}, {
+				"name": "why",
+				"content": "why"
+			}, {
+				"name": "penis",
+				"content": "come_on"
 		}],
 		"navigation": [{
 			"heading": "Information",
@@ -21,6 +30,7 @@
 		"jquery"
 	],
 	"styles": [
-		"main"
+		"main",
+		"home"
 	]
 }

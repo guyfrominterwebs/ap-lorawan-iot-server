@@ -1,9 +1,9 @@
-var modules = modules || [];
+var initiators = initiators || [];
 
 function start () {
-	console.log (modules);
-	var i = 0, l = modules.length;
+	console.log (initiators);
+	var i = 0, l = initiators.length;
 	for (; i < l; ++i) {
-		modules [i] ();
+		initiators [i] ();
 	}
 }

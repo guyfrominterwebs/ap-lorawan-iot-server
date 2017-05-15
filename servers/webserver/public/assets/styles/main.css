@@ -25,6 +25,9 @@ html, body {
 #main-panel {
 	border: 2px solid #FF0000;
 }
+#main-panel main {
+	padding-left: 15px;
+}
 #bottom-panel {
 	text-align: center;
 	border: 2px solid #000000;
@@ -107,7 +110,4 @@ html, body {
 }
 hr {
 	margin: 0px;
-}
-.graph-section {
-	float: left;
 }

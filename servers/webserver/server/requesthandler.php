@@ -23,10 +23,7 @@ final class RequestHandler
 		$this->root			= Config::path ('server', 'root');
 	}
 
-	public function handleContentRequest (array $action = null) {
-		if (empty ($action)) {
-			$action = [ 'home' ];
-		}
+	public function handleContentRequest (array $action) {
 		require "{$this->root}/server/login.php";
 		if (!isLoggedIn () && !login ()) {
 			return; # Login failed.
@@ -36,10 +33,7 @@ final class RequestHandler
 		$this->buildPage ();
 	}
 
-	public function handleApiRequest (array $action = null) : void {
-		if (empty ($action)) {
-			return;
-		}
+	public function handleApiRequest (array $action) : void {
 		$this->resolveCall ($this->method, $action, Config::path ('server', 'api'), "Action", "Lora\Api");
 		# TODO: Use out buffer processing instead of echo.
 		echo json_encode ($this->mess->getData ());
@@ -47,7 +41,8 @@ final class RequestHandler
 	}
 
 	private function resolveCall (string &$method, array $action, string $filePath, string $fileType, string $namespace) {
-		# TODO: 400, 403, 404, 405, 
+		# TODO: 400, 403, 404, 405, ...
+		# TODO: Separate page and action routines.
 		$path = '';
 		$class = '';
 		$className = '';
@@ -55,6 +50,7 @@ final class RequestHandler
 		$excess = [];
 		convertMethod ($method);
 		if (!$this->actionToPath ($action, $consumed, $excess, $path, $filePath)) {
+			$excess = $action;
 			$this->notFound ($consumed, $path, $filePath);
 		}
 		if (buildClassName ($consumed, $class, $className, $fileType, $namespace) && loadFile ($path)) {
@@ -102,6 +98,7 @@ final class RequestHandler
 			Config::path ('twig', 'content'),
 			Config::path ('twig', 'macros'),
 			Config::path ('twig', 'common'),
+			Config::path ('twig', 'components'),
 			$this->page->path ()
 		]);
 		$twig = new \Twig_Environment ($loader, [ 'debug' => debug (), 'cache' => Config::path ('twig', 'cache') ]);

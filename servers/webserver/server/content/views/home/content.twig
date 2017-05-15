@@ -1,3 +1,6 @@
+{#
+	Page template for home page.
+#}
 {% extends page.template %}
 {% block view %}
 	{% embed page.layout %}
@@ -5,14 +8,9 @@
 			{% include 'left_bar.twig' %}
 		{% endblock view_left_panel %}
 		{% block view_content %}
-			<h1>This is a front page.</h1>
-			{% if page.settings ['show'] == 'instructions' %}
-				{% include 'instructions.twig' %}
-			{% elseif page.settings ['show'] == 'lorawan' %}
-				Something about LoRaWAN.
-			{% else %}
-				This is a fishing pole.
-			{% endif %}
+			{% for view in page.subViews %}
+				{{ generators.sub_view (view, _context) }}
+			{% endfor %}
 		{% endblock view_content %}
 	{% endembed %}
 {% endblock %}

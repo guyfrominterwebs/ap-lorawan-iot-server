@@ -8,9 +8,9 @@ final class Content_Info extends \Lora\BaseAction
 {
 
 	public function _get (RequestData $req) {
-		$pm = new PageManager ($this->mess);
-		$page = $pm->load ($this, 'info');
-		$page->setSetting ('Info', 'view_name');
+		$this->page->setSetting ('Info', 'view_name');
+		$this->page->addLibrary ('jquery');
+		$this->page->markStatic ();
 	}
 
 	public function _post (RequestData $req) {

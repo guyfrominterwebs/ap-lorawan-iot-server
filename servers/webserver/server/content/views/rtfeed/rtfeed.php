@@ -8,10 +8,6 @@ final class Content_Rtfeed extends \Lora\BaseAction
 {
 
 	public function _get (RequestData $req) {
-		$pm = new PageManager ($this->mess);
-		$page = $pm->load ($this, 'rtfeed');
-		$this->mess->addData ('Get content.');
-		$page->setSetting ('Monitoring', 'view_name');
 	}
 
 	public function _post (RequestData $req) {

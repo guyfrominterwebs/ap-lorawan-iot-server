@@ -1,5 +1,9 @@
 {% extends page.template %}
 
 {% block view %}
-	<p>FOOKEN SMOOTH BOI!</p>
+	{% embed page.layout %}
+		{% block view_content %}
+			<p>FOOKEN SMOOTH BOI!</p>
+		{% endblock view_content %}
+	{% endembed %}
 {% endblock %}

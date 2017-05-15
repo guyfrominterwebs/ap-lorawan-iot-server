@@ -33,7 +33,7 @@ final class Content_Device extends \Lora\BaseAction
 		// $this->page->setSetting ($left_nav, 'side_nav');
 		// $this->page->addView ($rt);
 		// $this->page->addView ($history);
-		$this->page->addGlobal ('device_id', $id);
+		$this->page->addGlobal ('devices', [ $id ]);
 	}
 
 	public function _post (RequestData $req) {
@@ -72,4 +72,5 @@ final class Content_Device extends \Lora\BaseAction
 		// $cursor->skip ();
 		$this->mess->addData ($cursor->toArray ());
 	}
+
 }

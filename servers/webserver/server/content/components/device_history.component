@@ -9,12 +9,12 @@
 			"smoothie"
 		],
 		"scripts": [
-			"graphs",
+			"graph",
 			"ws",
 			"rt"
 		],
 		"styles": [
-			"graphs"
+			"graph"
 		]
 	}
 }

@@ -11,11 +11,11 @@ require 'frameworks/Slim/Slim.php';
 $server = new \Slim\Slim ();
 $handler = new \Lora\RequestHandler ($server);
 
-$server->map ('/api/?(:action+)', function (array $action = null) use ($server, $handler) {
+$server->map ('/api/?(:action+)', function (array $action = []) use ($server, $handler) {
 	$handler->handleApiRequest ($action);
 })->via ('GET', 'POST', 'PUT', 'DELETE');
 
-$server->map ('/?(:action+)', function (array $action = null) use ($server, $handler) {
+$server->map ('/?(:action+)', function (array $action = []) use ($server, $handler) {
 	$handler->handleContentRequest ($action);
 })->via ('GET', 'POST', 'PUT', 'DELETE');
 
