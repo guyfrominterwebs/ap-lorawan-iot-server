@@ -74,7 +74,7 @@ class ControlServer extends WebSocketServer
 	private function resolveCommand (string $command, string $data) {
 		// $this->broadcast ($command);
 		switch ($command) {
-			case Command::TERMINATE:
+			case Command::ACTION:
 					$this->terminate ();
 				break;
 			case Command::DATA:

@@ -215,14 +215,10 @@ class DataServer
 	}
 
 	private function insert (array $data, $measurements) : bool {
-		try {
-			$this->insertDevice ($data);
-			$this->insertMeasurement ($data, $measurements);
-			$this->insertRaw ($data);
-		} catch (Exception $e) {
-			$this->print ('Failed to store data; '.$e->getMessage ());
-			return false;
-		} return true;
+		$this->insertDevice ($data);
+		$this->insertMeasurement ($data, $measurements);
+		$this->insertRaw ($data);
+		return true;
 	}
 
 	private function insertDevice ($device) {
@@ -254,7 +250,7 @@ class DataServer
 			$writer->insert ([ 'device' => $data ['dev']['_id'], $measurements ]);
 			$result = $this->mongo->executeBulkWrite ('lorawan.data', $writer);
 		} catch (Exception $e) {
-			$this->print ('Failed to create device; '.$e->getMessage ());
+			$this->print ('Failed to add measurement; '.$e->getMessage ());
 			return false;
 		} return true;
 	}
