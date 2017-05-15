@@ -24,7 +24,6 @@ exit ();
 
 function procmsg ($topic, $msg) {
 	global $dserver;
-	msg_print ("Msg Received: ".date ("r")."\nTopic:${topic}\n${msg}\n");
 	DataServer::instance ()->process ($topic, $msg);
 }
 
@@ -66,8 +65,12 @@ class DataServer
 	}
 
 	public function process (string $topic, string $msg) {
+		$this->print ("Msg Received: ".date ("r")."\nTopic:${topic}\n${msg}\n");
 		$topic = $this->parseTopic ($topic);
 		if (($data = $this->parseData ($msg)) !== null) {
+			if (strtolower ($data ['msg']['payload']) === 'heartbeat') {
+				return;
+			}
 			$measurements = $this->parsePayload ($data ['msg']['payload']);
 			$this->print ("Msg Received: ".date ("r")."\nTopic:".print_r ($topic, true)."\n".print_r ($data, true).PHP_EOL);
 			$data ['topic'] = $topic;

@@ -23,7 +23,6 @@ initiators.push (function () {
 function newGraph (container, heading) {
 	graph = new Graph (heading);
 	graph.addItem (devices [0]);
-	graph.addValue ('temperature');
 	var view = new GraphView (heading);
 	view.setGraph (graph);
 	view.setContainer (container);
@@ -146,7 +145,7 @@ function GraphView (_heading) {
 	};
 
 	this.onData = function (item, type, data) {
-		chart.addData (item, GraphView.line_types [type], data);
+		chart.addData (item, valueLines [type], data);
 	};
 
 	this.onItem = function (item, added) {
@@ -177,6 +176,7 @@ function GraphView (_heading) {
 			}
 		}
 		if (_node instanceof jQuery) {
+			node = _node;
 			populateNode (_node);
 			return true;
 		}
@@ -198,6 +198,9 @@ function GraphView (_heading) {
 	}
 
 	function addItem (item, noFeed) {
+		if (itemColours [item]) {
+			return;
+		}
 		var values = graph.getValues ();
 		itemColours [item] = GraphView.line_colours [colour];
 		if (!noFeed) {
@@ -213,8 +216,12 @@ function GraphView (_heading) {
 
 	function addValue (value, noFeed) {
 		// TODO: Update type value once line type support has been added.
+		if (valueLines [value]) {
+			return;
+		}
 		var items = graph.getItems ();
 		valueLines [value] = GraphView.line_types [type];
+		valuesGraphical ();
 		if (!noFeed) {
 			for (var n in items) {
 				chart.addFeed (items [n], itemColours [items [n]], valueLines [value]);
@@ -226,12 +233,12 @@ function GraphView (_heading) {
 		}
 	}
 
-	function populateNode (_node) {
+	function populateNode () {
 		// TODO: More flexible item and value categories.
 		var layout = window.graphModels.find (".graph-layout").clone (),
 			canvas = layout.find ('canvas');
-		layout.find ('.graph-heading h4').text (heading);
 		if (graph) {
+			layout.find ('.graph-heading h4').text (heading);
 			var itemLine = window.graphModels.find (".line-entry"),
 				valueLegend = window.graphModels.find (".legend-entry"),
 				table = layout.find (".line-table"),
@@ -245,18 +252,35 @@ function GraphView (_heading) {
 				box = $ ('<div/>', { class: 'line-colour-box' }).css ('background-color', itemColours [items [n]]);
 				table.append (line.append (box));
 			}
-			table = layout.find (".legend-table");
-			items = graph.getValues ();
-			for (var n in items) {
-				// TODO: Generate line node from item n
-				line = valueLegend.clone ();
-				line.html (valueLines [items [n]] + ': ' + items [n]);
-				table.append (line);
-			}
+			// table = layout.find (".legend-table");
+			// items = graph.getValues ();
+			// for (var n in items) {
+				// // TODO: Generate line node from item n
+				// line = valueLegend.clone ();
+				// line.html (valueLines [items [n]] + ': ' + items [n]);
+				// table.append (line);
+			// }
+			valuesGraphical (layout.find (".legend-table"));
 		}
-		_node.html (layout);
+		node.html (layout);
 		sizeCanvas (canvas)
 		chart.setCanvas (canvas);
+	}
+
+	function valuesGraphical (table) {
+		if (!graph || !node) {
+			return;
+		}
+		var table = node.find (".legend-table") || table,
+			valueLegend = window.graphModels.find (".legend-entry"),
+			values = graph.getValues ();
+		if (!table) {
+			return;
+		}
+		table.empty ();
+		for (var n in values) {
+			table.append (valueLegend.clone ().html (valueLines [values [n]] + ': ' + values [n]));
+		}
 	}
 
 	function sizeCanvas (canvas) {

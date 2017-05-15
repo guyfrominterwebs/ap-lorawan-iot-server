@@ -2,15 +2,12 @@
 /*
 	TODO: Global autoloader in addition to server specific autoloaders.
 */
+
 chdir (__DIR__);
 require '../../frameworks/wsclient/Client.php';
 require 'server/climanager.php';
 
 use \Lora\Server\Command as Command;
-
-var_dump (json_encode ('aeiotigaoposk'));
-
-$stdin = fopen('php://stdin', 'r');
 
 $command = readInput ();
 resolveCommand ($command);
@@ -19,7 +16,10 @@ exit ();
 function resolveCommand ($command) {
 	switch ($command) {
 		case "terminate":
-				broadcast ();
+				broadcast (InternalMSG::buildMsg (Command::ACTION, 'terminate'));
+			break;
+		case "temperature":
+				broadcast (fakeTemperature ());
 			break;
 	}
 		// broadcast (trim ($command));
@@ -38,11 +38,20 @@ function broadcast ($data) {
 		}
 	}
 	$msg = '';
-	$data = $data .":";
 	if (!$client->send ($data) || !$client->receive ($msg)) { // Something went wrong.
 		return false;
 	}
 	return true;
+}
+
+function fakeTemperature () {
+	$data = [
+		"device" => "0039ABFB7C0F69F5",
+		"values" => [
+			[ "TMP" => 21 ]
+		]
+	];
+	return InternalMSG::buildMsg (Command::DATA, $data);
 }
 
 function msg_print ($msg) {
