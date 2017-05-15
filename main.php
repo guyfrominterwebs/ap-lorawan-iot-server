@@ -25,7 +25,6 @@ if (isCli ()) {
 	}
 	$server = $server_name;
 }
-
 loadConfig ($configs);
 $serverPath = serverPath ($server);
 if (loadServerConfig ($serverPath)) {

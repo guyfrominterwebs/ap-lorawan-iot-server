@@ -1,43 +1,46 @@
 var initiators = initiators || [];
 
-initiators.push (
-	function () {
-		if (!("WebSocket" in window)) {
-			return;
-		}
-		var socket = new RTSocket ();
-		socket.connect ();
-});
-
 // TODO:
 //	- Device and value subscribing.
 //	- Delegate registering.
 
-function RTSocket (_parser, _devices, _values) {
+function RTSocket (_handler, _devices, _values) {
 
-	var self 			= this,
+	var asd 			= this,
 		socket 			= null,
 		closing 		= false,
-		parser			= _parser,
+		handler			= _handler,
 		devices			= _devices,
 		values			= _values;
+
+	this.getHandler = function () {
+		return handler;
+	};
 
 	this.connect = function () {
 		socket = new WebSocket ("ws://" + window.location.hostname + ":9000");
 		try {
-			socket.onopen = onopen;
-			socket.onmessage = onmessage;
-			socket.onclose = onclose;
-			socket.onerror = onerror;
+			socket.onopen = function () {
+				asd.onopen ();
+			};
+			socket.onmessage = function (event) {
+				asd.onmessage (event);
+			};
+			socket.onclose = function (event) {
+				asd.onclose (event);
+			};
+			socket.onerror = function (error) {
+				asd.onerror (error);
+			};
 		} catch (exception) {
 			console.error (exception);
 		}
 	};
 
-	this.subscribe = function (_parser, _devices, _values) {
+	this.subscribe = function (_handler, _devices, _values) {
 		var changed = false;
-		if (_parser && parser != _parser) {
-			parser = _parser;
+		if (_handler && handler != _handler) {
+			handler = _handler;
 			changed = true;
 		}
 		if (_devices && devices != _devices) {
@@ -59,23 +62,26 @@ function RTSocket (_parser, _devices, _values) {
 	};
 
 	this.fakeMsg = function (msg) {
-		onmessage ({ data: msg });
+		asd.onmessage (msg);
 	};
 
-	function onopen () {
+	this.onopen = function () {
 		console.log ("Opened;" + socket.readyState);
-		self.subscribe (parser, devices, values);
+		asd.subscribe (handler, devices, values);
 	}
 
-	function onmessage (event) {
+	this.onmessage = function (event) {
 		console.log (event.data);
-		parser (event.data);
+		var temp = handler || asd.getHandler ();
+		if (temp) {
+			temp (event.data);
+		}
 	}
 
-	function onclose (event) {
+	this.onclose = function (event) {
 		if (!closing) {
 			setTimeout (function () {
-				self.connect ();
+				asd.connect ();
 			}, 10000);
 		}
 		socket.onclose = function () {};
@@ -85,7 +91,7 @@ function RTSocket (_parser, _devices, _values) {
 		socket = null;
 	}
 
-	function onerror (err) {
+	this.onerror = function (err) {
 		console.error ('Web socket connection error.');
 	}
 }

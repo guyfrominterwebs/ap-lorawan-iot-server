@@ -29,6 +29,7 @@ class echoServer extends WebSocketServer {
 	}
 
 	public function broadcast (string $msg) {
+		msg_print ('Broadcasting'.$msg);
 		foreach ($this->users as $user) {
 			if ($user->socket !== $this->master) {
 				$this->send ($user, $msg);

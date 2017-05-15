@@ -6,5 +6,5 @@
  
 function readInput () {
 	echo 'Input command: ';
-	return fgets (fopen ('php://stdin', 'r'));
+	return trim (fgets (fopen ('php://stdin', 'r')));
 }
