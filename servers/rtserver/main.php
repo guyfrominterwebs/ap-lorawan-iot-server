@@ -2,7 +2,6 @@
 /*
 	TODO: Write channel functions (classes?) which determine what data is being broadcasted along the socket.
 */
-chdir (__DIR__);
 require '../../frameworks/wsserver/websockets.php';
 
 use \Lora\Server\Command as Command;

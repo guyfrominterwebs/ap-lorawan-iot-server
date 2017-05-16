@@ -2,8 +2,6 @@
 /*
 	TODO: Global autoloader in addition to server specific autoloaders.
 */
-
-chdir (__DIR__);
 require '../../frameworks/wsclient/Client.php';
 require 'server/climanager.php';
 

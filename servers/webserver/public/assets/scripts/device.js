@@ -25,6 +25,9 @@ function broadcastData (data) {
 function receiveData (data) {
 	var data = JSON.parse (data);
 	var i = 0, count = data.values.length;
+	if (data.device !== devices [0]) {
+		return;
+	}
 	dev_graph.addItem (data.device);
 	for (; i < count; ++i) {
 		for (var value in data.values [i]) {
