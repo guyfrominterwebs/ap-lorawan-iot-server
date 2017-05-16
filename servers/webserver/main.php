@@ -1,7 +1,7 @@
 <?php
 chdir (__DIR__);
 $server_name = 'web';
-if (!require '../../main.php') {
+if ((require '../../main.php') !== 1) {
 	internalError ();
 	return;
 }
