@@ -11,7 +11,6 @@
 ;						All paths must be relative to main.php which is located in the local server root.
 ;	- extension			Can be found with ext -method using correct section and variable name.
 ;
-
 ;	This is a global configuration file which defines setting values common to each of the running servers.
 ;	The servers may override these values using their own configuration files.
 

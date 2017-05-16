@@ -2,11 +2,17 @@
 
 namespace Lora;
 
+/**
+
+	Configuration management class capable of managing multiple cinfiguration sets. Uses singleton pattern.
+	Belongs to Lora -namespace.
+
+*/
 class Config
 {
 
-	const	PATH						= 'path_',
-			EXTENSION					= 'ext_';
+	const	PATH						= 'path_',	///< Path prefix which can be used in configuration files to allow them to be fetched through path method.
+			EXTENSION					= 'ext_';	///< Extension prefix which can be used in configuration files to allow them to be fetched through ext method.
 
 	private static $instance			= null;
 
@@ -15,17 +21,28 @@ class Config
 	private function __construct () {
 	}
 
-	public static function instance () {
+	/**
+		A method to fetch the singleton object. Initiates the object upon first call.
+		\return Returns the singleton instance of Config.
+	*/
+	public static function instance () : \Lora\Config {
 		return self::$instance ?? (self::$instance = new Config ());
 	}
 
+	/**
+		Adds a new configuration set.
+		\param $configs An array of configuration values.
+	*/
 	public static function loadConfig (array $configs) : void {
 		self::instance ()->configurations [] = new Configuration ($configs);
 	}
 
+	/**
+		Returns any configuration value if it exists.
+		\return Returns requested configuration value if such exists or NULL if it is not found.
+	*/
 	public static function get (...$key) {
-		$temp = self::instance ();
-		foreach ($temp->configurations as $conf) {
+		foreach (self::instance ()->configurations as $conf) {
 			if ($conf->has ($value, $key)) {
 				return $value;
 			}
@@ -48,14 +65,22 @@ class Config
 		} return '';
 	}
 
+	/**
+		Prepares and registers autoloader functions for whole runtime. This includes hub server 
+		with all associated scripts and the hosted server.
+		\b NOTE: Only works when a server has configuration file with server root value set.
+	*/
 	public static function registerAutoloaders () : void {
-		$temp = self::instance ();
-		foreach ($temp->configurations as $conf) {
+		foreach (self::instance ()->configurations as $conf) {
 			$conf->setupAutoloader ();
 		}
 		spl_autoload_register (__CLASS__.'::autoloader');
 	}
 
+	/**
+		Autoloader function capable of loading any script file as long as there are no name conflicts.
+		See http://php.net/manual/en/language.oop5.autoload.php for more details about autoloaders in PHP.
+	*/
 	public static function autoloader ($class) : void {
 		$class = strtolower (array_slice (explode ('\\', $class), -1)[0]);
 		foreach (Config::instance ()->configurations as $conf) {
@@ -67,17 +92,20 @@ class Config
 
 }
 
+/**
+	A class representing configuration set. Provides all parser functions for processing configurations arrays 
+	and some utility functions to access them. Normally there is no need to access this class manually due to 
+	Config being an abstraction layer for this class.
+*/
 final class Configuration
 {
 
-	private static $serverRoot			= [];
-
 	private $root						= '',
-			$systemFiles 				= [],
+			$systemFiles 				= [], ///< An associative array having all script names as keys and their path as values. Used during autoloading for performance gains.
 			$configs					= [],
 			$paths						= [],
 			$exts						= [],
-			$exclude					= [ 'frameworks' ];
+			$exclude					= [ 'frameworks' ]; ///< A blacklist of words which must not occure in a scripts path in order for it to become autolodable.
 
 	public function __construct (array $configs) {
 		foreach ($configs as $section => $conf) {
@@ -91,6 +119,9 @@ final class Configuration
 		}
 	}
 
+	/**
+		
+	*/
 	private function parse ($section, $val, $key = false) {
 		if (!$key) {
 			$this->configs [$section][] = $val;
