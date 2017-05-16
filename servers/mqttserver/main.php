@@ -1,10 +1,8 @@
 <?php
-
 /*
 	TODO: Brake this down into classes and logical components.
 	TODO: Maybe add a buffer for failed broadcasts so that they can be sent later on again.
 */
-chdir (__DIR__);
 require 'frameworks/MQTT/phpMQTT.php';
 require '../../frameworks/wsclient/Client.php';
 
@@ -203,7 +201,7 @@ class DataServer
 			}
 			$type = substr ($entry, 0, 3);
 			$value = substr ($entry, 3);
-			$data [$key] = [ $type, floatval ($value) ];
+			$data [$key] = [ $type => floatval ($value) ];
 		}
 		return $data;
 	}

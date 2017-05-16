@@ -10,9 +10,14 @@ Installation instructions
 			webserver, .htaccess file in webserver code's public folder 
 			has to be replaced with said server's equivalent.
 
+	- The git repository contains everything required to run this program except 
+		for some small configuration files.
 
 Start up
 ''''''''
 
 	To start MQTT or realtime server, run main.php found in the project
 	root folder (not any of the server root folder) with mqtt or rt as an argument.
+
+	The webserver uses the same script to allow it share the application wide 
+	scripts.
