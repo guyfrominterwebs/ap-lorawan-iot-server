@@ -70,7 +70,7 @@ function startServer (string $serverPath) : void {
 	\return A boolean value is returned indicating success of this function.
 */
 function loadConfig () : bool {
-	if (($configs = parse_ini_file ("config/config.ini.php", true)) === false) {
+	if (($configs = parse_ini_file ("config/config.ini.php", true, INI_SCANNER_TYPED)) === false) {
 		return false;
 	}
 	if (isset ($configs ['system']['debug'])) {
@@ -87,7 +87,7 @@ function loadConfig () : bool {
 */
 function loadServerConfig (string $serverPath) : bool {
 	if (file_exists ($path = "${serverPath}/configs/config.ini.php")) {
-		if (($config = parse_ini_file ($path, true)) === false) {
+		if (($config = parse_ini_file ($path, true, INI_SCANNER_TYPED)) === false) {
 			return false;
 		}
 		$config ['server']['path_root'] = $serverPath;

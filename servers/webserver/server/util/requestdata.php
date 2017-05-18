@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
 	A wrapper for request data arriving from client side. Makes it easier to safely read typed values.
 	Another benefit is that since reuest parameters no longer needn't to be passed around as an array,
 	the parameter array isn't copied on every method call. Might make code cleaner too.
@@ -31,9 +31,8 @@
 	*			invalidates the whole point of having this class in the first place.			*
 	*********************************************************************************************
 
+	\todo Write type checks for default values and resolve to null if they are of incorrect type.
 */
-
-class DataValidationException extends \Exception { }
 
 final class RequestData
 {
@@ -45,7 +44,7 @@ final class RequestData
 		}
 	}
 
-	public function has ($key) {
+	public function has ($key) : bool {
 		if (is_array ($key)) {
 			foreach ($key as $k) {
 				if (!array_key_exists ($k, $this->data)) {
@@ -56,7 +55,7 @@ final class RequestData
 		return array_key_exists ($key, $this->data);
 	}
 
-	public function readInt ($key, &$value, $default = null) {
+	public function readInt ($key, &$value, $default = null) : bool {
 		$value = $default;
 		if (array_key_exists ($key, $this->data) && ($filtered = filter_var ($this->data [$key], FILTER_VALIDATE_INT)) !== false) {
 			$value = $filtered;
@@ -64,7 +63,7 @@ final class RequestData
 		} return false;
 	}
 
-	public function readBool ($key, &$value, $default = null) {
+	public function readBool ($key, &$value, $default = null) : bool {
 		$value = $default;
 		if (array_key_exists ($key, $this->data) && ($filtered = filter_var ($this->data [$key], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) !== null) {
 			$value = $filtered;
@@ -72,7 +71,7 @@ final class RequestData
 		} return false;
 	}
 
-	public function readString ($key, &$value, $default = null) {
+	public function readString ($key, &$value, $default = null) : bool {
 		$value = $default;
 		if (array_key_exists ($key, $this->data) && is_string ($this->data [$key])) {
 			$value = $this->data [$key];
@@ -80,7 +79,7 @@ final class RequestData
 		} return false;
 	}
 
-	public function readArray ($key, &$value, $default = []) {
+	public function readArray ($key, &$value, $default = []) : bool {
 		$value = $default;
 		if (array_key_exists ($key, $this->data) && is_array ($this->data [$key])) {
 			$value = $this->data [$key];
@@ -88,51 +87,51 @@ final class RequestData
 		} return false;
 	}
 
-	public function getInt ($key, $default = null) {
+	public function getInt ($key, $default = null) : ?int {
 		$this->readInt ($key, $val, $default);
 		return $val;
 	}
 
-	public function getBool ($key, $default = null) {
+	public function getBool ($key, $default = null) : ?bool {
 		$this->readBool ($key, $val, $default);
 		return $val;
 	}
 
-	public function getString ($key, $default = null) {
+	public function getString ($key, $default = null) : ?string {
 		$this->readString ($key, $val, $default);
 		return $val;
 	}
 
-	public function getArray ($key, $default = null) {
+	public function getArray ($key, $default = null) : ?array {
 		$this->readArray ($key, $val, $default);
 		return $val;
 	}
 
-	public function getIntArray (array $keys, $default = null) {
-		return $this->getTypedArray ($keys, $default, 'getInt');
+	public function getIntArray (array $keys) : ?array {
+		return $this->getTypedArray ($keys, 'getInt');
 	}
 
-	public function getBoolArray (array $keys, $default = null) {
-		return $this->getTypedArray ($keys, $default, 'getBool');
+	public function getBoolArray (array $keys) : ?array {
+		return $this->getTypedArray ($keys, 'getBool');
 	}
 
-	public function getStringArray (array $keys, $default = null) {
-		return $this->getTypedArray ($keys, $default, 'getString');
+	public function getStringArray (array $keys) : ?array {
+		return $this->getTypedArray ($keys, 'getString');
 	}
 
-	public function getArrayArray (array $keys, $default = null) {
-		return $this->getTypedArray ($keys, $default, 'getArray');
+	public function getArrayArray (array $keys) : ?array {
+		return $this->getTypedArray ($keys, 'getArray');
 	}
 
-	/*
+	/**
 		Returns an array with its keys set to provided ones.
 		Values are fetched from $data under same keys.
 		If no entry is found for a key, the value is set to default.
 	*/
-	private function getTypedArray (array $keys, $default, $method) {
+	private function getTypedArray (array $keys, string $method) : ?array {
 		$values = [];
-		foreach ($keys as $key) {
-			$values [$key] = $this->$method ($key, $default);
+		foreach ($keys as $key => $value) {
+			$values [$key] = $this->$method ($key, $value);
 		} return $values;
 	}
 }

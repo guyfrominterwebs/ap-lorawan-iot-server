@@ -17,8 +17,8 @@ final class Action_Data extends \Lora\BaseAction
 				// $manager = new \MongoDB\Driver\Manager ("mongodb://localhost:27017");
 				$query = new \MongoDB\Driver\Query ([]);
 				$cursor = $manager->executeQuery ('lorawan.data', $query); // $mongo contains the connection object to MongoDB
-				// $this->mess->addData ($cursor->toArray ());
-				\Lib::dump ($cursor->toArray ());
+				$this->mess->setData ($cursor->toArray ());
+				// \Lib::dump ($cursor->toArray ());
 			} catch (\Exception $e) {
 				var_dump ($e->getMessage ());
 				$this->mess->error ($e->getMessage ());

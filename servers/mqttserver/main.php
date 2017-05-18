@@ -194,6 +194,7 @@ class DataServer
 
 	private function parsePayload ($payload) {
 		$data = explode ('|', $payload);
+		$result = [];
 		foreach ($data as $key => $entry) {
 			if (empty ($entry)) {
 				unset ($data [$key]);
@@ -201,9 +202,9 @@ class DataServer
 			}
 			$type = substr ($entry, 0, 3);
 			$value = substr ($entry, 3);
-			$data [$key] = [ $type => floatval ($value) ];
+			$result [] = [ $type => floatval ($value) ];
 		}
-		return $data;
+		return $result;
 	}
 
 	private function MQTTConnect () : bool {

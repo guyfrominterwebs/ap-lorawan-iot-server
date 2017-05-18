@@ -13,43 +13,42 @@
 ;
 
 [system]
-debug					=true
+debug								=true
 
 [server]
-path_root				=.
-path_frameworks			=frameworks
-path_api				=server/api
-path_content			=server/content
-path_pages				=server/content
-enable_page_cache		=false
-path_page_cache			=server/content/page_cache/
-path_components			=server/content/components/
-ext_page				=page
-ext_component			=component
-autoload_exclude[]		=api
-autoload_exclude[]		=content
-autoload_exclude[]		=pages
-autoload_exclude[]		=config
-autoload_exclude[]		=public
+path_root							=.
+path_frameworks						=frameworks
+path_api							=server/api/
+path_pages							=server/content/views/
+enable_page_cache					=true
+path_page_cache						=server/cache/page_cache/
+path_components						=server/content/components/
+ext_page							=page
+ext_component						=component
+autoload_exclude[]					=api
+autoload_exclude[]					=content
+autoload_exclude[]					=pages
+autoload_exclude[]					=config
+autoload_exclude[]					=public
 
 ; Twig templating engine related settings.
 [twig]
-path_root				=server/content/
-path_cache				=server/content/cache/
-path_layouts			=server/content/layouts/
-path_templates			=server/content/templates/
-path_content			=server/content/content/
-path_macros				=server/content/macros/
-path_common				=server/content/common/
-path_components			=server/content/components/
-ext_twig				=twig
+path_root							=server/content/				; Possibly obselete.
+path_cache							=server/content/cache/
+path_filesystem[path_layouts]		=server/content/layouts/
+path_filesystem[path_templates]		=server/content/templates/
+path_filesystem[path_content]		=server/content/content/
+path_filesystem[path_macros]		=server/content/macros/
+path_filesystem[path_common]		=server/content/common/
+path_filesystem[path_components]	=server/content/components/
+ext_twig							=twig
 
 ; Client side configs
 [client]
-path_pages				=/lora/
-path_assets				=/lora/assets/
-path_styles				=/lora/assets/styles/
-path_ext				=/lora/assets/ext/
-path_images				=/lora/assets/imgs/
-path_scripts			=/lora/assets/scripts/
-path_ws_server			=localhost
+path_assets							=/lora/assets/
+path_paths[path_public_pages]		=/lora/
+path_paths[path_public_styles]		=/lora/assets/styles/
+path_paths[path_public_ext]			=/lora/assets/ext/
+path_paths[path_public_images]		=/lora/assets/imgs/
+path_paths[path_public_scripts]		=/lora/assets/scripts/
+path_ws_server						=localhost
