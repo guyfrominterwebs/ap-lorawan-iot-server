@@ -1,5 +1,7 @@
 <?php
 
+namespace Lora;
+
 /**
 	NOTE: Replace the contents of these functions with actual session management logic
 	in order to restrict system access.
@@ -7,8 +9,6 @@
 	Some changes to RequestHandler may be required in order to make these functions work 
 	in a fluid manner.
 */
-namespace Lora;
-
 /**
 	A function to contain login routine.
 */

@@ -20,7 +20,7 @@ final class RequestHandler
 
 	public function __construct (\Slim\Slim $slim) {
 		$this->slim			= $slim;
-		$this->method 		= convertMethod ($this->slim->request->getMethod ());
+		$this->method 		= '_'.strtolower ($this->slim->request->getMethod ()); ///< Convert HTTP method into a BaseAction method name.
 		$this->req 			= new \RequestData ($this->slim->request->params ());
 		$this->mess			= new Messenger ();
 		$this->root			= Config::path ('server', 'root');
@@ -43,7 +43,7 @@ final class RequestHandler
 	/**
 		Processes all API requests and returns responses as JSON.
 		\param $action An array containing the URI path sections.
-		\TODO Possibly add support to return XML responses.
+		\todo Possibly add support to return XML responses.
 	*/
 	public function handleApiRequest (array $action) : void {
 		$this->resolveCall ($action, Config::path ('server', 'api'), "Action", "Lora\Api");
@@ -52,10 +52,10 @@ final class RequestHandler
 	}
 
 	/**
-		\TODO Move page processing somewhere else.
 		Shared processing logic for both content and api requests.
 		\param $action An array containing the URL path section which is not used for routing.
 		\param $filePath Path to content and API directory.
+		\todo Move page processing somewhere else.
 	*/
 	private function resolveCall (array $action, string $filePath, string $fileType, string $namespace) : void {
 		# TODO: 400, 403, 404, 405, ...
@@ -69,7 +69,7 @@ final class RequestHandler
 			$excess = $action;
 			$this->notFound ($consumed, $path, $filePath);
 		}
-		if (buildClassName ($consumed, $class, $className, $fileType, $namespace) && loadFile ($path)) {
+		if ($this->buildClassName ($consumed, $class, $className, $fileType, $namespace) && $this->loadFile ($path)) {
 			if (class_exists ($class, false) && method_exists ($class, $this->method)) {
 				$action = new $class ($className, $this->mess);
 				if ($this->pm !== null && ($this->page = $this->pm->load ($action)) !== null) {
@@ -150,47 +150,37 @@ final class RequestHandler
 			}
 		}
 	}
-}
 
-/**
-	Takes the request URL path and uses that to locate the correct class name.
-	\param $action An array containing the URL path section which is not used for routing.
-	\param[out] $class A string where the full class name (namespace included) will be set.
-	\param[out] $plainName A string where only the class name (namespace excluded) will be set.
-	\param $prefix A prefix for the class name. Used to differ between content and api scripts. Possible values 
-		are content and action. These strings are formateted properly so case does not have to be accounted when 
-		passing them in.
-	\param $namespace Namespace of the script. Possible values are Lora\Content and Lora\Api. These are not changed 
-		in anyway so they have to be correctly formed when passed in.
-	\return A boolean value is returned telling whether or not a class name could be formed. True is returned if 
-		a class name could be created and false if not.
-*/
-function buildClassName (array $action, string &$class, string &$plainName, string $prefix, string $namespace) : bool {
-	foreach ($action as $part) {
-		if (!empty ($part) && preg_match ('/^[a-z\/]+$/i', $part) === 1) {
-			$class .= ucfirst ($part);
+	/**
+		Takes the request URL path and uses that to locate the correct class name.
+		\param $action An array containing the URL path section which is not used for routing.
+		\param[out] $class A string where the full class name (namespace included) will be set.
+		\param[out] $plainName A string where only the class name (namespace excluded) will be set.
+		\param $prefix A prefix for the class name. Used to differ between content and api scripts. Possible values 
+			are content and action. These strings are formateted properly so case does not have to be accounted when 
+			passing them in.
+		\param $namespace Namespace of the script. Possible values are Lora\Content and Lora\Api. These are not changed 
+			in anyway so they have to be correctly formed when passed in.
+		\return A boolean value is returned telling whether or not a class name could be formed. True is returned if 
+			a class name could be created and false if not.
+	*/
+	private function buildClassName (array $action, string &$class, string &$plainName, string $prefix, string $namespace) : bool {
+		foreach ($action as $part) {
+			if (!empty ($part) && preg_match ('/^[a-z\/]+$/i', $part) === 1) {
+				$class .= ucfirst ($part);
+			}
 		}
+		$plainName = $class;
+		$class = "${namespace}\\${prefix}_${class}";
+		return !empty ($class);
 	}
-	$plainName = $class;
-	$class = "${namespace}\\${prefix}_${class}";
-	return !empty ($class);
-}
 
-/**
-	Attempts to include a script from the given path.
-	\param $path A file path to a content or action script.
-	\return Returns true if the script exists and is succesfully included; false otherwise.
-*/
-function loadFile (string $path) : bool {
-	return file_exists ($path = realpath ($path)) && include $path;
-}
-
-/**
-	Takes in an HTTP -method and appends an underscore to it making it a method name 
-	for the requested action or content class.
-	\param $method An HTTP -methodof the request to be converted into a class method name.
-	\return Returns a converted HTTP method in lower case.
-*/
-function convertMethod (string $method) : string {
-	return strtolower ("_${method}");
+	/**
+		Attempts to include a script from the given path.
+		\param $path A file path to a content or action script.
+		\return Returns true if the script exists and is succesfully included; false otherwise.
+	*/
+	private function loadFile (string $path) : bool {
+		return file_exists ($path = realpath ($path)) && include $path;
+	}
 }

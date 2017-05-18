@@ -4,14 +4,21 @@
 	A DAO for mongo db.
 */
 
-class DAO
+abstract class DAO
 {
 
+	/**
+		\return Returns a boolean indiciation existence of a device. Null is returned is query failed.
+	*/
 	public static function deviceExist (string $device_id) : ?bool {
 		try {
-			$filter = [ '_id' => $device_id ];
 			$manager = \DBConnection::connection ('measurements');
-			$command = new \MongoDB\Driver\Command ([ 'count' => 'devices', 'query' => $filter ]);
+			$command = new \MongoDB\Driver\Command ([
+				'count' => 'devices',
+				'query' => [
+					'_id' => $device_id
+				]
+			]);
 			$cursor = $manager->executeCommand ('lorawan', $command);
 			return $cursor->toArray ()[0]->n === 1;
 		} catch (Exception $e) {

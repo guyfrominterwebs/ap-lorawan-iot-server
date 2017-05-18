@@ -1,5 +1,13 @@
 <?php
 
+/**
+	An enclosed singleton class accessible through static wrapper methods for managing 
+	active database connections. Keeps connections alive to reduce overhead which would 
+	otherwise occure if a new connection were to be opened for every query. Holds all 
+	database credentials and connection information.
+	\todo Move database access credentials to external file.
+*/
+
 final class DBConnection
 {
 	private const MONGO = 1;
@@ -7,7 +15,7 @@ final class DBConnection
 
 	private static $instance = null;
 
-	private $connections = [
+	private $connections = [ ///< $connections holds all available database credentials.
 				'measurements' => [
 					"type"			=> DBConnection::MONGO,
 					"host" 			=> "localhost",
@@ -31,10 +39,20 @@ final class DBConnection
 	private function __construct () {
 	}
 
+	/**
+		\return Returns a singleton instance of this class which is created upon first call to this method.
+	*/
 	private static function obj () {
 		return self::$instance ?? (self::$instance = new DBConnection ());
 	}
 
+	/**
+		Attempts to retrieve a database connection or create one if it has not been extablished yet.
+		\return Returns a database connection object which may vary from database to database.
+			For older and commonly used databases, <a href="http://php.net/manual/en/class.pdo.php">PDO</a> is used when ever possible.
+			For MongoDB, a <a href="http://php.net/manual/en/class.mongodb-driver-manager.php">\Mongp\Driver\Manager</a> is returned.
+			Null is returned if database credentials are not found or connection establishing fails.
+	*/
 	public static function connection (string $db) {
 		$obj = self::obj ();
 		if (isset ($obj->connections [$db])) {
@@ -46,6 +64,9 @@ final class DBConnection
 		if ($db ['connection'] !== null) {
 			return $db ['connection'];
 		}
+		/**
+			\todo Automatize database type fetching so that this switch statement does not require updating everytime a new database type is added.
+		*/
 		switch ($db ['type']) {
 			case DBConnection::MONGO:
 					return $this->mongoConnect ($db);
@@ -57,12 +78,18 @@ final class DBConnection
 		}
 	}
 
+	/**
+		Connect to a MongoDB -database.
+	*/
 	private function mongoConnect (&$db) {
 		// 'user' => isset ($db ['user']) ? $db ['user'] : '',
 		// 'pass' => isset ($db ['pass']) ? $db ['pass'] : '',
 		return $db ['connection'] = new \MongoDB\Driver\Manager ("mongodb://{$db ['host']}:{$db ['port']}");
 	}
 
+	/**
+		Connect to a MySQL -database.
+	*/
 	private function mysqlConnect (&$db) {
 		$pdo = null;
 		try {

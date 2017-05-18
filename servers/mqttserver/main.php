@@ -95,7 +95,7 @@ class DataServer
 		}
 		$msg = null;
 		$temp = [ 'device' => $data ['dev']['_id'], 'values' => $measurements ];
-		$data = InternalMSG::buildMsg (Command::DATA, $temp);
+		$data = InternalMSG::composeMsg (Command::DATA, $temp);
 		if (!$this->rt_client->send ($data)) {
 			if (!$this->rt_client->isConnected ()) {
 				$this->print ($this->rt_client->lastError ());

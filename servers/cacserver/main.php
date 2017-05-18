@@ -15,7 +15,7 @@ exit ();
 
 function resolveCommand ($command) {
 	switch ($command) {
-		case "terminate": return InternalMSG::buildMsg (Command::ACTION, 'terminate');
+		case "terminate": return InternalMSG::composeMsg (Command::ACTION, 'terminate');
 		case "temperature": return fakeTemperature ();
 		case "light": return fakeLight ();
 		case "many": return fakeMany ();
@@ -52,7 +52,7 @@ function fakeTemperature () {
 			[ "TMP" => 21 ]
 		]
 	];
-	return InternalMSG::buildMsg (Command::DATA, $data);
+	return InternalMSG::composeMsg (Command::DATA, $data);
 }
 
 function fakeLight () {
@@ -62,7 +62,7 @@ function fakeLight () {
 			[ "LT." => 1 ]
 		]
 	];
-	return InternalMSG::buildMsg (Command::DATA, $data);
+	return InternalMSG::composeMsg (Command::DATA, $data);
 }
 
 function fakeMany () {
@@ -73,7 +73,7 @@ function fakeMany () {
 			[ "LT." => 1 ]
 		]
 	];
-	return InternalMSG::buildMsg (Command::DATA, $data);
+	return InternalMSG::composeMsg (Command::DATA, $data);
 }
 
 function msg_print ($msg) {

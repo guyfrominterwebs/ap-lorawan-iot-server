@@ -1,5 +1,12 @@
 <?php
 
+/**
+	Namespace containing HTML related classes and functionality.
+	Mostly used together with Twig to create a powerful HTML 
+	generating pipeline which covers some of Twigs weaknesses by utilizing 
+	HTML tag classes which allow printing highly complex tags with ease 
+	withing Twig templates.
+*/
 namespace Html;
 
 /**
