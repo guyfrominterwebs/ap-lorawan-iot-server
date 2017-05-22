@@ -7,7 +7,8 @@ require 'server/climanager.php';
 
 use \Lora\Server\Command as Command;
 
-$command = readInput ();
+echo 'Input command: ';
+$command = trim (fgets (fopen ('php://stdin', 'r')));
 foreach (explode (' ', $command) as $c) {
 	broadcast (resolveCommand ($c));
 }
@@ -112,3 +113,4 @@ function msg_print ($msg) {
 	}
 }
 */
+ 

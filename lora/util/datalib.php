@@ -7,6 +7,14 @@
 final class DataLib
 {
 
+	public static function isJson (string $value) {
+		$json = json_decode ($value, true);
+		return json_last_error () === JSON_ERROR_NONE && is_array ($json);
+	}
+
+	public static function isHexString (string $val) {
+		return ctype_xdigit ($val);
+	}
 	/**
 		Sees if a variable is intance of certain class.
 		\param $object A mixed value to test.

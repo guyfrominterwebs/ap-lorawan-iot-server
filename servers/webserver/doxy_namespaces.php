@@ -7,6 +7,13 @@
 namespace Lora;
 
 /**
+	Namespace for the higher level components of this system which can not be 
+	deployed outside this system without heavy modifications. Such systems include 
+	the internal messaging subsystem, a
+*/
+namespace Lora\Server;
+
+/**
 	Namespace for hosting this systems web API and all related scripts.
 */
 namespace Lora\Api;
@@ -16,10 +23,3 @@ namespace Lora\Api;
 	This includes all web page creation and management scripts.
 */
 namespace Lora\Content;
-
-/**
-	Namespace for the higher level components of this system which can not be 
-	deployed outside this system without heavy modifications. Such systems include 
-	the internal messaging subsystem, a
-*/
-namespace Lora\Server;
