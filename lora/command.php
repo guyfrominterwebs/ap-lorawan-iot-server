@@ -20,7 +20,7 @@ abstract class Command
 	public static function isCommand ($value) {
 		static $consts = null;
 		if (!$consts) {
-			$consts = array_flip ((new ReflectionClass (__CLASS__))->getConstants ());
+			$consts = array_flip ((new \ReflectionClass (__CLASS__))->getConstants ());
 		}
 		return isset ($consts [$value]);
 	}

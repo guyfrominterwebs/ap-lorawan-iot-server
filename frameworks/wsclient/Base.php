@@ -232,7 +232,7 @@ class Base
 		} return $payload;
 	}
 
-	protected function disconnect () {
+	public function disconnect () {
 		if ($this->socket) {
 			socket_close ($this->socket);
 			$this->socket = null;

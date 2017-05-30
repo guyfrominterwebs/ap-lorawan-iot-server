@@ -1,0 +1,47 @@
+\hypertarget{class_d_a_o}{}\section{D\+AO Class Reference}
+\label{class_d_a_o}\index{D\+AO@{D\+AO}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_d_a_o_aad2161af4b52afb99e2a931538559823}{device\+Exist} (string \$device\+\_\+id)
+\item 
+\mbox{\Hypertarget{class_d_a_o_a7eac316fa6ef9a30e916a3fa56e717bf}\label{class_d_a_o_a7eac316fa6ef9a30e916a3fa56e717bf}} 
+static {\bfseries insert\+Measurement} (string \$device\+\_\+id, \$measurements)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_d_a_o_aad2161af4b52afb99e2a931538559823}\label{class_d_a_o_aad2161af4b52afb99e2a931538559823}} 
+\index{D\+AO@{D\+AO}!device\+Exist@{device\+Exist}}
+\index{device\+Exist@{device\+Exist}!D\+AO@{D\+AO}}
+\subsubsection{\texorpdfstring{device\+Exist()}{deviceExist()}}
+{\footnotesize\ttfamily static device\+Exist (\begin{DoxyParamCaption}\item[{string}]{\$device\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyReturn}{Returns}
+Returns a boolean indiciation existence of a device. Null is returned is query failed. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+13                                                            : ?\textcolor{keywordtype}{bool} \{
+14         \textcolor{keywordflow}{try} \{
+15             $manager = \hyperlink{class_d_b_connection_aeb96471cf6f9d9205d22e8b17c2277c3}{\(\backslash\)DBConnection::connection} (\textcolor{stringliteral}{'measurements'});
+16             $command = new \(\backslash\)MongoDB\(\backslash\)Driver\(\backslash\)Command ([
+17                 \textcolor{stringliteral}{'count'} => \textcolor{stringliteral}{'devices'},
+18                 \textcolor{stringliteral}{'query'} => [
+19                     \textcolor{stringliteral}{'\_id'} => $device\_id
+20                 ]
+21             ]);
+22             $cursor = $manager->executeCommand (\textcolor{stringliteral}{'lorawan'}, $command);
+23             \textcolor{keywordflow}{return} $cursor->toArray ()[0]->n === 1;
+24         \} \textcolor{keywordflow}{catch} (Exception $e) \{
+25         \}
+26         \textcolor{keywordflow}{return} null;
+27     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 0
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lora/dao.\+php\end{DoxyCompactItemize}

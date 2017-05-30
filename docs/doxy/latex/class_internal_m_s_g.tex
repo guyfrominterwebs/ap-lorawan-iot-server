@@ -1,0 +1,71 @@
+\hypertarget{class_internal_m_s_g}{}\section{Internal\+M\+SG Class Reference}
+\label{class_internal_m_s_g}\index{Internal\+M\+SG@{Internal\+M\+SG}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_internal_m_s_g_ae3b91a7baffc1bef8eaeb4a5bcca65f0}{compose\+Msg} (int \$command, array \$message)
+\item 
+static \hyperlink{class_internal_m_s_g_ab515acd10479df5ff64b2584a2f8fa9d}{decompose\+Msg} (string \$msg)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A messaging utility class used to unify and manage internal messaging within various server subsystems. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_internal_m_s_g_ae3b91a7baffc1bef8eaeb4a5bcca65f0}\label{class_internal_m_s_g_ae3b91a7baffc1bef8eaeb4a5bcca65f0}} 
+\index{Internal\+M\+SG@{Internal\+M\+SG}!compose\+Msg@{compose\+Msg}}
+\index{compose\+Msg@{compose\+Msg}!Internal\+M\+SG@{Internal\+M\+SG}}
+\subsubsection{\texorpdfstring{compose\+Msg()}{composeMsg()}}
+{\footnotesize\ttfamily static compose\+Msg (\begin{DoxyParamCaption}\item[{int}]{\$command,  }\item[{array}]{\$message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Composes an encoded message used for internal messaging within the server complex. 
+\begin{DoxyParams}{Parameters}
+{\em \$command} & One of the Command constants. \\
+\hline
+{\em \$message} & An array containing relevant data for this command. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a formatted message string. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+17                                                                      : \textcolor{keywordtype}{string} \{
+18         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"$command:"}.json\_encode ($message);
+19     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_internal_m_s_g_ab515acd10479df5ff64b2584a2f8fa9d}\label{class_internal_m_s_g_ab515acd10479df5ff64b2584a2f8fa9d}} 
+\index{Internal\+M\+SG@{Internal\+M\+SG}!decompose\+Msg@{decompose\+Msg}}
+\index{decompose\+Msg@{decompose\+Msg}!Internal\+M\+SG@{Internal\+M\+SG}}
+\subsubsection{\texorpdfstring{decompose\+Msg()}{decomposeMsg()}}
+{\footnotesize\ttfamily static decompose\+Msg (\begin{DoxyParamCaption}\item[{string}]{\$msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Decomposes an encoded message and decodes it into useable component. If the message cannot be decoded, an invalid message array is returned with Command\+::\+I\+N\+V\+A\+L\+ID in its 0 index and nothing in 1 index. 
+\begin{DoxyParams}{Parameters}
+{\em \$msg} & Message to decode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns an array containing the decoded message. 0 index holds the Command -\/value and 1 index the decoded message. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+28                                                       : array \{
+29         \textcolor{keywordflow}{if} (($pos = strpos ($message, \textcolor{charliteral}{':'})) === \textcolor{keyword}{false} || ($command = 
+      \hyperlink{class_data_lib_a60cb59e0d64619154c155046e6e4ca66}{DataLib::isInt} (substr ($message, 0, $pos))) === \textcolor{keyword}{false} || !Command::isCommand ($command)) \{
+30             \textcolor{keywordflow}{return} [ Command::INVALID ];
+31         \}
+32         \textcolor{keywordflow}{return} [
+33             $command,
+34             json\_decode (substr ($message, $pos + 1))
+35         ];
+36     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 0
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lora/internalmsg.\+php\end{DoxyCompactItemize}

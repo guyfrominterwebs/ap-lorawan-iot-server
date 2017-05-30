@@ -47,11 +47,11 @@ final class PageComponent
 			$temp->_template = $config ['template'];
 			$temp->populate ($config ['dependencies']);
 			$temp->populate ($config ['appearance']);
+		} else if (file_exists ($file = "$folder/$twig")) {
+			$this->_template = $file;
+			$this->_id = pathinfo ($component, PATHINFO_FILENAME);
 		} else {
-			if (file_exists ($file = "$folder/$twig")) {
-				$this->_template = $file;
-				$this->_id = pathinfo ($component, PATHINFO_FILENAME);
-			}
+			return null;
 		}
 		return $temp;
 	}

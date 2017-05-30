@@ -1,6 +1,5 @@
 *cache/
 *page_cache/
-*doxy/
 *.zip
 .vagrant/
 ttn.ini

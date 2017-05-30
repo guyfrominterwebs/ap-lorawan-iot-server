@@ -6,14 +6,16 @@
 	"views": {
 		"views": [{
 				"name": "device-list",
-				"default": true
+				"default": true,
+				"content": "device_list"
 			}, {
 				"name": "device-measurements",
 				"components": [
-					"graphs"
+					"graph"
 				]
 			}, {
-				"name": "latest-devices"
+				"name": "latest-devices",
+				"content": "latest_devices"
 		}],
 		"navigation": [{
 			"heading": "Devices",
@@ -28,6 +30,9 @@
 		"jquery"
 	],
 	"styles": [
+		"main"
+	],
+	"scripts": [
 		"main"
 	]
 }

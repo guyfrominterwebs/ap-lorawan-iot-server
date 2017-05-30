@@ -15,16 +15,16 @@
 ;	The servers may override these values using their own configuration files.
 
 [system]
-debug					=false
+debug						=false
 
 [server]
-path_root				=.
-hosted_servers			=../servers
-ws_port					=9000
-intern_port				=9001
-autoload_exclude[]		=git
-autoload_exclude[]		=vagrant
-autoload_exclude[]		=servers
-autoload_exclude[]		=config
-autoload_exclude[]		=docs
-autoload_exclude[]		=frameworks
+path_root					=.
+hosted_servers				=../servers
+port_public_ws				=9000
+port_internal_messaging		=9001
+autoload_exclude[]			=git
+autoload_exclude[]			=vagrant
+autoload_exclude[]			=servers
+autoload_exclude[]			=config
+autoload_exclude[]			=docs
+autoload_exclude[]			=frameworks

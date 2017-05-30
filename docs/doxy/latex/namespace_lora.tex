@@ -1,0 +1,128 @@
+\hypertarget{namespace_lora}{}\section{Lora Namespace Reference}
+\label{namespace_lora}\index{Lora@{Lora}}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_lora_1_1_api}{Api}
+\item 
+ \hyperlink{namespace_lora_1_1_content}{Content}
+\item 
+ \hyperlink{namespace_lora_1_1_server}{Server}
+\end{DoxyCompactItemize}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_lora_1_1_base_action}{Base\+Action}
+\item 
+class \hyperlink{class_lora_1_1_config}{Config}
+\item 
+class \hyperlink{class_lora_1_1_configuration}{Configuration}
+\item 
+class \hyperlink{class_lora_1_1_messenger}{Messenger}
+\item 
+class \hyperlink{class_lora_1_1_page}{Page}
+\item 
+class \hyperlink{class_lora_1_1_page_component}{Page\+Component}
+\item 
+class \hyperlink{class_lora_1_1_page_manager}{Page\+Manager}
+\item 
+class \hyperlink{class_lora_1_1_page_view}{Page\+View}
+\item 
+class \hyperlink{class_lora_1_1_request_handler}{Request\+Handler}
+\item 
+class \hyperlink{class_lora_1_1_response_crafter}{Response\+Crafter}
+\item 
+class \hyperlink{class_lora_1_1_user}{User}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespace_lora_a6334cdbb86812dbd18f093463e7c3023}{login} ()
+\item 
+\hyperlink{namespace_lora_a801b7854cd8f787f174a6b501bf517bb}{logout} ()
+\item 
+\hyperlink{namespace_lora_a538956ba5c1427dd64c41ea1cdc5bddb}{is\+Logged\+In} (\$session=null)
+\item 
+\hyperlink{namespace_lora_a94879a930ed3b8684851ff98e9220a27}{allow\+Access} ()
+\item 
+\hyperlink{namespace_lora_a881d230aaa8a5510d5c80f0ed1497129}{get\+User} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Main namespace for this system. Hosts all other namespaces and backbone scripts for hosted servers. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespace_lora_a94879a930ed3b8684851ff98e9220a27}\label{namespace_lora_a94879a930ed3b8684851ff98e9220a27}} 
+\index{Lora@{Lora}!allow\+Access@{allow\+Access}}
+\index{allow\+Access@{allow\+Access}!Lora@{Lora}}
+\subsubsection{\texorpdfstring{allow\+Access()}{allowAccess()}}
+{\footnotesize\ttfamily Lora\textbackslash{}allow\+Access (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A function to determine whether or not the user should be allowed to access requested content.  Should take user information as parameter. 
+\begin{DoxyCode}
+37                         \{
+38     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+39 \}
+\end{DoxyCode}
+\mbox{\Hypertarget{namespace_lora_a881d230aaa8a5510d5c80f0ed1497129}\label{namespace_lora_a881d230aaa8a5510d5c80f0ed1497129}} 
+\index{Lora@{Lora}!get\+User@{get\+User}}
+\index{get\+User@{get\+User}!Lora@{Lora}}
+\subsubsection{\texorpdfstring{get\+User()}{getUser()}}
+{\footnotesize\ttfamily Lora\textbackslash{}get\+User (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A function to return current user object performing the request. \begin{DoxyReturn}{Returns}
+An instance of user. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+45                     \{
+46     \textcolor{keywordflow}{return} User::Dummy ();
+47 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 0
+\mbox{\Hypertarget{namespace_lora_a538956ba5c1427dd64c41ea1cdc5bddb}\label{namespace_lora_a538956ba5c1427dd64c41ea1cdc5bddb}} 
+\index{Lora@{Lora}!is\+Logged\+In@{is\+Logged\+In}}
+\index{is\+Logged\+In@{is\+Logged\+In}!Lora@{Lora}}
+\subsubsection{\texorpdfstring{is\+Logged\+In()}{isLoggedIn()}}
+{\footnotesize\ttfamily Lora\textbackslash{}is\+Logged\+In (\begin{DoxyParamCaption}\item[{}]{\$session = {\ttfamily null} }\end{DoxyParamCaption})}
+
+A function for checking whether or not the user has an active session. 
+\begin{DoxyCode}
+28                                       \{ # Should take session information as parameter.
+29     \hyperlink{namespace_lora_a881d230aaa8a5510d5c80f0ed1497129}{getUser} ();
+30     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+31 \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 1
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{namespace_lora_a6334cdbb86812dbd18f093463e7c3023}\label{namespace_lora_a6334cdbb86812dbd18f093463e7c3023}} 
+\index{Lora@{Lora}!login@{login}}
+\index{login@{login}!Lora@{Lora}}
+\subsubsection{\texorpdfstring{login()}{login()}}
+{\footnotesize\ttfamily Lora\textbackslash{}login (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+N\+O\+TE\+: Replace the contents of these functions with actual session management logic in order to restrict system access.
+
+Some changes to \hyperlink{class_lora_1_1_request_handler}{Request\+Handler} may be required in order to make these functions work in a fluid manner. A function to contain login routine. 
+\begin{DoxyCode}
+15                   \{
+16     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+17 \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{namespace_lora_a801b7854cd8f787f174a6b501bf517bb}\label{namespace_lora_a801b7854cd8f787f174a6b501bf517bb}} 
+\index{Lora@{Lora}!logout@{logout}}
+\index{logout@{logout}!Lora@{Lora}}
+\subsubsection{\texorpdfstring{logout()}{logout()}}
+{\footnotesize\ttfamily Lora\textbackslash{}logout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A function to contain logout routine. 
+\begin{DoxyCode}
+22                    \{
+23 \}
+\end{DoxyCode}

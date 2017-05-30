@@ -1,0 +1,213 @@
+\hypertarget{class_html_1_1_link}{}\section{Link Class Reference}
+\label{class_html_1_1_link}\index{Link@{Link}}
+
+
+Inheritance diagram for Link\+:
+% FIG 0
+
+
+Collaboration diagram for Link\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_html_1_1_link_af17abe69a60a77b0891506c3bbc208ec}\label{class_html_1_1_link_af17abe69a60a77b0891506c3bbc208ec}} 
+{\bfseries \+\_\+\+\_\+construct} (string \$\hyperlink{class_html_1_1_link_ab7fdada65bce8f1069e5cbbbf532ca8f}{text}=\textquotesingle{}\textquotesingle{}, string \$ref=\textquotesingle{}\textquotesingle{}, array \$\hyperlink{class_html_1_1_link_a781949bb79e8bfc4148fcc40c6b9fb3b}{params}=\mbox{[}$\,$\mbox{]}, array \$\hyperlink{class_html_1_1_html_tag_a75ef0c456595eaa6a574c438803fb072}{attrs}=\mbox{[}$\,$\mbox{]}, array \$\hyperlink{class_html_1_1_link_af6ac36c4e10b38c61aa0b45fa736bfc4}{classes}=\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{class_html_1_1_link_a43374e600f552e0a9308ab96b1964aba}{print} ()
+\item 
+\hyperlink{class_html_1_1_link_acca9a5a3248aa2412373b1fe3a7e2a01}{href} (string \$ref=\textquotesingle{}\textquotesingle{})
+\item 
+\hyperlink{class_html_1_1_link_ab7fdada65bce8f1069e5cbbbf532ca8f}{text} (string \$text=\textquotesingle{}\textquotesingle{})
+\item 
+\hyperlink{class_html_1_1_link_a3a12152c8947fb47e6833a6e1164c730}{set\+Param} (string \$name, \$value)
+\item 
+\hyperlink{class_html_1_1_link_a781949bb79e8bfc4148fcc40c6b9fb3b}{params} (bool \$string=false)
+\item 
+\hyperlink{class_html_1_1_link_a45453935ed565c45623fb7b8b8c9810b}{add\+Class} (string \$class)
+\item 
+\hyperlink{class_html_1_1_link_af6ac36c4e10b38c61aa0b45fa736bfc4}{classes} (bool \$string=false)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_html_1_1_link_a8f8757e72f75875c4520aa66624dfae2}\label{class_html_1_1_link_a8f8757e72f75875c4520aa66624dfae2}} 
+{\bfseries \$refs} = \textquotesingle{}\textquotesingle{}
+\item 
+\mbox{\Hypertarget{class_html_1_1_link_afe68e6fbe7acfbffc0af0c84a1996466}\label{class_html_1_1_link_afe68e6fbe7acfbffc0af0c84a1996466}} 
+{\bfseries \$params} = \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_html_1_1_link_adf95f30eaafccead90ab5e2cdb55e9b9}\label{class_html_1_1_link_adf95f30eaafccead90ab5e2cdb55e9b9}} 
+{\bfseries \$text} = \textquotesingle{}\textquotesingle{}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+A class to represent an H\+T\+ML hyperlink. Makes creating and managing hyperlinks in twig easier by a magnitude. Can be used as an anchor tag aswell. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_html_1_1_link_a45453935ed565c45623fb7b8b8c9810b}\label{class_html_1_1_link_a45453935ed565c45623fb7b8b8c9810b}} 
+\index{Html\+::\+Link@{Html\+::\+Link}!add\+Class@{add\+Class}}
+\index{add\+Class@{add\+Class}!Html\+::\+Link@{Html\+::\+Link}}
+\subsubsection{\texorpdfstring{add\+Class()}{addClass()}}
+{\footnotesize\ttfamily add\+Class (\begin{DoxyParamCaption}\item[{string}]{\$class }\end{DoxyParamCaption})}
+
+Adds a new css class to this \hyperlink{class_html_1_1_html_tag}{Html\+Tag}. 
+\begin{DoxyParams}{Parameters}
+{\em \$class} & Name of the css class to be added. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns this \hyperlink{class_html_1_1_html_tag}{Html\+Tag}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+86                                              \{
+87         $this->\hyperlink{class_html_1_1_link_af6ac36c4e10b38c61aa0b45fa736bfc4}{classes} [] = $class;
+88         \textcolor{keywordflow}{return} $this;
+89     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_html_1_1_link_af6ac36c4e10b38c61aa0b45fa736bfc4}\label{class_html_1_1_link_af6ac36c4e10b38c61aa0b45fa736bfc4}} 
+\index{Html\+::\+Link@{Html\+::\+Link}!classes@{classes}}
+\index{classes@{classes}!Html\+::\+Link@{Html\+::\+Link}}
+\subsubsection{\texorpdfstring{classes()}{classes()}}
+{\footnotesize\ttfamily classes (\begin{DoxyParamCaption}\item[{bool}]{\$string = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Returns all classes this \hyperlink{class_html_1_1_html_tag}{Html\+Tag} has as a string or an array. 
+\begin{DoxyParams}{Parameters}
+{\em \$string} & A boolean value to determine the reutrn value of this method. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns an array of parameter values if \$string is false and a string presentation of them if it is true. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+96                                                    \{
+97         \textcolor{keywordflow}{return} $string ? \hyperlink{class_lib_a792f12586807e89f69e34b7392d6417d}{\(\backslash\)Lib::arrayToString} ($this->\hyperlink{class_html_1_1_link_af6ac36c4e10b38c61aa0b45fa736bfc4}{classes}, \textcolor{charliteral}{' '}) : $this->
+      \hyperlink{class_html_1_1_link_af6ac36c4e10b38c61aa0b45fa736bfc4}{classes};
+98     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_html_1_1_link_acca9a5a3248aa2412373b1fe3a7e2a01}\label{class_html_1_1_link_acca9a5a3248aa2412373b1fe3a7e2a01}} 
+\index{Html\+::\+Link@{Html\+::\+Link}!href@{href}}
+\index{href@{href}!Html\+::\+Link@{Html\+::\+Link}}
+\subsubsection{\texorpdfstring{href()}{href()}}
+{\footnotesize\ttfamily href (\begin{DoxyParamCaption}\item[{string}]{\$ref = {\ttfamily \textquotesingle{}\textquotesingle{}} }\end{DoxyParamCaption})}
+
+Set or get the target location of this \hyperlink{class_html_1_1_link}{Link}. If \$ref is empty, this method returns a fully constructed hyper reference string. 
+\begin{DoxyParams}{Parameters}
+{\em \$ref} & Target location or an anchor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns this \hyperlink{class_html_1_1_link}{Link} instance if \$ref is not empty and a string representation of the target if it is empty. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+39                                             \{
+40         \textcolor{keywordflow}{if} (empty ($ref)) \{
+41             $params = $this->\hyperlink{class_html_1_1_link_a781949bb79e8bfc4148fcc40c6b9fb3b}{params} (\textcolor{keyword}{true});
+42             return \(\backslash\)Lora\(\backslash\)Config::get (\textcolor{stringliteral}{'client'}, \textcolor{stringliteral}{'pages'}).\textcolor{stringliteral}{"\{$this->refs\}"}.(!empty ($params) ? \textcolor{stringliteral}{"?$\{params\}"} :
+       \textcolor{stringliteral}{''});
+43         \}
+44         $this->refs = $ref;
+45         \textcolor{keywordflow}{return} $this;
+46     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_html_1_1_link_a781949bb79e8bfc4148fcc40c6b9fb3b}\label{class_html_1_1_link_a781949bb79e8bfc4148fcc40c6b9fb3b}} 
+\index{Html\+::\+Link@{Html\+::\+Link}!params@{params}}
+\index{params@{params}!Html\+::\+Link@{Html\+::\+Link}}
+\subsubsection{\texorpdfstring{params()}{params()}}
+{\footnotesize\ttfamily params (\begin{DoxyParamCaption}\item[{bool}]{\$string = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Returns all the parameters this \hyperlink{class_html_1_1_link}{Link} has as a string or an array. 
+\begin{DoxyParams}{Parameters}
+{\em \$string} & A boolean value to determine the return value of this method. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns an array of parameter values if \$string is false and a string presentation of them if it is true. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+77                                                   \{
+78         \textcolor{keywordflow}{return} $string ? \hyperlink{class_lib_a792f12586807e89f69e34b7392d6417d}{\(\backslash\)Lib::arrayToString} ($this->\hyperlink{class_html_1_1_link_a781949bb79e8bfc4148fcc40c6b9fb3b}{params}, \textcolor{charliteral}{'&'}, \textcolor{keyword}{true}, \textcolor{charliteral}{'='}) : 
+      $this->\hyperlink{class_html_1_1_link_a781949bb79e8bfc4148fcc40c6b9fb3b}{params};
+79     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_html_1_1_link_a43374e600f552e0a9308ab96b1964aba}\label{class_html_1_1_link_a43374e600f552e0a9308ab96b1964aba}} 
+\index{Html\+::\+Link@{Html\+::\+Link}!print@{print}}
+\index{print@{print}!Html\+::\+Link@{Html\+::\+Link}}
+\subsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Print implementation for H\+T\+ML anchor tag. Overrides \hyperlink{class_html_1_1_html_tag_a43374e600f552e0a9308ab96b1964aba}{Html\+Tag\+::print}. \begin{DoxyReturn}{Returns}
+Returns a string representation of an H\+T\+ML link. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+30                              : \textcolor{keywordtype}{string} \{
+31         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"<\{$this->tag\} href=\(\backslash\)""}.$this->href ().\textcolor{stringliteral}{"\(\backslash\)" "}.$this->\hyperlink{class_html_1_1_html_tag_a75ef0c456595eaa6a574c438803fb072}{attrs} (\textcolor{keyword}{true}).\textcolor{stringliteral}{"
+      >\{$this->text\}</\{$this->tag\}>"};
+32     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_html_1_1_link_a3a12152c8947fb47e6833a6e1164c730}\label{class_html_1_1_link_a3a12152c8947fb47e6833a6e1164c730}} 
+\index{Html\+::\+Link@{Html\+::\+Link}!set\+Param@{set\+Param}}
+\index{set\+Param@{set\+Param}!Html\+::\+Link@{Html\+::\+Link}}
+\subsubsection{\texorpdfstring{set\+Param()}{setParam()}}
+{\footnotesize\ttfamily set\+Param (\begin{DoxyParamCaption}\item[{string}]{\$name,  }\item[{}]{\$value }\end{DoxyParamCaption})}
+
+Adds a new or overrides an existing hyper link parameter pair. 
+\begin{DoxyParams}{Parameters}
+{\em \$name} & Name of the paramter. \\
+\hline
+{\em \$value} & Value of the parameter. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns this \hyperlink{class_html_1_1_link}{Link} object. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+67                                                     : Link \{
+68         $this->\hyperlink{class_html_1_1_link_a781949bb79e8bfc4148fcc40c6b9fb3b}{params} [$name] = $value;
+69         \textcolor{keywordflow}{return} $this;
+70     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_html_1_1_link_ab7fdada65bce8f1069e5cbbbf532ca8f}\label{class_html_1_1_link_ab7fdada65bce8f1069e5cbbbf532ca8f}} 
+\index{Html\+::\+Link@{Html\+::\+Link}!text@{text}}
+\index{text@{text}!Html\+::\+Link@{Html\+::\+Link}}
+\subsubsection{\texorpdfstring{text()}{text()}}
+{\footnotesize\ttfamily text (\begin{DoxyParamCaption}\item[{string}]{\$text = {\ttfamily \textquotesingle{}\textquotesingle{}} }\end{DoxyParamCaption})}
+
+Sets or gets the inner text of this \hyperlink{class_html_1_1_link}{Link}. If \$text is empty, current Link\+::\$text is returned. If not, \$text replaces current Link\+::\$text. 
+\begin{DoxyParams}{Parameters}
+{\em \$text} & An optional new text for this \hyperlink{class_html_1_1_link}{Link}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns this \hyperlink{class_html_1_1_link}{Link} if \$text is not empty and Link\+::\$text if it is empty. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+53                                              \{
+54         \textcolor{keywordflow}{if} (empty ($text)) \{
+55             \textcolor{keywordflow}{return} $this->text;
+56         \}
+57         $this->\hyperlink{class_html_1_1_link_ab7fdada65bce8f1069e5cbbbf532ca8f}{text} = $text;;
+58         \textcolor{keywordflow}{return} $this;
+59     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+servers/webserver/server/util/link.\+php\end{DoxyCompactItemize}

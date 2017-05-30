@@ -10,6 +10,23 @@ abstract class DAO
 {
 
 	/**
+		Returns an array containing all devices found in the database.
+		\param $projection An optional projection parameter to define the fields which are fetched for each device
+		\return An array containing all the devices with fields defined by projection. An empty array is returned in case of an error.
+	*/
+	public static function fetchDevices (array $projection = []) {
+		$result = [];
+		try {
+			$manager = \DBConnection::connection ('measurements');
+			$query = new \MongoDB\Driver\Query ([], [ 'projection' => $projection ]);
+			$cursor = $manager->executeQuery ('lorawan.devices', $query);
+			$result = $cursor->toArray ();
+		} catch (\Exception $e) {
+		}
+		return $result;
+	}
+
+	/**
 		\return Returns a boolean indiciation existence of a device. Null is returned is query failed.
 	*/
 	public static function deviceExist (string $device_id) : ?bool {

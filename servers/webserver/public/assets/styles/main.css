@@ -18,7 +18,7 @@ html, body {
 	/* border: 2px solid #0000FF; */
 }
 #left-panel {
-	width: 250px;
+	width: 180px;
 	/* border: 2px solid #00FF00; */
 	background-color: #CCCCCC;
 }
@@ -38,8 +38,8 @@ html, body {
 }
 #logo {
 	float: left;
-	width: 200px;
-	height: 200px;
+	width: 150px;
+	height: 150px;
 	margin-left: 30px;
 }
 #logo img, #logo a {
@@ -52,7 +52,7 @@ html, body {
 }
 .navigation.top-nav {
 	float: left;
-	margin-top: 130px;
+	margin-top: 90px;
 	margin-left: 80px;
 }
 .panel-container {
@@ -110,4 +110,7 @@ html, body {
 }
 hr {
 	margin: 0px;
+}
+.icon-clickable:hover {
+	cursor: pointer;
 }

@@ -1,0 +1,91 @@
+\hypertarget{class_data_server}{}\section{Data\+Server Class Reference}
+\label{class_data_server}\index{Data\+Server@{Data\+Server}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_data_server_a922cf1a28bbdfbd049f6bcc8c57039c2}\label{class_data_server_a922cf1a28bbdfbd049f6bcc8c57039c2}} 
+{\bfseries start} (\$loop=true)
+\item 
+\mbox{\Hypertarget{class_data_server_acf279a7b53dd92327b68f3b3f376ee2f}\label{class_data_server_acf279a7b53dd92327b68f3b3f376ee2f}} 
+{\bfseries process} (string \$topic, string \$msg)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_data_server_a0deb004950b8dc4f51836316fd19c111}\label{class_data_server_a0deb004950b8dc4f51836316fd19c111}} 
+static {\bfseries instance} ()
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_data_server_a5946274cba635d6d4e49d93b66aa1964}\label{class_data_server_a5946274cba635d6d4e49d93b66aa1964}} 
+{\bfseries \$mqtt\+\_\+client} = null
+\item 
+\mbox{\Hypertarget{class_data_server_a95787ffe38852d43a64a75d95f5feb88}\label{class_data_server_a95787ffe38852d43a64a75d95f5feb88}} 
+{\bfseries \$confs} = null
+\item 
+\mbox{\Hypertarget{class_data_server_af213a81daaf386c089bb36f148cfbd96}\label{class_data_server_af213a81daaf386c089bb36f148cfbd96}} 
+{\bfseries \$rt\+\_\+client} = null
+\item 
+\mbox{\Hypertarget{class_data_server_a721b31e1995c24214da0e89eb5ec3100}\label{class_data_server_a721b31e1995c24214da0e89eb5ec3100}} 
+{\bfseries \$rt\+\_\+address} = \textquotesingle{}\textquotesingle{}
+\item 
+\mbox{\Hypertarget{class_data_server_aaf8416d215d1e9710dfe026490c998dc}\label{class_data_server_aaf8416d215d1e9710dfe026490c998dc}} 
+{\bfseries \$allow\+Print} = true
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_data_server_af0ea94183a6f28ecb568e13321d109e5}\label{class_data_server_af0ea94183a6f28ecb568e13321d109e5}} 
+{\bfseries broadcast} (\$data, \$measurements)
+\item 
+\mbox{\Hypertarget{class_data_server_aa22496921de05f8626d82a7530fcc517}\label{class_data_server_aa22496921de05f8626d82a7530fcc517}} 
+{\bfseries rt\+Connect} ()
+\item 
+\mbox{\Hypertarget{class_data_server_a52c0cb0c5e24744464bdd99e3a30918b}\label{class_data_server_a52c0cb0c5e24744464bdd99e3a30918b}} 
+{\bfseries parse\+Topic} (\$topic)
+\item 
+\mbox{\Hypertarget{class_data_server_a7d08a7d1b70ec3b36068ba0b90ce3789}\label{class_data_server_a7d08a7d1b70ec3b36068ba0b90ce3789}} 
+{\bfseries parse\+Activation} (\$data)
+\item 
+\mbox{\Hypertarget{class_data_server_a8f7697504c81243ae76becd645ed559a}\label{class_data_server_a8f7697504c81243ae76becd645ed559a}} 
+{\bfseries parse\+Data} (\$data)
+\item 
+\mbox{\Hypertarget{class_data_server_a3b04dccdc23ed2e26c9efaedb75020ba}\label{class_data_server_a3b04dccdc23ed2e26c9efaedb75020ba}} 
+{\bfseries parse\+Payload} (\$payload)
+\item 
+\mbox{\Hypertarget{class_data_server_af355edd34f94d0643a98664a966a9658}\label{class_data_server_af355edd34f94d0643a98664a966a9658}} 
+{\bfseries M\+Q\+T\+T\+Connect} ()
+\item 
+\mbox{\Hypertarget{class_data_server_a8688edf03a7619385a7d660246de94f5}\label{class_data_server_a8688edf03a7619385a7d660246de94f5}} 
+{\bfseries insert} (array \$data, \$measurements)
+\item 
+\mbox{\Hypertarget{class_data_server_a676c6bd5a07581c425e80bba5806d069}\label{class_data_server_a676c6bd5a07581c425e80bba5806d069}} 
+{\bfseries insert\+Device} (\$device)
+\item 
+\mbox{\Hypertarget{class_data_server_a99669650a90babec68e45269aaf62b8a}\label{class_data_server_a99669650a90babec68e45269aaf62b8a}} 
+{\bfseries insert\+Measurement} (\$data, \$measurements)
+\item 
+\mbox{\Hypertarget{class_data_server_adbc339abc8c1c7ba7397d1c26885adfa}\label{class_data_server_adbc339abc8c1c7ba7397d1c26885adfa}} 
+{\bfseries insert\+Raw} (\$data)
+\item 
+\mbox{\Hypertarget{class_data_server_ae86e92ed03b6395cfc4cb99e2371e14a}\label{class_data_server_ae86e92ed03b6395cfc4cb99e2371e14a}} 
+{\bfseries print} (\$msg, \$eol=true)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_data_server_a267c301782128be64c2372bdd47dd6e9}\label{class_data_server_a267c301782128be64c2372bdd47dd6e9}} 
+{\bfseries \$mongo} = null
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_data_server_ad9d7ce33ebb142b70e58b68052ca0ea8}\label{class_data_server_ad9d7ce33ebb142b70e58b68052ca0ea8}} 
+static {\bfseries \$instance}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+servers/mqttserver/main.\+php\end{DoxyCompactItemize}

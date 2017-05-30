@@ -1,0 +1,6 @@
+{% import 'generators.twig' as generators %}
+{% if _cntx.data.devices is iterable %}
+	{% for d in _cntx.data.devices %}
+		{{ generators.device_item (d, _cntx) }}
+	{% endfor %}
+{% endif %}

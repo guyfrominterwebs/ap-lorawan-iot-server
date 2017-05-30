@@ -1,0 +1,99 @@
+\hypertarget{class_data_lib}{}\section{Data\+Lib Class Reference}
+\label{class_data_lib}\index{Data\+Lib@{Data\+Lib}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_data_lib_a4ab5c189422f1366403e4375a42673d1}{Is\+Instance\+Of} (\$object, string \$class)
+\item 
+static \hyperlink{class_data_lib_a2bff9a99c41391c309a7618d522c8f16}{Are\+Instance\+Of} (array \$objects, string \$class)
+\item 
+static \hyperlink{class_data_lib_a60cb59e0d64619154c155046e6e4ca66}{is\+Int} (\$value)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A library for hosting data inspection, verification and sanitazition functions. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_data_lib_a2bff9a99c41391c309a7618d522c8f16}\label{class_data_lib_a2bff9a99c41391c309a7618d522c8f16}} 
+\index{Data\+Lib@{Data\+Lib}!Are\+Instance\+Of@{Are\+Instance\+Of}}
+\index{Are\+Instance\+Of@{Are\+Instance\+Of}!Data\+Lib@{Data\+Lib}}
+\subsubsection{\texorpdfstring{Are\+Instance\+Of()}{AreInstanceOf()}}
+{\footnotesize\ttfamily static Are\+Instance\+Of (\begin{DoxyParamCaption}\item[{array}]{\$objects,  }\item[{string}]{\$class }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Sees if all items in an array are instances of certain class. 
+\begin{DoxyParams}{Parameters}
+{\em \$objects} & An array of objects to test. \\
+\hline
+{\em \$class} & A class name to test each object against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if and only if all the items in \$objects are instances of \$class and there are more then 0 items in \$objects. False is returned otherwise. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+28                                                                          : \textcolor{keywordtype}{bool} \{
+29         \textcolor{keywordflow}{if} (!class\_exists ($class, \textcolor{keyword}{false})) \{
+30             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+31         \}
+32         \textcolor{keywordflow}{foreach} ($objects as $object) \{
+33             \textcolor{keywordflow}{if} (!($object instanceof $class)) \{
+34                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+35             \}
+36         \} \textcolor{keywordflow}{return} count ($objects) > 0;
+37     \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 0
+\mbox{\Hypertarget{class_data_lib_a4ab5c189422f1366403e4375a42673d1}\label{class_data_lib_a4ab5c189422f1366403e4375a42673d1}} 
+\index{Data\+Lib@{Data\+Lib}!Is\+Instance\+Of@{Is\+Instance\+Of}}
+\index{Is\+Instance\+Of@{Is\+Instance\+Of}!Data\+Lib@{Data\+Lib}}
+\subsubsection{\texorpdfstring{Is\+Instance\+Of()}{IsInstanceOf()}}
+{\footnotesize\ttfamily static Is\+Instance\+Of (\begin{DoxyParamCaption}\item[{}]{\$object,  }\item[{string}]{\$class }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Sees if a variable is intance of certain class. 
+\begin{DoxyParams}{Parameters}
+{\em \$object} & A mixed value to test. \\
+\hline
+{\em \$class} & A class name to test \$object against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns boolean true if \$object is instance of \$class and false if not. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+16                                                                  : \textcolor{keywordtype}{bool} \{
+17         \textcolor{keywordflow}{if} (!class\_exists ($class, \textcolor{keyword}{false})) \{
+18             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+19         \} \textcolor{keywordflow}{return} $object instanceof $class;
+20     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_data_lib_a60cb59e0d64619154c155046e6e4ca66}\label{class_data_lib_a60cb59e0d64619154c155046e6e4ca66}} 
+\index{Data\+Lib@{Data\+Lib}!is\+Int@{is\+Int}}
+\index{is\+Int@{is\+Int}!Data\+Lib@{Data\+Lib}}
+\subsubsection{\texorpdfstring{is\+Int()}{isInt()}}
+{\footnotesize\ttfamily static is\+Int (\begin{DoxyParamCaption}\item[{}]{\$value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+A wrapper function for filter\+\_\+var filtering integers. 
+\begin{DoxyParams}{Parameters}
+{\em \$value} & A value to test. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns filtered \$value as an integer if it can be converted and false if not. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+44                                           \{
+45         \textcolor{keywordflow}{return} filter\_var ($value, FILTER\_VALIDATE\_INT);
+46     \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 1
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lora/util/datalib.\+php\end{DoxyCompactItemize}

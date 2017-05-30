@@ -77,7 +77,7 @@
 
 {% macro device_item (device, _cntx) %}
 	<div>
-		<p><a href="{{ _cntx.public_pages }}device?id={{ device._id }}">{{ device._id }}</a></p>
+		<p><a href="{{ _cntx.public_pages }}device?id={{ device._id }}">{{ device._id ~ ' (' ~ device.dev_id ~ ')' }}</a></p>
 	</div>
 {% endmacro device_item %}
 

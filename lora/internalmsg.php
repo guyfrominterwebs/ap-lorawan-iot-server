@@ -15,6 +15,9 @@ class InternalMSG
 		\return Returns a formatted message string.
 	*/
 	public static function composeMsg (int $command, array $message) : string {
+		if (!Command::isCommand ($command)) {
+			return Command::INVALID;
+		}
 		return "$command:".json_encode ($message);
 	}
 
@@ -26,12 +29,24 @@ class InternalMSG
 		\return Returns an array containing the decoded message. 0 index holds the Command -value and 1 index the decoded message.
 	*/
 	public static function decomposeMsg (string $msg) : array {
-		if (($pos = strpos ($message, ':')) === false || ($command = DataLib::isInt (substr ($message, 0, $pos))) === false || !Command::isCommand ($command)) {
+		if (($pos = strpos ($msg, ':')) === false || ($command = DataLib::isInt (substr ($msg, 0, $pos))) === false || !Command::isCommand ($command)) {
 			return [ Command::INVALID ];
 		}
 		return [
 			$command,
-			json_decode (substr ($message, $pos + 1))
+			json_decode (substr ($msg, $pos + 1), true)
 		];
+	}
+
+	/**
+		Extracts and returns the message part of an internal message (Command is excluded).
+		\param $msg A message string in internal message format.
+		\return Returns the extracted section or an empty string on failure.
+	*/
+	public static function extractMsg (string $msg) : string {
+		if (($pos = strpos ($msg, ':')) === false || ($command = DataLib::isInt (substr ($msg, 0, $pos))) === false || !Command::isCommand ($command)) {
+			return '';
+		}
+		return substr ($msg, $pos + 1);
 	}
 }

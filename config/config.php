@@ -12,7 +12,8 @@ class Config
 {
 
 	const	PATH						= 'path_',	///< Path prefix which can be used in configuration files to allow them to be fetched through path method.
-			EXTENSION					= 'ext_';	///< Extension prefix which can be used in configuration files to allow them to be fetched through ext method.
+			EXTENSION					= 'ext_',	///< Extension prefix which can be used in configuration files to allow them to be fetched through ext method.
+			PORT						= 'port_';	///< Extension prefix which can be used in configuration files to allow them to be fetched through port method.
 
 	private static $instance			= null;
 
@@ -87,6 +88,7 @@ class Config
 		}
 		return $result;
 	}
+
 	/**
 		Allows extension searching.
 		\param $key An argument list which is used as keys to locate the value.
@@ -100,6 +102,19 @@ class Config
 				} break;
 			}
 		} return '';
+	}
+
+	/**
+		Allows port searching.
+		\param $key An argument list which is used as keys to locate the value.
+		\return Returns a port number as int if the port is found. -1 is returned is the port could not be found.
+	*/
+	public static function port (...$key) : int {
+		foreach (self::instance ()->configurations as $conf) {
+			if ($conf->has ($port, $key)) {
+				return $port;
+			}
+		} return -1;
 	}
 
 	/**
@@ -144,6 +159,7 @@ final class Configuration
 			$configs					= [],
 			$paths						= [],
 			$exts						= [],
+			$ports						= [],
 			$exclude					= [ 'frameworks' ]; ///< A blacklist of words which must not occure in a scripts path in order for it to become autolodable.
 
 	/**
@@ -185,7 +201,8 @@ final class Configuration
 		$prefix = null;
 		$prefixes = [
 			Config::PATH => &$this->paths,
-			Config::EXTENSION => &$this->exts
+			Config::EXTENSION => &$this->exts,
+			Config::PORT => &$this->ports
 		];
 		foreach ($prefixes as $pre => $col) {
 			if (strpos ($key, $pre) === 0) {

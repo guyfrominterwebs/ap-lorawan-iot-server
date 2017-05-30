@@ -1,0 +1,332 @@
+\hypertarget{class_lora_1_1_request_handler}{}\section{Request\+Handler Class Reference}
+\label{class_lora_1_1_request_handler}\index{Request\+Handler@{Request\+Handler}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_lora_1_1_request_handler_ae94f71807587d45d185150087e3c313d}{\+\_\+\+\_\+construct} (\textbackslash{}Slim\textbackslash{}\+Slim \$slim)
+\item 
+\hyperlink{class_lora_1_1_request_handler_a4412064a62ba010ac44ba67fae996ee9}{handle\+Content\+Request} (array \$action)
+\item 
+\hyperlink{class_lora_1_1_request_handler_af59b79c7f32e254704d9388105a67bee}{handle\+Api\+Request} (array \$action)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a63a7a283ea5dee8af1e2d5a3435bf370}\label{class_lora_1_1_request_handler_a63a7a283ea5dee8af1e2d5a3435bf370}} 
+{\bfseries \$req} = null
+\item 
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a7402b7f726abbbfe8793e75fafcd5e91}\label{class_lora_1_1_request_handler_a7402b7f726abbbfe8793e75fafcd5e91}} 
+{\bfseries \$mess} = null
+\item 
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a0a44e6760141442bb439b1ab1395d8ff}\label{class_lora_1_1_request_handler_a0a44e6760141442bb439b1ab1395d8ff}} 
+{\bfseries \$page} = null
+\item 
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a0002d5f2a35dc15ffc92761388fd9bb8}\label{class_lora_1_1_request_handler_a0002d5f2a35dc15ffc92761388fd9bb8}} 
+{\bfseries \$pm} = null
+\item 
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a12661b2fc0f57f97e30a1620889ce9c6}\label{class_lora_1_1_request_handler_a12661b2fc0f57f97e30a1620889ce9c6}} 
+{\bfseries \$method} = \textquotesingle{}\textquotesingle{}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_request_handler_ab37f7c32f41c3c61ed940887453767f4}\label{class_lora_1_1_request_handler_ab37f7c32f41c3c61ed940887453767f4}} 
+{\bfseries \$root} = \textquotesingle{}\textquotesingle{}
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_lora_1_1_request_handler_a6fc4ced934cdeb3ef1d5a207ffb2a1e1}{resolve\+Call} (array \$action, string \$file\+Path, string \$file\+Type, string \$namespace)
+\item 
+\hyperlink{class_lora_1_1_request_handler_ae7fce8bd5541f74398edeacf161f72b9}{not\+Found} (array \&\$consumed, string \&\$path, string \$folder)
+\item 
+\hyperlink{class_lora_1_1_request_handler_a9b2ad6505d2d31b163bc604a408b9d54}{action\+To\+Path} (array \$action, array \&\$consumed, array \&\$excess, string \&\$path, string \$folder)
+\item 
+\hyperlink{class_lora_1_1_request_handler_a68984a50c94ba368351f0d61c5c5b56f}{build\+Page} ()
+\item 
+\hyperlink{class_lora_1_1_request_handler_a21e3da9cd03587113aa6b667a85ec074}{default\+Visibility} ()
+\item 
+\hyperlink{class_lora_1_1_request_handler_a43dc00f2b210386e405dc0436baeb0d6}{build\+Class\+Name} (array \$action, string \&\$class, string \&\$plain\+Name, string \$prefix, string \$namespace)
+\item 
+\hyperlink{class_lora_1_1_request_handler_a682ba4d861fca3057999641c16da8475}{load\+File} (string \$path)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_request_handler_acfcdba42d947eb8c034b44898adda679}\label{class_lora_1_1_request_handler_acfcdba42d947eb8c034b44898adda679}} 
+{\bfseries \$slim} = null
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A class which processes every request coming to this web server. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_lora_1_1_request_handler_ae94f71807587d45d185150087e3c313d}\label{class_lora_1_1_request_handler_ae94f71807587d45d185150087e3c313d}} 
+\index{Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}!\+\_\+\+\_\+construct@{\+\_\+\+\_\+construct}}
+\index{\+\_\+\+\_\+construct@{\+\_\+\+\_\+construct}!Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{\textbackslash{}Slim\textbackslash{}\+Slim}]{\$slim }\end{DoxyParamCaption})}
+
+$<$ Convert H\+T\+TP method into a \hyperlink{class_lora_1_1_base_action}{Base\+Action} method name. 
+\begin{DoxyCode}
+21                                                    \{
+22         $this->slim         = $slim;
+23         $this->method       = \textcolor{charliteral}{'\_'}.strtolower ($this->slim->request->getMethod ()); 
+24         $this->req          = new \(\backslash\)RequestData ($this->slim->request->params ());
+25         $this->mess         = \textcolor{keyword}{new} Messenger ();
+26         $this->root         = \hyperlink{class_lora_1_1_config_aade770941642defa7b826ff3ad193b4a}{Config::path} (\textcolor{stringliteral}{'server'}, \textcolor{stringliteral}{'root'});
+27     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a9b2ad6505d2d31b163bc604a408b9d54}\label{class_lora_1_1_request_handler_a9b2ad6505d2d31b163bc604a408b9d54}} 
+\index{Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}!action\+To\+Path@{action\+To\+Path}}
+\index{action\+To\+Path@{action\+To\+Path}!Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}}
+\subsubsection{\texorpdfstring{action\+To\+Path()}{actionToPath()}}
+{\footnotesize\ttfamily action\+To\+Path (\begin{DoxyParamCaption}\item[{array}]{\$action,  }\item[{array \&}]{\$consumed,  }\item[{array \&}]{\$excess,  }\item[{string \&}]{\$path,  }\item[{string}]{\$folder }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Builds a script path from the U\+RI path section array. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em \$action} & U\+RI path section which is not used for routing. \\
+\hline
+\mbox{\tt out}  & {\em \$consumed} & An array containing the parts of the U\+RI which were used to construct the script path. \\
+\hline
+\mbox{\tt out}  & {\em \$excess} & An array containing the parts of the U\+RI which where not used to contruct the script path. \\
+\hline
+\mbox{\tt out}  & {\em \$path} & Script path will be set to this variable. Must not be used if this method returns false.  \$folder A\+PI or content directory path. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if the path was succesfully constructed and false if not. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+103                                                                                                            
+              : \textcolor{keywordtype}{bool} \{
+104         $file = \textcolor{stringliteral}{''};
+105         $max = ($count = count ($action)) < 6 ? $count : 6;
+106         $i = 0;
+107         \textcolor{keywordflow}{while} ($i++ < $max) \{
+108             \textcolor{keywordflow}{if} (!empty ($part = array\_splice ($action, 0, 1)[0]) && preg\_match (\textcolor{stringliteral}{'/^[a-z\(\backslash\)/]+$/i'}, $part) ===
+       1) \{
+109                 $file .= \textcolor{stringliteral}{"$\{part\}"};
+110                 \textcolor{keywordflow}{if} (file\_exists ($lastPath = \textcolor{stringliteral}{"$\{folder\}/$\{file\}/\{$file\}.php"})) \{
+111                     $consumed [] = $part;
+112                     $excess = $action;
+113                     $path = $lastPath;
+114                 \}
+115                 $file .= \textcolor{charliteral}{'\_'};
+116             \}
+117         \}
+118         \textcolor{keywordflow}{return} !empty ($path);
+119     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a43dc00f2b210386e405dc0436baeb0d6}\label{class_lora_1_1_request_handler_a43dc00f2b210386e405dc0436baeb0d6}} 
+\index{Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}!build\+Class\+Name@{build\+Class\+Name}}
+\index{build\+Class\+Name@{build\+Class\+Name}!Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}}
+\subsubsection{\texorpdfstring{build\+Class\+Name()}{buildClassName()}}
+{\footnotesize\ttfamily build\+Class\+Name (\begin{DoxyParamCaption}\item[{array}]{\$action,  }\item[{string \&}]{\$class,  }\item[{string \&}]{\$plain\+Name,  }\item[{string}]{\$prefix,  }\item[{string}]{\$namespace }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Takes the request U\+RL path and uses that to locate the correct class name. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em \$action} & An array containing the U\+RL path section which is not used for routing. \\
+\hline
+\mbox{\tt out}  & {\em \$class} & A string where the full class name (namespace included) will be set. \\
+\hline
+\mbox{\tt out}  & {\em \$plain\+Name} & A string where only the class name (namespace excluded) will be set. \\
+\hline
+ & {\em \$prefix} & A prefix for the class name. Used to differ between content and api scripts. Possible values are content and action. These strings are formateted properly so case does not have to be accounted when passing them in. \\
+\hline
+ & {\em \$namespace} & Namespace of the script. Possible values are \hyperlink{namespace_lora}{Lora} and \hyperlink{namespace_lora}{Lora}. These are not changed in anyway so they have to be correctly formed when passed in. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean value is returned telling whether or not a class name could be formed. True is returned if a class name could be created and false if not. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+167                                                                                                            
+                      : \textcolor{keywordtype}{bool} \{
+168         \textcolor{keywordflow}{foreach} ($action as $part) \{
+169             \textcolor{keywordflow}{if} (!empty ($part) && preg\_match (\textcolor{stringliteral}{'/^[a-z\(\backslash\)/]+$/i'}, $part) === 1) \{
+170                 $class .= ucfirst ($part);
+171             \}
+172         \}
+173         $plainName = $class;
+174         $class = \textcolor{stringliteral}{"$\{namespace\}\(\backslash\)\(\backslash\)$\{prefix\}\_$\{class\}"};
+175         \textcolor{keywordflow}{return} !empty ($class);
+176     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a68984a50c94ba368351f0d61c5c5b56f}\label{class_lora_1_1_request_handler_a68984a50c94ba368351f0d61c5c5b56f}} 
+\index{Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}!build\+Page@{build\+Page}}
+\index{build\+Page@{build\+Page}!Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}}
+\subsubsection{\texorpdfstring{build\+Page()}{buildPage()}}
+{\footnotesize\ttfamily build\+Page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Loads and configures the Twig framework to build H\+T\+ML documents which are sent to the browser. 
+\begin{DoxyCode}
+124                                   : \textcolor{keywordtype}{void} \{
+125         require \textcolor{stringliteral}{"\{$this->root\}/frameworks/Twig/Autoloader.php"};
+126         \(\backslash\)Twig\_Autoloader::register ();
+127         $paths              = \hyperlink{class_lora_1_1_config_a36845afbe5fedb71da890df0ada263f6}{Config::paths} (\textcolor{stringliteral}{'twig'}, \textcolor{stringliteral}{'filesystem'});
+128         $paths []           = $this->page->path ();
+129         $twigEnv            = \hyperlink{class_lora_1_1_config_a9f949bb49001886679ff026aba1c3a5a}{Config::get} (\textcolor{stringliteral}{'client'}, \textcolor{stringliteral}{'paths'});
+130         $twigEnv [\textcolor{stringliteral}{'page'}]   =  $this->page;
+131         $twigEnv [\textcolor{stringliteral}{'data'}]   = $this->mess->getData ();
+132         $loader             = new \(\backslash\)Twig\_Loader\_Filesystem ($paths);
+133         $twig               = new \(\backslash\)Twig\_Environment ($loader, [
+134             \textcolor{stringliteral}{'debug'} => debug (),
+135             \textcolor{stringliteral}{'cache'} => \hyperlink{class_lora_1_1_config_aade770941642defa7b826ff3ad193b4a}{Config::path} (\textcolor{stringliteral}{'twig'}, \textcolor{stringliteral}{'cache'})
+136         ]);
+137         $twig->addExtension (\textcolor{keyword}{new} \(\backslash\)Twig\_Extension\_Debug ());
+138         $template = $twig->loadTemplate ($this->page->content ());
+139         $template->display ($twigEnv);
+140     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a21e3da9cd03587113aa6b667a85ec074}\label{class_lora_1_1_request_handler_a21e3da9cd03587113aa6b667a85ec074}} 
+\index{Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}!default\+Visibility@{default\+Visibility}}
+\index{default\+Visibility@{default\+Visibility}!Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}}
+\subsubsection{\texorpdfstring{default\+Visibility()}{defaultVisibility()}}
+{\footnotesize\ttfamily default\+Visibility (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Sets the default subview of a page visible and all the other are hidden. 
+\begin{DoxyCode}
+145                                           : \textcolor{keywordtype}{void} \{
+146         \textcolor{keywordflow}{foreach} (array\_keys ($this->page->subViews ()) as $view) \{
+147             \textcolor{keywordflow}{if} ($this->req->has ($view)) \{
+148                 $this->page->showSingle ($view);
+149                 \textcolor{keywordflow}{return};
+150             \}
+151         \}
+152     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_request_handler_af59b79c7f32e254704d9388105a67bee}\label{class_lora_1_1_request_handler_af59b79c7f32e254704d9388105a67bee}} 
+\index{Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}!handle\+Api\+Request@{handle\+Api\+Request}}
+\index{handle\+Api\+Request@{handle\+Api\+Request}!Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}}
+\subsubsection{\texorpdfstring{handle\+Api\+Request()}{handleApiRequest()}}
+{\footnotesize\ttfamily handle\+Api\+Request (\begin{DoxyParamCaption}\item[{array}]{\$action }\end{DoxyParamCaption})}
+
+Processes all A\+PI requests and returns responses as J\+S\+ON. 
+\begin{DoxyParams}{Parameters}
+{\em \$action} & An array containing the U\+RI path sections. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000010}{Todo}]Possibly add support to return X\+ML responses. \end{DoxyRefDesc}
+
+\begin{DoxyCode}
+48                                                      : \textcolor{keywordtype}{void} \{
+49         $this->\hyperlink{class_lora_1_1_request_handler_a6fc4ced934cdeb3ef1d5a207ffb2a1e1}{resolveCall} ($action, \hyperlink{class_lora_1_1_config_aade770941642defa7b826ff3ad193b4a}{Config::path} (\textcolor{stringliteral}{'server'}, \textcolor{stringliteral}{'api'}), \textcolor{stringliteral}{"Action"}, \textcolor{stringliteral}{"Lora
+      \(\backslash\)Api"});
+50         $this->slim->response->header (\textcolor{stringliteral}{'Content-Type'}, \textcolor{stringliteral}{'application/json'});
+51         $this->slim->response->write (json\_encode ($this->mess->getData ()));
+52     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a4412064a62ba010ac44ba67fae996ee9}\label{class_lora_1_1_request_handler_a4412064a62ba010ac44ba67fae996ee9}} 
+\index{Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}!handle\+Content\+Request@{handle\+Content\+Request}}
+\index{handle\+Content\+Request@{handle\+Content\+Request}!Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}}
+\subsubsection{\texorpdfstring{handle\+Content\+Request()}{handleContentRequest()}}
+{\footnotesize\ttfamily handle\+Content\+Request (\begin{DoxyParamCaption}\item[{array}]{\$action }\end{DoxyParamCaption})}
+
+Processes all requests which would return an H\+T\+ML document. 
+\begin{DoxyParams}{Parameters}
+{\em \$action} & An array containing the U\+RI path sections. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+33                                                          : \textcolor{keywordtype}{void} \{
+34         require \textcolor{stringliteral}{"\{$this->root\}/server/login.php"};
+35         \textcolor{keywordflow}{if} (!\hyperlink{namespace_lora_a538956ba5c1427dd64c41ea1cdc5bddb}{isLoggedIn} () && !\hyperlink{namespace_lora_a6334cdbb86812dbd18f093463e7c3023}{login} ()) \{
+36             \textcolor{keywordflow}{return}; # Login failed.
+37         \}
+38         $this->pm = \textcolor{keyword}{new} PageManager ();
+39         $this->\hyperlink{class_lora_1_1_request_handler_a6fc4ced934cdeb3ef1d5a207ffb2a1e1}{resolveCall} ($action, \hyperlink{class_lora_1_1_config_aade770941642defa7b826ff3ad193b4a}{Config::path} (\textcolor{stringliteral}{'server'}, \textcolor{stringliteral}{'pages'}), \textcolor{stringliteral}{"Content"}, \textcolor{stringliteral}{"
+      Lora\(\backslash\)Content"});
+40         $this->\hyperlink{class_lora_1_1_request_handler_a68984a50c94ba368351f0d61c5c5b56f}{buildPage} ();
+41     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 0
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a682ba4d861fca3057999641c16da8475}\label{class_lora_1_1_request_handler_a682ba4d861fca3057999641c16da8475}} 
+\index{Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}!load\+File@{load\+File}}
+\index{load\+File@{load\+File}!Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}}
+\subsubsection{\texorpdfstring{load\+File()}{loadFile()}}
+{\footnotesize\ttfamily load\+File (\begin{DoxyParamCaption}\item[{string}]{\$path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Attempts to include a script from the given path. 
+\begin{DoxyParams}{Parameters}
+{\em \$path} & A file path to a content or action script. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if the script exists and is succesfully included; false otherwise. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+183                                              : \textcolor{keywordtype}{bool} \{
+184         \textcolor{keywordflow}{return} file\_exists ($path = realpath ($path)) && include $path;
+185     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_request_handler_ae7fce8bd5541f74398edeacf161f72b9}\label{class_lora_1_1_request_handler_ae7fce8bd5541f74398edeacf161f72b9}} 
+\index{Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}!not\+Found@{not\+Found}}
+\index{not\+Found@{not\+Found}!Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}}
+\subsubsection{\texorpdfstring{not\+Found()}{notFound()}}
+{\footnotesize\ttfamily not\+Found (\begin{DoxyParamCaption}\item[{array \&}]{\$consumed,  }\item[{string \&}]{\$path,  }\item[{string}]{\$folder }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+A dead simple 404 routine. Should be improved. 
+\begin{DoxyCode}
+88                                                                                 : \textcolor{keywordtype}{void} \{
+89         $file = \textcolor{stringliteral}{''};
+90         $consumed = [ \textcolor{stringliteral}{'home'} ];
+91         $path = \textcolor{stringliteral}{"$\{folder\}/home/home.php"};
+92     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_request_handler_a6fc4ced934cdeb3ef1d5a207ffb2a1e1}\label{class_lora_1_1_request_handler_a6fc4ced934cdeb3ef1d5a207ffb2a1e1}} 
+\index{Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}!resolve\+Call@{resolve\+Call}}
+\index{resolve\+Call@{resolve\+Call}!Lora\+::\+Request\+Handler@{Lora\+::\+Request\+Handler}}
+\subsubsection{\texorpdfstring{resolve\+Call()}{resolveCall()}}
+{\footnotesize\ttfamily resolve\+Call (\begin{DoxyParamCaption}\item[{array}]{\$action,  }\item[{string}]{\$file\+Path,  }\item[{string}]{\$file\+Type,  }\item[{string}]{\$namespace }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Shared processing logic for both content and api requests. 
+\begin{DoxyParams}{Parameters}
+{\em \$action} & An array containing the U\+RL path section which is not used for routing. \\
+\hline
+{\em \$file\+Path} & Path to content and A\+PI directory. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000011}{Todo}]Move page processing somewhere else. \end{DoxyRefDesc}
+
+\begin{DoxyCode}
+60                                                                                                         : \textcolor{keywordtype}{
+      void} \{
+61 \textcolor{preprocessor}{        # TODO: 400, 403, 404, 405, ...}
+62 \textcolor{preprocessor}{        # TODO: Separate page and action routines.}
+63         $path = \textcolor{stringliteral}{''};
+64         $class = \textcolor{stringliteral}{''};
+65         $className = \textcolor{stringliteral}{''};
+66         $consumed = [];
+67         $excess = [];
+68         \textcolor{keywordflow}{if} (!$this->\hyperlink{class_lora_1_1_request_handler_a9b2ad6505d2d31b163bc604a408b9d54}{actionToPath} ($action, $consumed, $excess, $path, $filePath)) \{
+69             $excess = $action;
+70             $this->\hyperlink{class_lora_1_1_request_handler_ae7fce8bd5541f74398edeacf161f72b9}{notFound} ($consumed, $path, $filePath);
+71         \}
+72         \textcolor{keywordflow}{if} ($this->\hyperlink{class_lora_1_1_request_handler_a43dc00f2b210386e405dc0436baeb0d6}{buildClassName} ($consumed, $class, $className, $fileType, $namespace) && 
+      $this->\hyperlink{class_lora_1_1_request_handler_a682ba4d861fca3057999641c16da8475}{loadFile} ($path)) \{
+73             \textcolor{keywordflow}{if} (class\_exists ($class, \textcolor{keyword}{false}) && method\_exists ($class, $this->method)) \{
+74                 $action = \textcolor{keyword}{new} $class ($className, $this->mess);
+75                 \textcolor{keywordflow}{if} ($this->pm !== null && ($this->page = $this->pm->load ($action)) !== null) \{
+76                     $this->page->finalize ();
+77                     $this->\hyperlink{class_lora_1_1_request_handler_a21e3da9cd03587113aa6b667a85ec074}{defaultVisibility} ();
+78                     $this->pm->cache ($this->page, $action->getId ());
+79                 \}
+80                 $action->run ($this->req, $this->method, $excess, $this->page);
+81             \}
+82         \}
+83     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+servers/webserver/server/requesthandler.\+php\end{DoxyCompactItemize}

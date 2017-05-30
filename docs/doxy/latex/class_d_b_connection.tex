@@ -1,0 +1,194 @@
+\hypertarget{class_d_b_connection}{}\section{D\+B\+Connection Class Reference}
+\label{class_d_b_connection}\index{D\+B\+Connection@{D\+B\+Connection}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_d_b_connection_aeb96471cf6f9d9205d22e8b17c2277c3}{connection} (string \$db)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries host}
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_d_b_connection_a1191ef26fe6381a3bfbd33c0c6f7b9f4}{connect} (array \&\$db)
+\item 
+\hyperlink{class_d_b_connection_a4db4ce6ff1cf378867220c6694b8bc05}{mongo\+Connect} (\&\$db)
+\item 
+\hyperlink{class_d_b_connection_ab7140b0e933334f00374b6675c60ffaf}{mysql\+Connect} (\&\$db)
+\end{DoxyCompactItemize}
+\subsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_d_b_connection_a2b99fe8f4ca4b64909ce7b499e71dfb6}{obj} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_d_b_connection_a33aae4c65470265fd7be44a7605d379c}\label{class_d_b_connection_a33aae4c65470265fd7be44a7605d379c}} 
+const {\bfseries M\+O\+N\+GO} = 1
+\item 
+\mbox{\Hypertarget{class_d_b_connection_ad5069a952f7f551b99564867ff5a24a9}\label{class_d_b_connection_ad5069a952f7f551b99564867ff5a24a9}} 
+const {\bfseries M\+Y\+S\+QL} = 2
+\item 
+\hyperlink{class_d_b_connection_a8d01870fbfcf9232c0e94c50a7142331}{\$connections}
+\begin{DoxyCompactList}\small\item\em \$connections holds all available database credentials. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_d_b_connection_ad9d7ce33ebb142b70e58b68052ca0ea8}\label{class_d_b_connection_ad9d7ce33ebb142b70e58b68052ca0ea8}} 
+static {\bfseries \$instance} = null
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An enclosed singleton class accessible through static wrapper methods for managing active database connections. Keeps connections alive to reduce overhead which would otherwise occure if a new connection were to be opened for every query. Holds all database credentials and connection information. \begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000002}{Todo}]Move database access credentials to external file. \end{DoxyRefDesc}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_d_b_connection_a1191ef26fe6381a3bfbd33c0c6f7b9f4}\label{class_d_b_connection_a1191ef26fe6381a3bfbd33c0c6f7b9f4}} 
+\index{D\+B\+Connection@{D\+B\+Connection}!connect@{connect}}
+\index{connect@{connect}!D\+B\+Connection@{D\+B\+Connection}}
+\subsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily connect (\begin{DoxyParamCaption}\item[{array \&}]{\$db }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000003}{Todo}]Automatize database type fetching so that this switch statement does not require updating everytime a new database type is added. \end{DoxyRefDesc}
+
+\begin{DoxyCode}
+63                                           \{
+64         \textcolor{keywordflow}{if} ($db [\textcolor{stringliteral}{'connection'}] !== null) \{
+65             \textcolor{keywordflow}{return} $db [\textcolor{stringliteral}{'connection'}];
+66         \}
+70         \textcolor{keywordflow}{switch} ($db [\textcolor{stringliteral}{'type'}]) \{
+71             \textcolor{keywordflow}{case} DBConnection::MONGO:
+72                     \textcolor{keywordflow}{return} $this->\hyperlink{class_d_b_connection_a4db4ce6ff1cf378867220c6694b8bc05}{mongoConnect} ($db);
+73                 \textcolor{keywordflow}{break};
+74             \textcolor{keywordflow}{case} DBConnection::MYSQL:
+75                     \textcolor{keywordflow}{return} $this->\hyperlink{class_d_b_connection_ab7140b0e933334f00374b6675c60ffaf}{mysqlConnect} ($db);
+76                 \textcolor{keywordflow}{break};
+77             \textcolor{keywordflow}{default}: \textcolor{keywordflow}{return} null;
+78         \}
+79     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 0
+\mbox{\Hypertarget{class_d_b_connection_aeb96471cf6f9d9205d22e8b17c2277c3}\label{class_d_b_connection_aeb96471cf6f9d9205d22e8b17c2277c3}} 
+\index{D\+B\+Connection@{D\+B\+Connection}!connection@{connection}}
+\index{connection@{connection}!D\+B\+Connection@{D\+B\+Connection}}
+\subsubsection{\texorpdfstring{connection()}{connection()}}
+{\footnotesize\ttfamily static connection (\begin{DoxyParamCaption}\item[{string}]{\$db }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Attempts to retrieve a database connection or create one if it has not been extablished yet. \begin{DoxyReturn}{Returns}
+Returns a database connection object which may vary from database to database. For older and commonly used databases, \href{http://php.net/manual/en/class.pdo.php}{\tt P\+DO} is used when ever possible. For Mongo\+DB, a \href{http://php.net/manual/en/class.mongodb-driver-manager.php}{\tt } is returned. Null is returned if database credentials are not found or connection establishing fails. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+56                                                    \{
+57         $obj = self::obj ();
+58         \textcolor{keywordflow}{if} (isset ($obj->connections [$db])) \{
+59             \textcolor{keywordflow}{return} $obj->connect ($obj->connections  [$db]);
+60         \} \textcolor{keywordflow}{return} null;
+61     \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{class_d_b_connection_a4db4ce6ff1cf378867220c6694b8bc05}\label{class_d_b_connection_a4db4ce6ff1cf378867220c6694b8bc05}} 
+\index{D\+B\+Connection@{D\+B\+Connection}!mongo\+Connect@{mongo\+Connect}}
+\index{mongo\+Connect@{mongo\+Connect}!D\+B\+Connection@{D\+B\+Connection}}
+\subsubsection{\texorpdfstring{mongo\+Connect()}{mongoConnect()}}
+{\footnotesize\ttfamily mongo\+Connect (\begin{DoxyParamCaption}\item[{\&}]{\$db }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Connect to a Mongo\+DB -\/database. 
+\begin{DoxyCode}
+84                                          \{
+85         \textcolor{comment}{// 'user' => isset ($db ['user']) ? $db ['user'] : '',}
+86         \textcolor{comment}{// 'pass' => isset ($db ['pass']) ? $db ['pass'] : '',}
+87         \textcolor{keywordflow}{return} $db [\textcolor{stringliteral}{'connection'}] = new \(\backslash\)MongoDB\(\backslash\)Driver\(\backslash\)Manager (\textcolor{stringliteral}{"mongodb://\{$db ['host']\}:\{$db ['port']\}"})
+      ;
+88     \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_d_b_connection_ab7140b0e933334f00374b6675c60ffaf}\label{class_d_b_connection_ab7140b0e933334f00374b6675c60ffaf}} 
+\index{D\+B\+Connection@{D\+B\+Connection}!mysql\+Connect@{mysql\+Connect}}
+\index{mysql\+Connect@{mysql\+Connect}!D\+B\+Connection@{D\+B\+Connection}}
+\subsubsection{\texorpdfstring{mysql\+Connect()}{mysqlConnect()}}
+{\footnotesize\ttfamily mysql\+Connect (\begin{DoxyParamCaption}\item[{\&}]{\$db }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Connect to a My\+S\+QL -\/database. 
+\begin{DoxyCode}
+93                                          \{
+94         $pdo = null;
+95         \textcolor{keywordflow}{try} \{
+96             $pdo = \textcolor{keyword}{new} PDO (\textcolor{stringliteral}{"mysql:host=\{$db ['host']\};dbname=\{$db ['database']\};port=\{$db ['port']\}"}, $db 
+      [\textcolor{stringliteral}{'user'}], $db [\textcolor{stringliteral}{'password'}]);
+97             $pdo->setAttribute (PDO::ATTR\_STRINGIFY\_FETCHES, \textcolor{keyword}{false});
+98             $pdo->setAttribute (PDO::ATTR\_EMULATE\_PREPARES, \textcolor{keyword}{false});
+99             $pdo->setAttribute (PDO::ATTR\_ERRMODE, PDO::ERRMODE\_EXCEPTION);
+100         \} \textcolor{keywordflow}{catch} (PDOException $e) \{
+101             \textcolor{comment}{// $pdo->errorCode () === '00000' => success}
+102             \textcolor{comment}{// echo 'Connection failed: ' . $e->getMessage();}
+103             $pdo = null;
+104         \} \textcolor{keywordflow}{return} $db [\textcolor{stringliteral}{'connection'}] = $pdo;
+105     \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_d_b_connection_a2b99fe8f4ca4b64909ce7b499e71dfb6}\label{class_d_b_connection_a2b99fe8f4ca4b64909ce7b499e71dfb6}} 
+\index{D\+B\+Connection@{D\+B\+Connection}!obj@{obj}}
+\index{obj@{obj}!D\+B\+Connection@{D\+B\+Connection}}
+\subsubsection{\texorpdfstring{obj()}{obj()}}
+{\footnotesize\ttfamily static obj (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+\begin{DoxyReturn}{Returns}
+Returns a singleton instance of this class which is created upon first call to this method. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+45                                    \{
+46         \textcolor{keywordflow}{return} self::$instance ?? (self::$instance = \textcolor{keyword}{new} \hyperlink{class_d_b_connection}{DBConnection} ());
+47     \}
+\end{DoxyCode}
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{class_d_b_connection_a8d01870fbfcf9232c0e94c50a7142331}\label{class_d_b_connection_a8d01870fbfcf9232c0e94c50a7142331}} 
+\index{D\+B\+Connection@{D\+B\+Connection}!\$connections@{\$connections}}
+\index{\$connections@{\$connections}!D\+B\+Connection@{D\+B\+Connection}}
+\subsubsection{\texorpdfstring{\$connections}{$connections}}
+{\footnotesize\ttfamily \$connections\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= [
+                \textcolor{stringliteral}{'measurements'} => [
+                    \textcolor{stringliteral}{"type"}          => DBConnection::MONGO
+\end{DoxyCode}
+
+
+\$connections holds all available database credentials. 
+
+\mbox{\Hypertarget{class_d_b_connection_a832ddc04754e8a43d4f3c6165b1294a7}\label{class_d_b_connection_a832ddc04754e8a43d4f3c6165b1294a7}} 
+\index{D\+B\+Connection@{D\+B\+Connection}!host@{host}}
+\index{host@{host}!D\+B\+Connection@{D\+B\+Connection}}
+\subsubsection{\texorpdfstring{host}{host}}
+{\footnotesize\ttfamily host}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=> \textcolor{stringliteral}{"localhost"},
+                    \textcolor{stringliteral}{"port"}          => \textcolor{stringliteral}{"27017"},
+                    \textcolor{stringliteral}{"connection"}    => null
+                ]
+                
+            ]
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lora/dbconnection.\+php\end{DoxyCompactItemize}
