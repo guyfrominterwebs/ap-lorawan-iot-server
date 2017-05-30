@@ -1,3 +1,4 @@
+'use strict';
 var initiators = initiators || [];
 
 // TODO:
@@ -6,7 +7,7 @@ var initiators = initiators || [];
 
 function RTSocket (_handler, _devices, _values) {
 
-	var asd 			= this,
+	var self 			= this,
 		socket 			= null,
 		closing 		= false,
 		handler			= _handler,
@@ -21,16 +22,16 @@ function RTSocket (_handler, _devices, _values) {
 		socket = new WebSocket ("ws://" + window.location.hostname + ":9000");
 		try {
 			socket.onopen = function () {
-				asd.onopen ();
+				self.onopen ();
 			};
 			socket.onmessage = function (event) {
-				asd.onmessage (event);
+				self.onmessage (event);
 			};
 			socket.onclose = function (event) {
-				asd.onclose (event);
+				self.onclose (event);
 			};
 			socket.onerror = function (error) {
-				asd.onerror (error);
+				self.onerror (error);
 			};
 		} catch (exception) {
 			console.error (exception);
@@ -62,17 +63,17 @@ function RTSocket (_handler, _devices, _values) {
 	};
 
 	this.fakeMsg = function (msg) {
-		asd.onmessage (msg);
+		self.onmessage (msg);
 	};
 
 	this.onopen = function () {
 		console.log ("Opened;" + socket.readyState);
-		asd.subscribe (handler, devices, values);
+		self.subscribe (handler, devices, values);
 	}
 
 	this.onmessage = function (event) {
 		console.log (event.data);
-		var temp = handler || asd.getHandler ();
+		var temp = handler || self.getHandler ();
 		if (temp) {
 			temp (event.data);
 		}
@@ -81,7 +82,7 @@ function RTSocket (_handler, _devices, _values) {
 	this.onclose = function (event) {
 		if (!closing) {
 			setTimeout (function () {
-				asd.connect ();
+				self.connect ();
 			}, 10000);
 		}
 		socket.onclose = function () {};

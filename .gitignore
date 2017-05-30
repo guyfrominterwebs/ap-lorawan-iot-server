@@ -1,5 +1,5 @@
-servers/webserver/server/content/cache/
-servers/webserver/server/content/page_cache/
+*cache/
+*page_cache/
 *.zip
 .vagrant/
 ttn.ini

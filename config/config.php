@@ -12,7 +12,8 @@ class Config
 {
 
 	const	PATH						= 'path_',	///< Path prefix which can be used in configuration files to allow them to be fetched through path method.
-			EXTENSION					= 'ext_';	///< Extension prefix which can be used in configuration files to allow them to be fetched through ext method.
+			EXTENSION					= 'ext_',	///< Extension prefix which can be used in configuration files to allow them to be fetched through ext method.
+			PORT						= 'port_';	///< Extension prefix which can be used in configuration files to allow them to be fetched through port method.
 
 	private static $instance			= null;
 
@@ -49,20 +50,71 @@ class Config
 		} return null;
 	}
 
-	public static function path (...$key) {
+	/**
+		Allows path searching.
+		\param $key An argument list which is used as keys to locate the value. 
+		\return 
+			If path is found, it is passed to realpath to make it into an absolute path. 
+			If path is not found or it cannot be resolved into an absolute path, an empty 
+			string is returned.
+	*/
+	public static function path (...$key) : string {
 		foreach (self::instance ()->configurations as $conf) {
-			if ($conf->has ($path, $key) && is_string ($path)) {
-				return realpath ($path);
+			if ($conf->has ($path, $key)) {
+				if (is_string ($path) && ($path = realpath ($path)) !== false) {
+					return $path;
+				} break;
 			}
 		} return '';
 	}
 
-	public static function ext (...$key) {
+	/**
+		Attempts to fetch an array of paths.
+		\param $key An argument list which is used as keys to locate the value. 
+		\repturn Returns an array of absolute file paths for those values which can be converted.
+	*/
+	public static function paths (...$key) : array {
+		$result = [];
 		foreach (self::instance ()->configurations as $conf) {
-			if ($conf->has ($ext, $key) && is_string ($ext)) {
-				return $ext;
+			if ($conf->has ($paths, $key)) {
+				if (is_array ($paths)) {
+					foreach ($paths as $path) {
+						if (($path = realpath ($path)) !== false) {
+							$result [] = $path;
+						}
+					}
+				}
+			}
+		}
+		return $result;
+	}
+
+	/**
+		Allows extension searching.
+		\param $key An argument list which is used as keys to locate the value.
+		\return Returns an extension string if the extension is found and it is a string. An empty string is returned is the extension could not be found.
+	*/
+	public static function ext (...$key) : string {
+		foreach (self::instance ()->configurations as $conf) {
+			if ($conf->has ($ext, $key)) {
+				if (is_string ($ext)) {
+					return $ext;
+				} break;
 			}
 		} return '';
+	}
+
+	/**
+		Allows port searching.
+		\param $key An argument list which is used as keys to locate the value.
+		\return Returns a port number as int if the port is found. -1 is returned is the port could not be found.
+	*/
+	public static function port (...$key) : int {
+		foreach (self::instance ()->configurations as $conf) {
+			if ($conf->has ($port, $key)) {
+				return $port;
+			}
+		} return -1;
 	}
 
 	/**
@@ -96,6 +148,8 @@ class Config
 	A class representing configuration set. Provides all parser functions for processing configurations arrays 
 	and some utility functions to access them. Normally there is no need to access this class manually due to 
 	Config being an abstraction layer for this class.
+
+	\todo Start using $paths and $exts.
 */
 final class Configuration
 {
@@ -105,52 +159,88 @@ final class Configuration
 			$configs					= [],
 			$paths						= [],
 			$exts						= [],
+			$ports						= [],
 			$exclude					= [ 'frameworks' ]; ///< A blacklist of words which must not occure in a scripts path in order for it to become autolodable.
 
+	/**
+		Configuration set constructor. Takes care of configuration parsing.
+	*/
 	public function __construct (array $configs) {
-		foreach ($configs as $section => $conf) {
-			if (is_array ($conf)) {
-				foreach ($conf as $key => $c) {
-					$this->parse ($section, $c, $key);
-				}
-			} else {
-				$this->parse ($section, $conf);
-			}
-		}
+		$this->configs = $this->processConfigs ($configs, []);
 	}
 
 	/**
-		
+		\TODO Change this into a stack based routine instead of recursive.
+		A recursive method which goes through the configuration set and converts all the keys in the process.
+		\param $config An array containing configuration values.
+		\param $keyChain An array of key values to locate correct array when converting prefixes.
 	*/
-	private function parse ($section, $val, $key = false) {
-		if (!$key) {
-			$this->configs [$section][] = $val;
-			return;
+	private function processConfigs (array $config, array $keyChain) : array {
+		$result = [];
+		foreach ($config as $key => $value) {
+			if (is_array ($value)) {
+				$keyChain [] = $key;
+				$value = $this->processConfigs ($value, $keyChain);
+				array_pop ($keyChain);
+			}
+			if (is_string ($key)) {
+				$key = $this->parse ($keyChain, $key, $value);
+			}
+			$result [$key] = $value;
 		}
+		return $result;
+	}
+	/**
+		Parses the configuration set and takes care of prefix processing.
+		\param $keyChain An array of key values to locate correct array in typed collections.
+		\param $key Name/key of the configuration value.
+		\param $value A single configuration value.
+	*/
+	private function parse (array $keyChain, $key, $value) {
 		$len = 0;
-		$collection = null;
-		if (($i = strpos ($key, Config::PATH)) !== false && $i === 0) {
-			$len = strlen (Config::PATH);
-			$collection = &$this->paths;
-		} else if (($i = strpos ($key, Config::EXTENSION)) !== false && $i === 0) {
-			$len = strlen (Config::EXTENSION);
-			$collection = &$this->exts;
+		$prefix = null;
+		$prefixes = [
+			Config::PATH => &$this->paths,
+			Config::EXTENSION => &$this->exts,
+			Config::PORT => &$this->ports
+		];
+		foreach ($prefixes as $pre => $col) {
+			if (strpos ($key, $pre) === 0) {
+				$len = strlen ($pre);
+				$prefix = $pre;
+				break;
+			}
 		}
 		$key = substr ($key, $len);
-		$this->configs [$section][$key] = $val;
-		if ($collection !== null) {
-			$collection [$section][$key] = $val;
+		if ($prefix !== null) {
+			$target =& $prefixes [$prefix];
+			foreach ($keyChain as $k) {
+				if (!isset ($target [$k])) {
+					$target [$k] = [];
+				}
+				$target =& $target [$k];
+			}
+			$target [$key] = $value;
 		}
+		return $key;
 	}
 
-	public function includeScript (string $class) {
+	/**
+		Checks ifa script  with given name exists in systeFiles collection and includes it if it does.
+		\return Returns true if script was found and included; false otherwise.
+	*/
+	public function includeScript (string $class) : bool {
 		if (isset ($this->systemFiles [$class]) && file_exists ($this->systemFiles [$class])) {
 			require_once $this->systemFiles [$class];
 			return true;
 		} return false;
 	}
 
-	public function setupAutoloader () {
+	/**
+		Compiles blacklist for unallowed directory paths and initiates direcotry scanning.
+		All script files found by the scan are then added to $systemFiles.
+	*/
+	public function setupAutoloader () : void {
 		if ($this->has ($exclude, [ 'server', 'autoload_exclude' ]) && is_array ($exclude)) {
 			$this->exclude = array_unique (array_merge ($this->exclude, $exclude));
 		}
@@ -170,6 +260,13 @@ final class Configuration
 		}
 	}
 
+	/**
+		Scans through the directories and checks all found files if they are PHP scripts based on extension.
+		\param $path Starting folder for the scan.
+		\param $fileReg Regular expressions to detect a php file name/path
+		\param $pathReg Regular expressio to check the path against blacklisted path parts.
+		\return Returns an array of full file paths to PHP scripts.
+	*/
 	private function findFiles (string $path, string $fileReg, string $pathReg) : array {
 		$stack = [ $path ];
 		$files = [];
@@ -183,17 +280,25 @@ final class Configuration
 					$temp = $path.$file;
 					if (is_dir ($temp)) {
 						$stack [] = $temp;
-					} else if (preg_match ($fileReg, $temp) === 1) {
+					// } else if (preg_match ($fileReg, $temp) === 1) {
+					} else if (substr ($temp, -3) === "php") {
 						$files [] = $temp;
 					}
 				}
 				closedir ($dh);
-			} else if (preg_match ($fileReg, $path) === 1) {
+			// } else if (preg_match ($fileReg, $path) === 1) {
+			} else if (substr ($path, -3) === "php") {
 				$files [] = $path;
 			}
 		} return $files;
 	}
 
+	/**
+		A method to determine whether or not a ceraint value exist within this configuration set.
+		\params[out] $value If value exist it will be set to this variable.
+		\params $key An array containing a key to the configuration value.
+		\return Returns a boolean true if value exists within this collection and false if not.
+	*/
 	public function has (&$value, array $key) : bool {
 		$temp = $this->configs;
 		foreach ($key as $k) {
@@ -205,10 +310,16 @@ final class Configuration
 		return true;
 	}
 
+	/**
+		A more primitive method when compared to Configuration::has for fetching configuration values from this set.
+		\param $key An argument collection which is used as keys to locate a configuration value.
+		\return Returns the value behind $key if it is found; otherwise NULL is returned.
+	*/
 	public function find (...$key) {
 		$temp = $this->configs;
 		foreach ($key as $k) {
 			if (!isset ($temp [$k])) {
+				$temp = null;
 				break;
 			}
 			$temp = $temp [$k];

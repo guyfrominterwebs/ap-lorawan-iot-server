@@ -1,0 +1,109 @@
+\hypertarget{class_lib}{}\section{Lib Class Reference}
+\label{class_lib}\index{Lib@{Lib}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_lib_a792f12586807e89f69e34b7392d6417d}{array\+To\+String} (array \$data, string \$delim, bool \$keyed=false, string \$glue=\textquotesingle{}\textquotesingle{})
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_lib_a29c2b6b4cde743c320b8a9e30056a6dd}{dump} (\$val, bool \$return=false)
+\item 
+static \hyperlink{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}{check\+Extension} (string \$file\+Name, string \$extension)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A class to contain more or less universal library functions which can be used in any project. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_lib_a792f12586807e89f69e34b7392d6417d}\label{class_lib_a792f12586807e89f69e34b7392d6417d}} 
+\index{Lib@{Lib}!array\+To\+String@{array\+To\+String}}
+\index{array\+To\+String@{array\+To\+String}!Lib@{Lib}}
+\subsubsection{\texorpdfstring{array\+To\+String()}{arrayToString()}}
+{\footnotesize\ttfamily array\+To\+String (\begin{DoxyParamCaption}\item[{array}]{\$data,  }\item[{string}]{\$delim,  }\item[{bool}]{\$keyed = {\ttfamily false},  }\item[{string}]{\$glue = {\ttfamily \textquotesingle{}\textquotesingle{}} }\end{DoxyParamCaption})}
+
+Builds a string from an array of data. Only works with one dimensional arrays and scalar types. 
+\begin{DoxyParams}{Parameters}
+{\em \$data} & An array of data to be concatenated into a string. \\
+\hline
+{\em \$delim} & Delimiter string added between values. \\
+\hline
+{\em \$keyed} & A boolean value to dictate if array keys should be included in the final string. \\
+\hline
+{\em \$glue} & A string to be added between key and value pairs. Used only if keyed is true. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+35                                                                                                        \{
+36         $string = \textcolor{stringliteral}{''};
+37         \textcolor{keywordflow}{if} ($keyed) \{
+38             \textcolor{keywordflow}{foreach} ($data as $key => $value) \{
+39                 \textcolor{keywordflow}{if} (empty ($value)) \{
+40                     $string .= $key.$delim;
+41                 \} \textcolor{keywordflow}{else} \{
+42                     $string .= $key.$glue.$value.$delim;
+43                 \}
+44             \}
+45         \} \textcolor{keywordflow}{else} \{
+46             \textcolor{keywordflow}{foreach} ($data as $value) \{
+47                 $string .= $value.$delim;
+48             \}
+49         \} \textcolor{keywordflow}{return} substr ($string, 0, -strlen ($delim));
+50     \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 0
+\mbox{\Hypertarget{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}\label{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}} 
+\index{Lib@{Lib}!check\+Extension@{check\+Extension}}
+\index{check\+Extension@{check\+Extension}!Lib@{Lib}}
+\subsubsection{\texorpdfstring{check\+Extension()}{checkExtension()}}
+{\footnotesize\ttfamily static check\+Extension (\begin{DoxyParamCaption}\item[{string}]{\$file\+Name,  }\item[{string}]{\$extension }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+A function to check if a file name has given extension in it and adds one if it is not found. 
+\begin{DoxyParams}{Parameters}
+{\em \$file} & A file name to be checked for extension. \\
+\hline
+{\em \$extension} & An extension to check against and to add if not found. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+57                                                                                 : \textcolor{keywordtype}{string} \{
+58         \textcolor{keywordflow}{if} (!empty ($fileName) && empty (pathinfo ($fileName, PATHINFO\_EXTENSION))) \{
+59             \textcolor{keywordflow}{return} \textcolor{stringliteral}{"\{$fileName\}.\{$extension\}"};;
+60         \} \textcolor{keywordflow}{return} $fileName;
+61     \}
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{class_lib_a29c2b6b4cde743c320b8a9e30056a6dd}\label{class_lib_a29c2b6b4cde743c320b8a9e30056a6dd}} 
+\index{Lib@{Lib}!dump@{dump}}
+\index{dump@{dump}!Lib@{Lib}}
+\subsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily static dump (\begin{DoxyParamCaption}\item[{}]{\$val,  }\item[{bool}]{\$return = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Pretty prints the given value as H\+T\+ML, wrapped in pre -\/tags. Optionally, returns the pretty printed data instead of appending to the out buffer with echo. 
+\begin{DoxyParams}{Parameters}
+{\em \$val} & Value to be printed. \\
+\hline
+{\em \$return} & An optional boolean value defaulting to false to choose if the pretty printed value should be returned. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+20                                                              \{
+21         $val = \textcolor{stringliteral}{'<pre>'}.print\_r ($val, \textcolor{keyword}{true}).\textcolor{stringliteral}{'</pre>'};
+22         \textcolor{keywordflow}{if} ($return) \{
+23             \textcolor{keywordflow}{return} $val;
+24         \}
+25         echo $val;
+26     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lora/util/lib.\+php\end{DoxyCompactItemize}

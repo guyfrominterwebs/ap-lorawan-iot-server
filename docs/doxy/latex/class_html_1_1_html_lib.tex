@@ -1,0 +1,30 @@
+\hypertarget{class_html_1_1_html_lib}{}\section{Html\+Lib Class Reference}
+\label{class_html_1_1_html_lib}\index{Html\+Lib@{Html\+Lib}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_html_1_1_html_lib_a53ec3d81bbf119ac8be017abed712c32}{attr\+Name\+Check} (string \$name)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An H\+T\+ML library class to contain various H\+T\+ML related utility functions. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_html_1_1_html_lib_a53ec3d81bbf119ac8be017abed712c32}\label{class_html_1_1_html_lib_a53ec3d81bbf119ac8be017abed712c32}} 
+\index{Html\+::\+Html\+Lib@{Html\+::\+Html\+Lib}!attr\+Name\+Check@{attr\+Name\+Check}}
+\index{attr\+Name\+Check@{attr\+Name\+Check}!Html\+::\+Html\+Lib@{Html\+::\+Html\+Lib}}
+\subsubsection{\texorpdfstring{attr\+Name\+Check()}{attrNameCheck()}}
+{\footnotesize\ttfamily static attr\+Name\+Check (\begin{DoxyParamCaption}\item[{string}]{\$name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Ensures validity of an H\+T\+ML attribute name. 
+\begin{DoxyCode}
+14                                                         \{
+15         \textcolor{keywordflow}{return} preg\_match (\textcolor{stringliteral}{'/^[a-z-]+$/'}, $name) === 1;
+16     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+servers/webserver/server/util/htmllib.\+php\end{DoxyCompactItemize}

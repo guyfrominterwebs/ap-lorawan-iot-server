@@ -1,4 +1,7 @@
 <?php
+/**
+	Start up script for the webserver. Loads all configuration files and initialises Slim and its routes.
+*/
 chdir (__DIR__);
 $server_name = 'web';
 if ((require '../../main.php') !== 1) {
@@ -22,7 +25,9 @@ $server->map ('/?(:action+)', function (array $action = []) use ($server, $handl
 
 $server->run();
 
-
+/**
+	Change response to 500 if something goes wrong during this script.
+*/
 function internalError () {
 	header ('HTTP/1.1 500 Internal Server Error');
 }

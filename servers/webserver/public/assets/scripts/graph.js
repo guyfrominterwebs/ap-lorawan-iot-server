@@ -3,30 +3,49 @@ var initiators = initiators || [];
 
 // TODO: More flexible way to provide list of devices and measurement values.
 window.graphModels = $ ('#graph-models');
-var graph = null;
 initiators.push (function () {
 	// TODO: Some checks prior to start up to ensure browser compatability and presence of required dom structures.
 	if (window.graphModels.length === 0) {
 		// Model elements not present; rendering not possible unless they are added.
 	}
-	return;
-	var container = $ ('#graph-container').prepend ($ ('<div/>', { class: 'container' }));
-	newGraph ($ ('#graph-container .container:last'), 'Graph 1');
-	$ ($ ('<div/>', { class: 'container' })).insertAfter (container.find ('.container:last'));
-	newGraph ($ ('#graph-container .container:last'), 'Graph 2');
-	$ ($ ('<div/>', { class: 'container' })).insertAfter (container.find ('.container:last'));
-	newGraph ($ ('#graph-container .container:last'), 'Graph what?');
-	$ ($ ('<div/>', { class: 'container' })).insertAfter (container.find ('.container:last'));
-	newGraph ($ ('#graph-container .container:last'), 'I\'m your father Luke.');
+	if (!devices || !Array.isArray (devices)) {
+		return;
+	}
+	var i = 0,
+		count = devices.length,
+		container = $ ('#graph-container'),
+		last = $ ('<div/>', { class: 'container' });
+	if (count === 0) {
+		return;
+	}
+	container.prepend (last);
+	for (; i < count; ++i) {
+		newGraph (last, devices [i]._id, devices [i]._id + ' (' + devices [i].dev_id + ')');
+		if (i + 1 < count) {
+			last = $ ('<div/>', { class: 'container' }).insertAfter (last);
+		}
+	}
 });
 
-function newGraph (container, heading) {
-	graph = new Graph (heading);
-	graph.addItem (devices [0]);
-	var view = new GraphView (heading);
-	view.setContainer (container);
+function newGraph (container, device, heading) {
+	var graph = new Graph (),
+		view = new GraphView (heading);
+	graph.addItem (device);
 	view.setGraph (graph);
+	view.setContainer (container);
 	return graph;
+}
+
+function toggleGraph (event) {
+	var target = $ (event.currentTarget),
+		body = target.closest ('.graph-layout').find ('.graph-body');
+	if (body.is (':visible')) {
+		target.html ('&#x22C1;');
+		body.slideUp ();
+	} else {
+		target.html ('&#x22C0;');
+		body.slideDown ();
+	}
 }
 
 function GraphManager () {
@@ -177,7 +196,7 @@ function GraphView (_heading) {
 		}
 		if (_node instanceof jQuery) {
 			node = _node;
-			populateNode (_node);
+			populateNode ();
 			return true;
 		}
 		return false;
@@ -187,27 +206,24 @@ function GraphView (_heading) {
 		var types = graph.getTypes ();
 		var items = graph.getItems ();
 		for (var n in types) {
-			addType (types [n], true);
+			addType (types [n]);
 		}
 		for (var n in items) {
 			addItem (items [n]);
 		}
-		for (var n in types) {
-			addType (types [n]);
-		}
 	}
 
-	function addItem (item, noFeed) {
+	function addItem (item) {
 		if (itemLines [item]) {
 			return;
 		}
 		var types = graph.getTypes ();
 		itemLines [item] = GraphView.line_types [colour_counter];
-		itemsGraphical ();
-		if (!noFeed) {
-			for (var n in types) {
-				chart.addFeed (item, typeLines [types [n]], itemLines [item]);
-			}
+		if (node) {
+			itemsGraphical (node.find (".graph-body .line-table"));
+		}
+		for (var n in types) {
+			chart.addFeed (item, typeLines [types [n]], itemLines [item]);
 		}
 		++colour_counter;
 		if (GraphView.line_types.length <= colour_counter) {
@@ -215,18 +231,18 @@ function GraphView (_heading) {
 		}
 	}
 
-	function addType (type, noFeed) {
+	function addType (type) {
 		// TODO: Update type type once line type support has been added.
 		if (typeLines [type]) {
 			return;
 		}
 		var items = graph.getItems ();
 		typeLines [type] = GraphView.line_colours [type_counter];
-		typesGraphical ();
-		if (!noFeed) {
-			for (var n in items) {
-				chart.addFeed (items [n], typeLines [type], itemLines [items [n]]);
-			}
+		if (node) {
+			typesGraphical (node.find (".graph-body .legend-table"));
+		}
+		for (var n in items) {
+			chart.addFeed (items [n], typeLines [type], itemLines [items [n]]);
 		}
 		++type_counter;
 		if (GraphView.line_colours.length <= type_counter) {
@@ -238,41 +254,19 @@ function GraphView (_heading) {
 		// TODO: More flexible item and type categories.
 		var layout = window.graphModels.find (".graph-layout").clone (),
 			canvas = layout.find ('canvas');
-		if (graph) {
-			layout.find ('.graph-heading h4').text (heading);
-			itemsGraphical (layout.find (".line-table"));
-			// var itemLine = window.graphModels.find (".line-entry"),
-				// valueLegend = window.graphModels.find (".legend-entry"),
-				// table = layout.find (".line-table"),
-				// items = graph.getItems (),
-				// line = null,
-				// box = null;
-			// for (var n in items) {
-				// line = itemLine.clone ();
-				// line.html ('Device: ' + items [n]);
-				// box = $ ('<div/>', { class: 'line-colour-box' }).css ('background-color', itemLines [items [n]]);
-				// table.append (line.append (box));
-			// }
-			// table = layout.find (".legend-table");
-			// items = graph.getTypes ();
-			// for (var n in items) {
-				// line = valueLegend.clone ();
-				// line.html (typeLines [items [n]] + ': ' + items [n]);
-				// table.append (line);
-			// }
-			typesGraphical (layout.find (".legend-table"));
-		}
+		layout.find ('.graph-heading h4').text (heading);
+		itemsGraphical (layout.find (".graph-body .line-table"));
+		typesGraphical (layout.find (".graph-body .legend-table"));
 		node.html (layout);
 		sizeCanvas (canvas)
 		chart.setCanvas (canvas);
 	}
 
-	function itemsGraphical () {
-		if (!graph || !node) {
+	function itemsGraphical (table) {
+		if (!graph || !table) {
 			return;
 		}
-		var table = node.find (".line-table"),
-			itemLine = window.graphModels.find (".line-entry"),
+		var itemLine = window.graphModels.find (".line-entry"),
 			items = graph.getItems ();
 		if (!table || table.length === 0) {
 			return;
@@ -284,12 +278,11 @@ function GraphView (_heading) {
 		return table;
 	}
 
-	function typesGraphical () {
-		if (!graph || !node) {
+	function typesGraphical (table) {
+		if (!graph || !table) {
 			return;
 		}
-		var table = node.find (".legend-table"),
-			valueLegend = window.graphModels.find (".legend-entry"),
+		var valueLegend = window.graphModels.find (".legend-entry"),
 			types = graph.getTypes (),
 			box = null;
 		if (!table || table.length === 0) {

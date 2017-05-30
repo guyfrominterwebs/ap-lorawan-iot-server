@@ -1,0 +1,4 @@
+<map id="connect" name="connect">
+<area shape="rect" id="node2" href="$class_d_b_connection.html#a4db4ce6ff1cf378867220c6694b8bc05" title="mongoConnect" alt="" coords="121,5,231,32"/>
+<area shape="rect" id="node3" href="$class_d_b_connection.html#ab7140b0e933334f00374b6675c60ffaf" title="mysqlConnect" alt="" coords="123,56,229,83"/>
+</map>

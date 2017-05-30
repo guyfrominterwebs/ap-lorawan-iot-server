@@ -1,0 +1,296 @@
+\hypertarget{class_lora_1_1_configuration}{}\section{Configuration Class Reference}
+\label{class_lora_1_1_configuration}\index{Configuration@{Configuration}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_lora_1_1_configuration_a4bebb34aeb3da161d6c92f4bbcf09123}{\+\_\+\+\_\+construct} (array \$configs)
+\item 
+\hyperlink{class_lora_1_1_configuration_a9b14657d7ca60617425e9fb5d81379a3}{include\+Script} (string \$class)
+\item 
+\hyperlink{class_lora_1_1_configuration_a86348d607b0daaa200f6cdbb59582ef7}{setup\+Autoloader} ()
+\item 
+\hyperlink{class_lora_1_1_configuration_a4eb96d4eee36a1778069e0c2e2ba24c1}{has} (\&\$value, array \$key)
+\item 
+\hyperlink{class_lora_1_1_configuration_ab0af62bde4b0a5a69518020bec0b5cbf}{find} (... \$key)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_configuration_a98263b0e190394325c61f471c0ba1e80}\label{class_lora_1_1_configuration_a98263b0e190394325c61f471c0ba1e80}} 
+\hyperlink{class_lora_1_1_configuration_a98263b0e190394325c61f471c0ba1e80}{\$system\+Files} = \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em An associative array having all script names as keys and their path as values. Used during autoloading for performance gains. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_lora_1_1_configuration_a95691168d68a876ecc24c7dad14ef24e}\label{class_lora_1_1_configuration_a95691168d68a876ecc24c7dad14ef24e}} 
+{\bfseries \$configs} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_configuration_a20dd412769e0754189f5ce036e857a37}\label{class_lora_1_1_configuration_a20dd412769e0754189f5ce036e857a37}} 
+{\bfseries \$paths} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_configuration_afe662821d69ab461c44b3b7003bfcd19}\label{class_lora_1_1_configuration_afe662821d69ab461c44b3b7003bfcd19}} 
+{\bfseries \$exts} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_configuration_aa9e9e35cde2e009dabb6a066e3202c5c}\label{class_lora_1_1_configuration_aa9e9e35cde2e009dabb6a066e3202c5c}} 
+\hyperlink{class_lora_1_1_configuration_aa9e9e35cde2e009dabb6a066e3202c5c}{\$exclude} = \mbox{[} \textquotesingle{}frameworks\textquotesingle{} \mbox{]}
+\begin{DoxyCompactList}\small\item\em A blacklist of words which must not occure in a scripts path in order for it to become autolodable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_lora_1_1_configuration_af93248667cb6f4c537483294dadcfbe0}{process\+Configs} (array \$config, array \$key\+Chain)
+\item 
+\hyperlink{class_lora_1_1_configuration_a425ab72d85b4f72a0d1d354970e5ac36}{parse} (array \$key\+Chain, \$key, \$value)
+\item 
+\hyperlink{class_lora_1_1_configuration_a1c83c8aa614a13481acfdd1917fa6fb1}{find\+Files} (string \$path, string \$file\+Reg, string \$path\+Reg)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_configuration_ab37f7c32f41c3c61ed940887453767f4}\label{class_lora_1_1_configuration_ab37f7c32f41c3c61ed940887453767f4}} 
+{\bfseries \$root} = \textquotesingle{}\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A class representing configuration set. Provides all parser functions for processing configurations arrays and some utility functions to access them. Normally there is no need to access this class manually due to \hyperlink{class_lora_1_1_config}{Config} being an abstraction layer for this class.
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000001}{Todo}]Start using \$paths and \$exts. \end{DoxyRefDesc}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_lora_1_1_configuration_a4bebb34aeb3da161d6c92f4bbcf09123}\label{class_lora_1_1_configuration_a4bebb34aeb3da161d6c92f4bbcf09123}} 
+\index{Lora\+::\+Configuration@{Lora\+::\+Configuration}!\+\_\+\+\_\+construct@{\+\_\+\+\_\+construct}}
+\index{\+\_\+\+\_\+construct@{\+\_\+\+\_\+construct}!Lora\+::\+Configuration@{Lora\+::\+Configuration}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{array}]{\$configs }\end{DoxyParamCaption})}
+
+\hyperlink{class_lora_1_1_configuration}{Configuration} set constructor. Takes care of configuration parsing. 
+\begin{DoxyCode}
+152                                                  \{
+153         $this->configs = $this->\hyperlink{class_lora_1_1_configuration_af93248667cb6f4c537483294dadcfbe0}{processConfigs} ($configs, []);
+154     \}
+\end{DoxyCode}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_lora_1_1_configuration_ab0af62bde4b0a5a69518020bec0b5cbf}\label{class_lora_1_1_configuration_ab0af62bde4b0a5a69518020bec0b5cbf}} 
+\index{Lora\+::\+Configuration@{Lora\+::\+Configuration}!find@{find}}
+\index{find@{find}!Lora\+::\+Configuration@{Lora\+::\+Configuration}}
+\subsubsection{\texorpdfstring{find()}{find()}}
+{\footnotesize\ttfamily find (\begin{DoxyParamCaption}\item[{}]{\$key }\end{DoxyParamCaption})}
+
+A more primitive method when compared to \hyperlink{class_lora_1_1_configuration_a4eb96d4eee36a1778069e0c2e2ba24c1}{Configuration\+::has} for fetching configuration values from this set. 
+\begin{DoxyParams}{Parameters}
+{\em \$key} & An argument collection which is used as keys to locate a configuration value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the value behind \$key if it is found; otherwise N\+U\+LL is returned. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+301                                    \{
+302         $temp = $this->configs;
+303         \textcolor{keywordflow}{foreach} ($key as $k) \{
+304             \textcolor{keywordflow}{if} (!isset ($temp [$k])) \{
+305                 $temp = null;
+306                 \textcolor{keywordflow}{break};
+307             \}
+308             $temp = $temp [$k];
+309         \} \textcolor{keywordflow}{return} $temp;
+310     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_configuration_a1c83c8aa614a13481acfdd1917fa6fb1}\label{class_lora_1_1_configuration_a1c83c8aa614a13481acfdd1917fa6fb1}} 
+\index{Lora\+::\+Configuration@{Lora\+::\+Configuration}!find\+Files@{find\+Files}}
+\index{find\+Files@{find\+Files}!Lora\+::\+Configuration@{Lora\+::\+Configuration}}
+\subsubsection{\texorpdfstring{find\+Files()}{findFiles()}}
+{\footnotesize\ttfamily find\+Files (\begin{DoxyParamCaption}\item[{string}]{\$path,  }\item[{string}]{\$file\+Reg,  }\item[{string}]{\$path\+Reg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Scans through the directories and checks all found files if they are P\+HP scripts based on extension. 
+\begin{DoxyParams}{Parameters}
+{\em \$path} & Starting folder for the scan. \\
+\hline
+{\em \$file\+Reg} & Regular expressions to detect a php file name/path \\
+\hline
+{\em \$path\+Reg} & Regular expressio to check the path against blacklisted path parts. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns an array of full file paths to P\+HP scripts. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+253                                                                                 : array \{
+254         $stack = [ $path ];
+255         $files = [];
+256         \textcolor{keywordflow}{while} (!empty ($stack)) \{
+257             $path = array\_pop ($stack).DIRECTORY\_SEPARATOR;
+258             \textcolor{keywordflow}{if} (is\_dir ($path) && preg\_match ($pathReg, $path) === 1 && $dh = opendir ($path)) \{
+259                 \textcolor{keywordflow}{while} (($file = readdir ($dh)) !== \textcolor{keyword}{false}) \{
+260                     \textcolor{keywordflow}{if} (preg\_match ($pathReg, $path) !== 1 || $file === \textcolor{charliteral}{'.'} || $file === \textcolor{stringliteral}{'..'}) \{
+261                         \textcolor{keywordflow}{continue};
+262                     \}
+263                     $temp = $path.$file;
+264                     \textcolor{keywordflow}{if} (is\_dir ($temp)) \{
+265                         $stack [] = $temp;
+266                     \textcolor{comment}{// \} else if (preg\_match ($fileReg, $temp) === 1) \{}
+267                     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (substr ($temp, -3) === \textcolor{stringliteral}{"php"}) \{
+268                         $files [] = $temp;
+269                     \}
+270                 \}
+271                 closedir ($dh);
+272             \textcolor{comment}{// \} else if (preg\_match ($fileReg, $path) === 1) \{}
+273             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (substr ($path, -3) === \textcolor{stringliteral}{"php"}) \{
+274                 $files [] = $path;
+275             \}
+276         \} \textcolor{keywordflow}{return} $files;
+277     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_configuration_a4eb96d4eee36a1778069e0c2e2ba24c1}\label{class_lora_1_1_configuration_a4eb96d4eee36a1778069e0c2e2ba24c1}} 
+\index{Lora\+::\+Configuration@{Lora\+::\+Configuration}!has@{has}}
+\index{has@{has}!Lora\+::\+Configuration@{Lora\+::\+Configuration}}
+\subsubsection{\texorpdfstring{has()}{has()}}
+{\footnotesize\ttfamily has (\begin{DoxyParamCaption}\item[{\&}]{\$value,  }\item[{array}]{\$key }\end{DoxyParamCaption})}
+
+A method to determine whether or not a ceraint value exist within this configuration set. \mbox{[}out\mbox{]} \$value If value exist it will be set to this variable.  \$key An array containing a key to the configuration value. \begin{DoxyReturn}{Returns}
+Returns a boolean true if value exists within this collection and false if not. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+285                                               : \textcolor{keywordtype}{bool} \{
+286         $temp = $this->configs;
+287         \textcolor{keywordflow}{foreach} ($key as $k) \{
+288             \textcolor{keywordflow}{if} (!isset ($temp [$k])) \{
+289                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+290             \} $temp = $temp [$k];
+291         \}
+292         $value = $temp;
+293         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+294     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_configuration_a9b14657d7ca60617425e9fb5d81379a3}\label{class_lora_1_1_configuration_a9b14657d7ca60617425e9fb5d81379a3}} 
+\index{Lora\+::\+Configuration@{Lora\+::\+Configuration}!include\+Script@{include\+Script}}
+\index{include\+Script@{include\+Script}!Lora\+::\+Configuration@{Lora\+::\+Configuration}}
+\subsubsection{\texorpdfstring{include\+Script()}{includeScript()}}
+{\footnotesize\ttfamily include\+Script (\begin{DoxyParamCaption}\item[{string}]{\$class }\end{DoxyParamCaption})}
+
+Checks ifa script with given name exists in syste\+Files collection and includes it if it does. \begin{DoxyReturn}{Returns}
+Returns true if script was found and included; false otherwise. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+215                                                   : \textcolor{keywordtype}{bool} \{
+216         \textcolor{keywordflow}{if} (isset ($this->systemFiles [$class]) && file\_exists ($this->systemFiles [$class])) \{
+217             require\_once $this->systemFiles [$class];
+218             \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+219         \} \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+220     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_configuration_a425ab72d85b4f72a0d1d354970e5ac36}\label{class_lora_1_1_configuration_a425ab72d85b4f72a0d1d354970e5ac36}} 
+\index{Lora\+::\+Configuration@{Lora\+::\+Configuration}!parse@{parse}}
+\index{parse@{parse}!Lora\+::\+Configuration@{Lora\+::\+Configuration}}
+\subsubsection{\texorpdfstring{parse()}{parse()}}
+{\footnotesize\ttfamily parse (\begin{DoxyParamCaption}\item[{array}]{\$key\+Chain,  }\item[{}]{\$key,  }\item[{}]{\$value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Parses the configuration set and takes care of prefix processing. 
+\begin{DoxyParams}{Parameters}
+{\em \$key\+Chain} & An array of key values to locate correct array in typed collections. \\
+\hline
+{\em \$key} & Name/key of the configuration value. \\
+\hline
+{\em \$value} & A single configuration value. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+183                                                            \{
+184         $len = 0;
+185         $prefix = null;
+186         $prefixes = [
+187             \hyperlink{class_lora_1_1_config_a1fc0f693347c58a8714672eeffa2e134}{Config::PATH} => &$this->paths,
+188             \hyperlink{class_lora_1_1_config_a946f0934b6d4dce0bc46dbdb9119a624}{Config::EXTENSION} => &$this->exts
+189         ];
+190         \textcolor{keywordflow}{foreach} ($prefixes as $pre => $col) \{
+191             \textcolor{keywordflow}{if} (strpos ($key, $pre) === 0) \{
+192                 $len = strlen ($pre);
+193                 $prefix = $pre;
+194                 \textcolor{keywordflow}{break};
+195             \}
+196         \}
+197         $key = substr ($key, $len);
+198         \textcolor{keywordflow}{if} ($prefix !== null) \{
+199             $target =& $prefixes [$prefix];
+200             \textcolor{keywordflow}{foreach} ($keyChain as $k) \{
+201                 \textcolor{keywordflow}{if} (!isset ($target [$k])) \{
+202                     $target [$k] = [];
+203                 \}
+204                 $target =& $target [$k];
+205             \}
+206             $target [$key] = $value;
+207         \}
+208         \textcolor{keywordflow}{return} $key;
+209     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_configuration_af93248667cb6f4c537483294dadcfbe0}\label{class_lora_1_1_configuration_af93248667cb6f4c537483294dadcfbe0}} 
+\index{Lora\+::\+Configuration@{Lora\+::\+Configuration}!process\+Configs@{process\+Configs}}
+\index{process\+Configs@{process\+Configs}!Lora\+::\+Configuration@{Lora\+::\+Configuration}}
+\subsubsection{\texorpdfstring{process\+Configs()}{processConfigs()}}
+{\footnotesize\ttfamily process\+Configs (\begin{DoxyParamCaption}\item[{array}]{\$config,  }\item[{array}]{\$key\+Chain }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Change this into a stack based routine instead of recursive. A recursive method which goes through the configuration set and converts all the keys in the process. 
+\begin{DoxyParams}{Parameters}
+{\em \$config} & An array containing configuration values. \\
+\hline
+{\em \$key\+Chain} & An array of key values to locate correct array when converting prefixes. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+162                                                                      : array \{
+163         $result = [];
+164         \textcolor{keywordflow}{foreach} ($config as $key => $value) \{
+165             \textcolor{keywordflow}{if} (is\_array ($value)) \{
+166                 $keyChain [] = $key;
+167                 $value = $this->\hyperlink{class_lora_1_1_configuration_af93248667cb6f4c537483294dadcfbe0}{processConfigs} ($value, $keyChain);
+168                 array\_pop ($keyChain);
+169             \}
+170             \textcolor{keywordflow}{if} (is\_string ($key)) \{
+171                 $key = $this->\hyperlink{class_lora_1_1_configuration_a425ab72d85b4f72a0d1d354970e5ac36}{parse} ($keyChain, $key, $value);
+172             \}
+173             $result [$key] = $value;
+174         \}
+175         \textcolor{keywordflow}{return} $result;
+176     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_configuration_a86348d607b0daaa200f6cdbb59582ef7}\label{class_lora_1_1_configuration_a86348d607b0daaa200f6cdbb59582ef7}} 
+\index{Lora\+::\+Configuration@{Lora\+::\+Configuration}!setup\+Autoloader@{setup\+Autoloader}}
+\index{setup\+Autoloader@{setup\+Autoloader}!Lora\+::\+Configuration@{Lora\+::\+Configuration}}
+\subsubsection{\texorpdfstring{setup\+Autoloader()}{setupAutoloader()}}
+{\footnotesize\ttfamily setup\+Autoloader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Compiles blacklist for unallowed directory paths and initiates direcotry scanning. All script files found by the scan are then added to \$system\+Files. 
+\begin{DoxyCode}
+226                                        : \textcolor{keywordtype}{void} \{
+227         \textcolor{keywordflow}{if} ($this->\hyperlink{class_lora_1_1_configuration_a4eb96d4eee36a1778069e0c2e2ba24c1}{has} (\hyperlink{class_lora_1_1_configuration_aa9e9e35cde2e009dabb6a066e3202c5c}{$exclude}, [ \textcolor{stringliteral}{'server'}, \textcolor{stringliteral}{'autoload\_exclude'} ]) && is\_array (
+      \hyperlink{class_lora_1_1_configuration_aa9e9e35cde2e009dabb6a066e3202c5c}{$exclude})) \{
+228             $this->exclude = array\_unique (array\_merge ($this->exclude, \hyperlink{class_lora_1_1_configuration_aa9e9e35cde2e009dabb6a066e3202c5c}{$exclude}));
+229         \}
+230         $this->root = realpath ($this->\hyperlink{class_lora_1_1_configuration_ab0af62bde4b0a5a69518020bec0b5cbf}{find} (\textcolor{stringliteral}{'server'}, \textcolor{stringliteral}{'root'}));
+231         $fileReg = \textcolor{stringliteral}{'/.*?\(\backslash\).php/'};
+232         $pathReg = \textcolor{stringliteral}{'/.*?/'};
+233         \textcolor{keywordflow}{if} (!empty ($this->exclude)) \{
+234             $temp = \textcolor{stringliteral}{''};
+235             \textcolor{keywordflow}{foreach} ($this->exclude as $ex) \{
+236                 $temp .= preg\_quote (str\_replace (\textcolor{charliteral}{'/'}, DIRECTORY\_SEPARATOR, $ex), \textcolor{charliteral}{'/'}).\textcolor{charliteral}{'|'};
+237             \}
+238             $pathReg = \textcolor{stringliteral}{'/(?!.*('}.substr ($temp, 0, -1).\textcolor{stringliteral}{'))^.+$/'};
+239         \}
+240         \textcolor{keywordflow}{foreach} ($this->\hyperlink{class_lora_1_1_configuration_a1c83c8aa614a13481acfdd1917fa6fb1}{findFiles} ($this->root, $fileReg, $pathReg) as $file) \{
+241             $a = strrpos ($file, DIRECTORY\_SEPARATOR) + 1;
+242             $this->systemFiles [strtolower (substr ($file, $a, strpos ($file, \textcolor{charliteral}{'.'}) - $a))] = $file;
+243         \}
+244     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+config/config.\+php\end{DoxyCompactItemize}

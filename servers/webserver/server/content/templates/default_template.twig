@@ -73,7 +73,7 @@
 		{% endblock scripts %}
 		<script type="text/javascript">
 			{{ generators.inject_globals (page.globals, _context) }}
-			var  modules = modules || [];
+			var initiators = initiators || [];
 			$ (function () {
 				if (window.start) {
 					start ();

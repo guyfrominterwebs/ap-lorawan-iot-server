@@ -8,14 +8,10 @@
 	{% embed page.layout %}
 		{% block view_content %}
 			<div>
-			<h1>Devices</h1>
-			<div id="device-list" class="{{ page.settings.show != devices }}">
-			</div>
-			{% if data.devices is iterable %}
-				{% for d in data.devices %}
-					{{ generators.device_item (d, _context) }}
+				<h1>Devices</h1>
+				{% for view in page.subViews %}
+					{{ generators.sub_view (view, _context) }}
 				{% endfor %}
-			{% endif %}
 			</div>
 		{% endblock view_content %}
 	{% endembed %}

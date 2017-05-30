@@ -1,0 +1,54 @@
+\hypertarget{class_lora_1_1_server_1_1_command}{}\section{Command Class Reference}
+\label{class_lora_1_1_server_1_1_command}\index{Command@{Command}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_lora_1_1_server_1_1_command_a77bf97cc94921f5dc95fa09cc9d87ffe}{is\+Command} (\$value)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_server_1_1_command_a51c222026c95d22d182a70dffb1274d8}\label{class_lora_1_1_server_1_1_command_a51c222026c95d22d182a70dffb1274d8}} 
+const \hyperlink{class_lora_1_1_server_1_1_command_a51c222026c95d22d182a70dffb1274d8}{I\+N\+V\+A\+L\+ID} = 0
+\begin{DoxyCompactList}\small\item\em An invalid message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_lora_1_1_server_1_1_command_a59322b745f918a8b5f747b08d9d5ddec}\label{class_lora_1_1_server_1_1_command_a59322b745f918a8b5f747b08d9d5ddec}} 
+const \hyperlink{class_lora_1_1_server_1_1_command_a59322b745f918a8b5f747b08d9d5ddec}{D\+A\+TA} = 1
+\begin{DoxyCompactList}\small\item\em Data message containing data. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_lora_1_1_server_1_1_command_aff329be36615a18f3dd0bc2d393dbc2f}\label{class_lora_1_1_server_1_1_command_aff329be36615a18f3dd0bc2d393dbc2f}} 
+const \hyperlink{class_lora_1_1_server_1_1_command_aff329be36615a18f3dd0bc2d393dbc2f}{A\+C\+T\+I\+ON} = 2
+\begin{DoxyCompactList}\small\item\em Action message containing a action to perform. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An enum class for message types used in internal system messaging. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_lora_1_1_server_1_1_command_a77bf97cc94921f5dc95fa09cc9d87ffe}\label{class_lora_1_1_server_1_1_command_a77bf97cc94921f5dc95fa09cc9d87ffe}} 
+\index{Lora\+::\+Server\+::\+Command@{Lora\+::\+Server\+::\+Command}!is\+Command@{is\+Command}}
+\index{is\+Command@{is\+Command}!Lora\+::\+Server\+::\+Command@{Lora\+::\+Server\+::\+Command}}
+\subsubsection{\texorpdfstring{is\+Command()}{isCommand()}}
+{\footnotesize\ttfamily static is\+Command (\begin{DoxyParamCaption}\item[{}]{\$value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Collects all constants in \hyperlink{class_lora_1_1_server_1_1_command}{Command} during the first call and flips received array. This collection is then used to see if some value is a \hyperlink{class_lora_1_1_server_1_1_command}{Command} constant or not. 
+\begin{DoxyParams}{Parameters}
+{\em \$value} & Value to test for constant. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true is \$value is a \hyperlink{class_lora_1_1_server_1_1_command}{Command} value and false if not. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+20                                               \{
+21         \textcolor{keyword}{static} $consts = null;
+22         \textcolor{keywordflow}{if} (!$consts) \{
+23             $consts = array\_flip ((\textcolor{keyword}{new} ReflectionClass (\_\_CLASS\_\_))->getConstants ());
+24         \}
+25         \textcolor{keywordflow}{return} isset ($consts [$value]);
+26     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lora/command.\+php\end{DoxyCompactItemize}

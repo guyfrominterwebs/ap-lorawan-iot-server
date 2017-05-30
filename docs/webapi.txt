@@ -1,8 +1,16 @@
 
 
+Web API for this system is found from following domain when online:
 
-www.domain.net/api/data
-	search 				- optional, enabled search
-	device=[string]		- optional, filters by device
-	start=[integer]		- optional, filters by start time. No older entries are included.
-	end=[integer]		- optional, filters by end time. No later entries are included.
+	www.domain.net/[path_pages*/]api/
+
+* See webserver config.ini for "client, path_pages".
+
+If an invalid URL is used, an empty array is returned.
+
+API URI: api/data
+Accepted parameters
+		search 				- optional, enables search
+		device=[string]		- optional (requires search), filters by device
+		start=[integer]		- optional (requires search), filters by start time. Earlier entries are not included.
+		end=[integer]		- optional (requires search), filters by end time. Latter entries are not included.

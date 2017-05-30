@@ -1,0 +1,355 @@
+\hypertarget{class_lora_1_1_page_component}{}\section{Page\+Component Class Reference}
+\label{class_lora_1_1_page_component}\index{Page\+Component@{Page\+Component}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_lora_1_1_page_component_a087060b582403885d08e89ad894ecc5d}{id} ()
+\item 
+\mbox{\Hypertarget{class_lora_1_1_page_component_a30bd23795f307541c79fd2332dcf4af1}\label{class_lora_1_1_page_component_a30bd23795f307541c79fd2332dcf4af1}} 
+{\bfseries set\+Template} (string \$\hyperlink{class_lora_1_1_page_component_a0b54c9d3801b331b75487ef78d98c06b}{template})
+\item 
+\hyperlink{class_lora_1_1_page_component_a0b54c9d3801b331b75487ef78d98c06b}{template} ()
+\item 
+\hyperlink{class_lora_1_1_page_component_aa1c1a80393db2b30ad535b13de050778}{add\+Script} (string \$script)
+\item 
+\hyperlink{class_lora_1_1_page_component_a3dc593f496b7dbf2e5e3c406cb5fd106}{scripts} ()
+\item 
+\hyperlink{class_lora_1_1_page_component_acd0b83bc65713449f479130693bf4dbc}{add\+Library} (string \$lib)
+\item 
+\hyperlink{class_lora_1_1_page_component_af34d5049c9cc4ab108d65218754b7429}{libraries} ()
+\item 
+\hyperlink{class_lora_1_1_page_component_a53d31780f290c90071a213e9f786abb3}{styles} ()
+\item 
+\hyperlink{class_lora_1_1_page_component_af6ac36c4e10b38c61aa0b45fa736bfc4}{classes} (bool \$string=false)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_lora_1_1_page_component_ab6c03d0ec66cb31bfc74a784387cef33}{Create} (string \$component)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_page_component_a353afce17912a98c6a9ead92e679570d}\label{class_lora_1_1_page_component_a353afce17912a98c6a9ead92e679570d}} 
+{\bfseries \$\+\_\+template} = \textquotesingle{}\textquotesingle{}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_page_component_a8ad159a11a3bfceca008de351d6fbebc}\label{class_lora_1_1_page_component_a8ad159a11a3bfceca008de351d6fbebc}} 
+{\bfseries \$\+\_\+libraries} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_page_component_a714e6e780b17b3b8e7db069f2a96a119}\label{class_lora_1_1_page_component_a714e6e780b17b3b8e7db069f2a96a119}} 
+{\bfseries \$\+\_\+scripts} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_page_component_a9c54ba83a52cee3c5a4b47dea3412c53}\label{class_lora_1_1_page_component_a9c54ba83a52cee3c5a4b47dea3412c53}} 
+{\bfseries \$\+\_\+styles} = \mbox{[}$\,$\mbox{]}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_page_component_a429c9bf2a1a7123e7d350631751eff67}\label{class_lora_1_1_page_component_a429c9bf2a1a7123e7d350631751eff67}} 
+{\bfseries \$\+\_\+classes} = \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_lora_1_1_page_component_a3b38056ae9a3c2cada8000895f46b9cb}{configurable\+Fields} (array \$exclude=\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{class_lora_1_1_page_component_a63ba1656485acf76a0d23e8f64fdfa1d}{parse\+File} (string \$file)
+\item 
+\hyperlink{class_lora_1_1_page_component_a836e6e03df9ed37584042af4708928d6}{inspect\+Config} (array \$config)
+\item 
+\hyperlink{class_lora_1_1_page_component_a8a5a7e2a8a27e02e0e68243d88ee339c}{populate} (array \$values)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_lora_1_1_page_component_a64da16c4a1c7b2dc6784f6ef26341ed7}\label{class_lora_1_1_page_component_a64da16c4a1c7b2dc6784f6ef26341ed7}} 
+{\bfseries \$\+\_\+id} = \textquotesingle{}\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A class to represent Page\+Components. A component is essentially a collection of few configuration and dependency files. \hyperlink{class_lora_1_1_configuration}{Configuration} files at the time of writing use component as their extension and their preferred file format is J\+S\+ON. Components also have a twig file of the same name as the component file. Twig files contain the H\+T\+ML a component requires to display it contents. \hyperlink{class_lora_1_1_configuration}{Configuration} file contains all the dependencies and some other properties for the H\+T\+ML. This class might later be moved to  -\/namespace. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_lora_1_1_page_component_acd0b83bc65713449f479130693bf4dbc}\label{class_lora_1_1_page_component_acd0b83bc65713449f479130693bf4dbc}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!add\+Library@{add\+Library}}
+\index{add\+Library@{add\+Library}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{add\+Library()}{addLibrary()}}
+{\footnotesize\ttfamily add\+Library (\begin{DoxyParamCaption}\item[{string}]{\$lib }\end{DoxyParamCaption})}
+
+Adds a new library to this \hyperlink{class_lora_1_1_page_component}{Page\+Component}. These libraries are located in public/assets/ext. 
+\begin{DoxyParams}{Parameters}
+{\em \$lid} & Name of the library to be added. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+102                                              : \textcolor{keywordtype}{void} \{
+103         \textcolor{keywordflow}{if} (!in\_array ($lib, $this->\_libraries)) \{
+104             $this->\_libraries [] = $lib;
+105         \}
+106     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_page_component_aa1c1a80393db2b30ad535b13de050778}\label{class_lora_1_1_page_component_aa1c1a80393db2b30ad535b13de050778}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!add\+Script@{add\+Script}}
+\index{add\+Script@{add\+Script}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{add\+Script()}{addScript()}}
+{\footnotesize\ttfamily add\+Script (\begin{DoxyParamCaption}\item[{string}]{\$script }\end{DoxyParamCaption})}
+
+Adds a new script to this \hyperlink{class_lora_1_1_page_component}{Page\+Component}. These scripts are located in public/assets/scripts. 
+\begin{DoxyParams}{Parameters}
+{\em \$script} & Name of the script to be added. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+81                                                : \textcolor{keywordtype}{void} \{
+82         \textcolor{keywordflow}{if} (!in\_array ($script, $this->\_scripts)) \{
+83             $this->\_scripts [] = $script;
+84         \}
+85     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_page_component_af6ac36c4e10b38c61aa0b45fa736bfc4}\label{class_lora_1_1_page_component_af6ac36c4e10b38c61aa0b45fa736bfc4}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!classes@{classes}}
+\index{classes@{classes}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{classes()}{classes()}}
+{\footnotesize\ttfamily classes (\begin{DoxyParamCaption}\item[{bool}]{\$string = {\ttfamily false} }\end{DoxyParamCaption})}
+
+If \$string is provided, it is added to the classes assigned to this \hyperlink{class_lora_1_1_page_component}{Page\+Component}. If \$string is not provided, a string consisting of all class names separated by space will be returned. \begin{DoxyReturn}{Returns}
+Returns a string of css classes. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+135                                                    \{
+136         \textcolor{keywordflow}{if} ($string) \{
+137             $classes = \textcolor{stringliteral}{''};
+138             \textcolor{keywordflow}{foreach} ($this->\_classes as $c) \{
+139                 $classes .= \textcolor{stringliteral}{"$c "};
+140             \} \textcolor{keywordflow}{return} $classes;
+141         \} \textcolor{keywordflow}{return} $this->\_classes;
+142     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_page_component_a3b38056ae9a3c2cada8000895f46b9cb}\label{class_lora_1_1_page_component_a3b38056ae9a3c2cada8000895f46b9cb}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!configurable\+Fields@{configurable\+Fields}}
+\index{configurable\+Fields@{configurable\+Fields}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{configurable\+Fields()}{configurableFields()}}
+{\footnotesize\ttfamily configurable\+Fields (\begin{DoxyParamCaption}\item[{array}]{\$exclude = {\ttfamily \mbox{[}\mbox{]}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Returns an array of property field names in this class which can be set using initialization files with \hyperlink{class_lora_1_1_page_component_a8a5a7e2a8a27e02e0e68243d88ee339c}{Page\+Component\+::populate}. 
+\begin{DoxyParams}{Parameters}
+{\em \$exclude} & An array containing field names which are to be excluded from the final collection. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns an array of field names. It is possible for this array to be empty. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+149                                                               \{
+150         \textcolor{keywordflow}{return} array\_filter (
+151             array\_map (\textcolor{keyword}{function} ($field) \{ \textcolor{keywordflow}{return} $field->name; \}, (new \(\backslash\)ReflectionClass ($this))->
+      getProperties ()),
+152             \textcolor{keyword}{function} ($field) use ($exclude) \{
+153                 \textcolor{keywordflow}{return} @$field [0] === \textcolor{charliteral}{'\_'} && !in\_array ($field, $exclude); \}
+154         );
+155     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_page_component_ab6c03d0ec66cb31bfc74a784387cef33}\label{class_lora_1_1_page_component_ab6c03d0ec66cb31bfc74a784387cef33}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!Create@{Create}}
+\index{Create@{Create}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily static Create (\begin{DoxyParamCaption}\item[{string}]{\$component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Creates a new \hyperlink{class_lora_1_1_page_component}{Page\+Component} instance from a component name. Also populates all properties using component file of a same name. 
+\begin{DoxyParams}{Parameters}
+{\em \$component} & Name of the component. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a \hyperlink{class_lora_1_1_page_component}{Page\+Component} instance. This component may be imcomplete if its component or template files are not working. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+36                                                       \{
+37         $temp               = \textcolor{keyword}{new} PageComponent ();
+38         $twig               = \hyperlink{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}{\(\backslash\)Lib::checkExtension} ($component, 
+      \hyperlink{class_lora_1_1_config_a98a88f17bbc72a1f26f54b264be26068}{Config::ext} (\textcolor{stringliteral}{'twig'}, \textcolor{stringliteral}{'twig'}));
+39         $definition         = \hyperlink{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}{\(\backslash\)Lib::checkExtension} ($component, 
+      \hyperlink{class_lora_1_1_config_a98a88f17bbc72a1f26f54b264be26068}{Config::ext} (\textcolor{stringliteral}{'server'}, \textcolor{stringliteral}{'component'}));
+40         $folder             = \hyperlink{class_lora_1_1_config_aade770941642defa7b826ff3ad193b4a}{Config::path} (\textcolor{stringliteral}{'server'}, \textcolor{stringliteral}{'components'});
+41         $file               = \textcolor{stringliteral}{"$folder/$definition"};
+42         \textcolor{keywordflow}{if} (file\_exists ($file)) \{
+43             \textcolor{keywordflow}{if} (empty ($config = $temp->parseFile ($file)) || !$temp->inspectConfig ($config)) \{
+44                 \textcolor{keywordflow}{return} null;
+45             \}
+46             $temp->\_id = $config [\textcolor{stringliteral}{'id'}];
+47             $temp->\_template = $config [\textcolor{stringliteral}{'template'}];
+48             $temp->populate ($config [\textcolor{stringliteral}{'dependencies'}]);
+49             $temp->populate ($config [\textcolor{stringliteral}{'appearance'}]);
+50         \} \textcolor{keywordflow}{else} \{
+51             \textcolor{keywordflow}{if} (file\_exists ($file = \textcolor{stringliteral}{"$folder/$twig"})) \{
+52                 $this->\_template = $file;
+53                 $this->\_id = pathinfo ($component, PATHINFO\_FILENAME);
+54             \}
+55         \}
+56         \textcolor{keywordflow}{return} $temp;
+57     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 0
+\mbox{\Hypertarget{class_lora_1_1_page_component_a087060b582403885d08e89ad894ecc5d}\label{class_lora_1_1_page_component_a087060b582403885d08e89ad894ecc5d}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!id@{id}}
+\index{id@{id}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{id()}{id()}}
+{\footnotesize\ttfamily id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Returns id of this \hyperlink{class_lora_1_1_page_component}{Page\+Component}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+62                           \{
+63         \textcolor{keywordflow}{return} $this->\_id;
+64     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_page_component_a836e6e03df9ed37584042af4708928d6}\label{class_lora_1_1_page_component_a836e6e03df9ed37584042af4708928d6}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!inspect\+Config@{inspect\+Config}}
+\index{inspect\+Config@{inspect\+Config}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{inspect\+Config()}{inspectConfig()}}
+{\footnotesize\ttfamily inspect\+Config (\begin{DoxyParamCaption}\item[{array}]{\$config }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Verifies that a loaded component file is sane and can be used. \begin{DoxyReturn}{Returns}
+Returns true if component config is valid and false if not. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+173                                                    : \textcolor{keywordtype}{bool} \{
+174 \textcolor{preprocessor}{        # TODO?: Type checks}
+175         \textcolor{keywordflow}{return} isset ($config [\textcolor{stringliteral}{'id'}], $config [\textcolor{stringliteral}{'template'}], $config [\textcolor{stringliteral}{'dependencies'}], $config [\textcolor{stringliteral}{'appearance'}
+      ]);
+176     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_page_component_af34d5049c9cc4ab108d65218754b7429}\label{class_lora_1_1_page_component_af34d5049c9cc4ab108d65218754b7429}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!libraries@{libraries}}
+\index{libraries@{libraries}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{libraries()}{libraries()}}
+{\footnotesize\ttfamily libraries (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns an array containing all libraries assigned to this component. Goes through all of them and adds file extension to them if needed. \begin{DoxyReturn}{Returns}
+Returns an array of file names. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+113                                  : array \{
+114         \textcolor{keywordflow}{foreach} ($this->\_libraries as &$lib) \{
+115             $lib = \hyperlink{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}{\(\backslash\)Lib::checkExtension} ($lib, \textcolor{stringliteral}{'js'});
+116         \} \textcolor{keywordflow}{return} $this->\_libraries;
+117     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{class_lora_1_1_page_component_a63ba1656485acf76a0d23e8f64fdfa1d}\label{class_lora_1_1_page_component_a63ba1656485acf76a0d23e8f64fdfa1d}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!parse\+File@{parse\+File}}
+\index{parse\+File@{parse\+File}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{parse\+File()}{parseFile()}}
+{\footnotesize\ttfamily parse\+File (\begin{DoxyParamCaption}\item[{string}]{\$file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Attempts to parse a component file. This file can be either I\+NI or J\+S\+ON but J\+S\+ON should be preferred due to its more flexible nature. 
+\begin{DoxyParams}{Parameters}
+{\em \$file} & Full path to a component file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns an array of property values for this class. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+162                                               : array \{
+163         \textcolor{keywordflow}{if} (empty ($config = @parse\_ini\_file ($file, \textcolor{keyword}{true}, INI\_SCANNER\_TYPED)) && empty ($config = @
+      json\_decode (file\_get\_contents ($file), \textcolor{keyword}{true}))) \{
+164             \textcolor{keywordflow}{return} [];
+165         \}
+166         \textcolor{keywordflow}{return} $config;
+167     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_page_component_a8a5a7e2a8a27e02e0e68243d88ee339c}\label{class_lora_1_1_page_component_a8a5a7e2a8a27e02e0e68243d88ee339c}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!populate@{populate}}
+\index{populate@{populate}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{populate()}{populate()}}
+{\footnotesize\ttfamily populate (\begin{DoxyParamCaption}\item[{array}]{\$values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Populates property values with an associative array. 
+\begin{DoxyParams}{Parameters}
+{\em \$values} & An array of property values. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+182                                               : \textcolor{keywordtype}{void} \{
+183         \textcolor{keywordflow}{foreach} ($this->\hyperlink{class_lora_1_1_page_component_a3b38056ae9a3c2cada8000895f46b9cb}{configurableFields} () as $member) \{
+184             $property = substr ($member, 1);
+185             \textcolor{keywordflow}{if} (isset ($values [$property]) && gettype ($values [$property]) === ($type = gettype ($this->
+      $member))) \{
+186                 $this->$member = $values [$property];
+187             \}
+188         \}
+189     \}
+\end{DoxyCode}
+\mbox{\Hypertarget{class_lora_1_1_page_component_a3dc593f496b7dbf2e5e3c406cb5fd106}\label{class_lora_1_1_page_component_a3dc593f496b7dbf2e5e3c406cb5fd106}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!scripts@{scripts}}
+\index{scripts@{scripts}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{scripts()}{scripts()}}
+{\footnotesize\ttfamily scripts (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns an array containing all scripts assigned to this component. Goes through all of them and adds file extension to them if needed. \begin{DoxyReturn}{Returns}
+Returns an array of file names. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+92                                : array \{
+93         \textcolor{keywordflow}{foreach} ($this->\_scripts as &$script) \{
+94             $script = \hyperlink{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}{\(\backslash\)Lib::checkExtension} ($script, \textcolor{stringliteral}{'js'});
+95         \} \textcolor{keywordflow}{return} $this->\_scripts;
+96     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{class_lora_1_1_page_component_a53d31780f290c90071a213e9f786abb3}\label{class_lora_1_1_page_component_a53d31780f290c90071a213e9f786abb3}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!styles@{styles}}
+\index{styles@{styles}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{styles()}{styles()}}
+{\footnotesize\ttfamily styles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns an array containing all styles assigned to this component. Goes through all of them and adds file extension to them if needed. \begin{DoxyReturn}{Returns}
+Returns an array of file names. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+124                               : array \{
+125         \textcolor{keywordflow}{foreach} ($this->\_styles as &$style) \{
+126             $style = \hyperlink{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}{\(\backslash\)Lib::checkExtension} ($style, \textcolor{stringliteral}{'css'});
+127         \} \textcolor{keywordflow}{return} $this->\_styles;
+128     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{class_lora_1_1_page_component_a0b54c9d3801b331b75487ef78d98c06b}\label{class_lora_1_1_page_component_a0b54c9d3801b331b75487ef78d98c06b}} 
+\index{Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}!template@{template}}
+\index{template@{template}!Lora\+::\+Page\+Component@{Lora\+::\+Page\+Component}}
+\subsubsection{\texorpdfstring{template()}{template()}}
+{\footnotesize\ttfamily template (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Returns a template file name this \hyperlink{class_lora_1_1_page_component}{Page\+Component} uses and adds file extension to it if required. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+73                                 : \textcolor{keywordtype}{string} \{
+74         \textcolor{keywordflow}{return} $this->\_template = \hyperlink{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}{\(\backslash\)Lib::checkExtension} ($this->\_template, 
+      \hyperlink{class_lora_1_1_config_a98a88f17bbc72a1f26f54b264be26068}{Config::ext} (\textcolor{stringliteral}{'twig'}, \textcolor{stringliteral}{'twig'}));
+75     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+% FIG 4
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+servers/webserver/server/pagecomponent.\+php\end{DoxyCompactItemize}
