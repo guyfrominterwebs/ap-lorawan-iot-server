@@ -72,7 +72,6 @@ function RTSocket (_handler, _devices, _values) {
 	}
 
 	this.onmessage = function (event) {
-		console.log (event.data);
 		var temp = handler || self.getHandler ();
 		if (temp) {
 			temp (event.data);

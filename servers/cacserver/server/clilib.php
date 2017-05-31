@@ -38,10 +38,6 @@ function hasHelp (array $args) {
 	return isset ($args ['h']);
 }
 
-function hasRandom (array $args) {
-	return isset ($args ['random']);
-}
-
 function getRepeat (array $args) {
 	$keys = [
 		'r',
@@ -64,7 +60,20 @@ function getValueRange (array $args) {
 	$keys = [
 		'range'
 	];
-	return getValuePair ($args, $keys, [ 0, 1 ]);
+	$range = getValuePair ($args, $keys, [ 0, 1 ]);
+	$range [0] = trim ($range [0], '\'"');
+	$range [1] = trim ($range [1], '\'"');
+	if (!is_numeric ($range [0]) || !is_numeric ($range [1])) {
+		$range [0] = 0;
+		$range [1] = 1;
+	}
+	$range [0] = (int)$range [0];
+	$range [1] = (int)$range [1];
+	return $range;
+}
+
+function getRandomCount ($args) {
+	return getValue ($args, [ 'random' ], 0);
 }
 
 function getValue (array $args, array $keys, int $default) : int {
@@ -108,21 +117,41 @@ function outHelp () {
 	];
 }
 
-function runArgs (array $args, string $device, bool $single) : array {
+function runArgs (array $args, string $device, bool $single, int $random, array $range) : array {
 	$commands = [];
 	foreach ($args as $command => $values) {
 		if (is_string ($values)) {
 			$values = [ $values ];
+		} else if (empty ($values)) {
+			continue;
 		}
-		if ($single) {
-			foreach ($values as $value) {
-				if (!empty ($temp = commandToInternal ($command, $device, [ $value ]))) {
+		if ($random > 0) {
+			if ($single) {
+				for ($i = 0; $i < $random; ++$i) {
+					if (!empty ($temp = commandToInternal ($command, $device, [ randomValue ($range [0], $range [1]) ]))) {
+						$commands [] = $temp;
+					}
+				}
+			} else {
+				$values = [];
+				for ($i = 0; $i < $random; ++$i) {
+					$values [] = randomValue ($range [0], $range [1]);
+				}
+				if (!empty ($temp = commandToInternal ($command, $device, $values))) {
 					$commands [] = $temp;
 				}
 			}
 		} else {
-			if (!empty ($temp = commandToInternal ($command, $device, $values))) {
-				$commands [] = $temp;
+			if ($single) {
+				foreach ($values as $value) {
+					if (!empty ($temp = commandToInternal ($command, $device, [ $value ]))) {
+						$commands [] = $temp;
+					}
+				}
+			} else {
+				if (!empty ($temp = commandToInternal ($command, $device, $values))) {
+					$commands [] = $temp;
+				}
 			}
 		}
 	}

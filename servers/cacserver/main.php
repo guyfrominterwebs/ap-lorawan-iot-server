@@ -26,17 +26,21 @@ if (!hasSilent ($args)) { ///< Silents mode. Does not ask for additional input.
 
 $repeat = getRepeat ($args);
 $delay = getDelay ($args);
-$device = deviceHwId (1);
+$device = randomDeviceHwId (1);
 $single = hasSingle ($args);
+$random = getRandomCount ($args);
+$range = getValueRange ($args);
 $send = array_merge (
-			runArgs ($args, $device, $single),
-			runArgs ($commands, $device, $single)
+			runArgs ($args, $device, $single, $random, $range),
+			runArgs ($commands, $device, $single, $random, $range)
 		);
+$last = false;
 for ($i = 0; $i < $repeat || $repeat === 0; ++$i) {
 	foreach ($send as $msg) {
-		broadcast ($msg, $i + 1 === $repeat);
+		$asd = broadcast ($msg, $last);
 		sleep ($delay);
 	}
+	$last = $i + 1 === $repeat;
 }
 exit ();
 
