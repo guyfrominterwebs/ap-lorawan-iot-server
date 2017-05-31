@@ -1,0 +1,51 @@
+\section{Response Class Reference}
+\label{class_lora_1_1_server_1_1_response}\index{Response@{Response}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \textbf{ is\+Response} (\$value)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_lora_1_1_server_1_1_response_a662f51c007afab9ac309d177745a503f}} 
+const \textbf{ OK} = 0
+\begin{DoxyCompactList}\small\item\em A success response. \end{DoxyCompactList}\item 
+\mbox{\label{class_lora_1_1_server_1_1_response_a7f79d7b73cfb40bb7855d4260393cc0f}} 
+const \textbf{ E\+R\+R\+OR} = 1
+\begin{DoxyCompactList}\small\item\em An error response. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An enum class for response types used in internal system messaging. 
+
+\subsection{Member Function Documentation}
+\mbox{\label{class_lora_1_1_server_1_1_response_a5ecbfa284b2952ff99be58153c4b1779}} 
+\index{Lora\+::\+Server\+::\+Response@{Lora\+::\+Server\+::\+Response}!is\+Response@{is\+Response}}
+\index{is\+Response@{is\+Response}!Lora\+::\+Server\+::\+Response@{Lora\+::\+Server\+::\+Response}}
+\subsubsection{is\+Response()}
+{\footnotesize\ttfamily static is\+Response (\begin{DoxyParamCaption}\item[{}]{\$value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Collects all constants in \doxyref{Response}{p.}{class_lora_1_1_server_1_1_response} during the first call and flips received array. This collection is then used to see if some value is a \doxyref{Response}{p.}{class_lora_1_1_server_1_1_response} constant or not. 
+\begin{DoxyParams}{Parameters}
+{\em \$value} & Value to test for constant. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true is \$value is a \doxyref{Response}{p.}{class_lora_1_1_server_1_1_response} value and false if not. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+19                                                \{
+20         \textcolor{keyword}{static} $consts = null;
+21         \textcolor{keywordflow}{if} (!$consts) \{
+22             $consts = array\_flip ((\textcolor{keyword}{new} \(\backslash\)ReflectionClass (\_\_CLASS\_\_))->getConstants ());
+23         \}
+24         \textcolor{keywordflow}{return} isset ($consts [$value]);
+25     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lora/response.\+php\end{DoxyCompactItemize}

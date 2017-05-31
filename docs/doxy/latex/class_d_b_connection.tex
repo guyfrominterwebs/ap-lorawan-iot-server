@@ -1,9 +1,9 @@
-\hypertarget{class_d_b_connection}{}\section{D\+B\+Connection Class Reference}
+\section{D\+B\+Connection Class Reference}
 \label{class_d_b_connection}\index{D\+B\+Connection@{D\+B\+Connection}}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{class_d_b_connection_aeb96471cf6f9d9205d22e8b17c2277c3}{connection} (string \$db)
+static \textbf{ connection} (string \$db)
 \end{DoxyCompactItemize}
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
@@ -13,50 +13,50 @@ static \hyperlink{class_d_b_connection_aeb96471cf6f9d9205d22e8b17c2277c3}{connec
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_d_b_connection_a1191ef26fe6381a3bfbd33c0c6f7b9f4}{connect} (array \&\$db)
+\textbf{ connect} (array \&\$db)
 \item 
-\hyperlink{class_d_b_connection_a4db4ce6ff1cf378867220c6694b8bc05}{mongo\+Connect} (\&\$db)
+\textbf{ mongo\+Connect} (\&\$db)
 \item 
-\hyperlink{class_d_b_connection_ab7140b0e933334f00374b6675c60ffaf}{mysql\+Connect} (\&\$db)
+\textbf{ mysql\+Connect} (\&\$db)
 \end{DoxyCompactItemize}
 \subsection*{Static Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{class_d_b_connection_a2b99fe8f4ca4b64909ce7b499e71dfb6}{obj} ()
+static \textbf{ obj} ()
 \end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_d_b_connection_a33aae4c65470265fd7be44a7605d379c}\label{class_d_b_connection_a33aae4c65470265fd7be44a7605d379c}} 
+\mbox{\label{class_d_b_connection_a33aae4c65470265fd7be44a7605d379c}} 
 const {\bfseries M\+O\+N\+GO} = 1
 \item 
-\mbox{\Hypertarget{class_d_b_connection_ad5069a952f7f551b99564867ff5a24a9}\label{class_d_b_connection_ad5069a952f7f551b99564867ff5a24a9}} 
+\mbox{\label{class_d_b_connection_ad5069a952f7f551b99564867ff5a24a9}} 
 const {\bfseries M\+Y\+S\+QL} = 2
 \item 
-\hyperlink{class_d_b_connection_a8d01870fbfcf9232c0e94c50a7142331}{\$connections}
+\textbf{ \$connections}
 \begin{DoxyCompactList}\small\item\em \$connections holds all available database credentials. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_d_b_connection_ad9d7ce33ebb142b70e58b68052ca0ea8}\label{class_d_b_connection_ad9d7ce33ebb142b70e58b68052ca0ea8}} 
+\mbox{\label{class_d_b_connection_ad9d7ce33ebb142b70e58b68052ca0ea8}} 
 static {\bfseries \$instance} = null
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 An enclosed singleton class accessible through static wrapper methods for managing active database connections. Keeps connections alive to reduce overhead which would otherwise occure if a new connection were to be opened for every query. Holds all database credentials and connection information. \begin{DoxyRefDesc}{Todo}
-\item[\hyperlink{todo__todo000002}{Todo}]Move database access credentials to external file. \end{DoxyRefDesc}
+\item[\textbf{ Todo}]Move database access credentials to external file. \end{DoxyRefDesc}
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{class_d_b_connection_a1191ef26fe6381a3bfbd33c0c6f7b9f4}\label{class_d_b_connection_a1191ef26fe6381a3bfbd33c0c6f7b9f4}} 
+\mbox{\label{class_d_b_connection_a1191ef26fe6381a3bfbd33c0c6f7b9f4}} 
 \index{D\+B\+Connection@{D\+B\+Connection}!connect@{connect}}
 \index{connect@{connect}!D\+B\+Connection@{D\+B\+Connection}}
-\subsubsection{\texorpdfstring{connect()}{connect()}}
+\subsubsection{connect()}
 {\footnotesize\ttfamily connect (\begin{DoxyParamCaption}\item[{array \&}]{\$db }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 \begin{DoxyRefDesc}{Todo}
-\item[\hyperlink{todo__todo000003}{Todo}]Automatize database type fetching so that this switch statement does not require updating everytime a new database type is added. \end{DoxyRefDesc}
+\item[\textbf{ Todo}]Automatize database type fetching so that this switch statement does not require updating everytime a new database type is added. \end{DoxyRefDesc}
 
 \begin{DoxyCode}
 63                                           \{
@@ -65,25 +65,30 @@ An enclosed singleton class accessible through static wrapper methods for managi
 66         \}
 70         \textcolor{keywordflow}{switch} ($db [\textcolor{stringliteral}{'type'}]) \{
 71             \textcolor{keywordflow}{case} DBConnection::MONGO:
-72                     \textcolor{keywordflow}{return} $this->\hyperlink{class_d_b_connection_a4db4ce6ff1cf378867220c6694b8bc05}{mongoConnect} ($db);
+72                     \textcolor{keywordflow}{return} $this->mongoConnect ($db);
 73                 \textcolor{keywordflow}{break};
 74             \textcolor{keywordflow}{case} DBConnection::MYSQL:
-75                     \textcolor{keywordflow}{return} $this->\hyperlink{class_d_b_connection_ab7140b0e933334f00374b6675c60ffaf}{mysqlConnect} ($db);
+75                     \textcolor{keywordflow}{return} $this->mysqlConnect ($db);
 76                 \textcolor{keywordflow}{break};
 77             \textcolor{keywordflow}{default}: \textcolor{keywordflow}{return} null;
 78         \}
 79     \}
 \end{DoxyCode}
-Here is the call graph for this function\+:
-% FIG 0
-\mbox{\Hypertarget{class_d_b_connection_aeb96471cf6f9d9205d22e8b17c2277c3}\label{class_d_b_connection_aeb96471cf6f9d9205d22e8b17c2277c3}} 
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{class_d_b_connection_a1191ef26fe6381a3bfbd33c0c6f7b9f4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{class_d_b_connection_aeb96471cf6f9d9205d22e8b17c2277c3}} 
 \index{D\+B\+Connection@{D\+B\+Connection}!connection@{connection}}
 \index{connection@{connection}!D\+B\+Connection@{D\+B\+Connection}}
-\subsubsection{\texorpdfstring{connection()}{connection()}}
+\subsubsection{connection()}
 {\footnotesize\ttfamily static connection (\begin{DoxyParamCaption}\item[{string}]{\$db }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 Attempts to retrieve a database connection or create one if it has not been extablished yet. \begin{DoxyReturn}{Returns}
-Returns a database connection object which may vary from database to database. For older and commonly used databases, \href{http://php.net/manual/en/class.pdo.php}{\tt P\+DO} is used when ever possible. For Mongo\+DB, a \href{http://php.net/manual/en/class.mongodb-driver-manager.php}{\tt } is returned. Null is returned if database credentials are not found or connection establishing fails. 
+Returns a database connection object which may vary from database to database. For older and commonly used databases, {\tt P\+DO} is used when ever possible. For Mongo\+DB, a {\tt } is returned. Null is returned if database credentials are not found or connection establishing fails. 
 \end{DoxyReturn}
 
 \begin{DoxyCode}
@@ -95,11 +100,17 @@ Returns a database connection object which may vary from database to database. F
 61     \}
 \end{DoxyCode}
 Here is the caller graph for this function\+:
-% FIG 1
-\mbox{\Hypertarget{class_d_b_connection_a4db4ce6ff1cf378867220c6694b8bc05}\label{class_d_b_connection_a4db4ce6ff1cf378867220c6694b8bc05}} 
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{class_d_b_connection_aeb96471cf6f9d9205d22e8b17c2277c3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{class_d_b_connection_a4db4ce6ff1cf378867220c6694b8bc05}} 
 \index{D\+B\+Connection@{D\+B\+Connection}!mongo\+Connect@{mongo\+Connect}}
 \index{mongo\+Connect@{mongo\+Connect}!D\+B\+Connection@{D\+B\+Connection}}
-\subsubsection{\texorpdfstring{mongo\+Connect()}{mongoConnect()}}
+\subsubsection{mongo\+Connect()}
 {\footnotesize\ttfamily mongo\+Connect (\begin{DoxyParamCaption}\item[{\&}]{\$db }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 Connect to a Mongo\+DB -\/database. 
@@ -112,11 +123,17 @@ Connect to a Mongo\+DB -\/database.
 88     \}
 \end{DoxyCode}
 Here is the caller graph for this function\+:
-% FIG 2
-\mbox{\Hypertarget{class_d_b_connection_ab7140b0e933334f00374b6675c60ffaf}\label{class_d_b_connection_ab7140b0e933334f00374b6675c60ffaf}} 
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{class_d_b_connection_a4db4ce6ff1cf378867220c6694b8bc05_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{class_d_b_connection_ab7140b0e933334f00374b6675c60ffaf}} 
 \index{D\+B\+Connection@{D\+B\+Connection}!mysql\+Connect@{mysql\+Connect}}
 \index{mysql\+Connect@{mysql\+Connect}!D\+B\+Connection@{D\+B\+Connection}}
-\subsubsection{\texorpdfstring{mysql\+Connect()}{mysqlConnect()}}
+\subsubsection{mysql\+Connect()}
 {\footnotesize\ttfamily mysql\+Connect (\begin{DoxyParamCaption}\item[{\&}]{\$db }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 Connect to a My\+S\+QL -\/database. 
@@ -137,11 +154,17 @@ Connect to a My\+S\+QL -\/database.
 105     \}
 \end{DoxyCode}
 Here is the caller graph for this function\+:
-% FIG 3
-\mbox{\Hypertarget{class_d_b_connection_a2b99fe8f4ca4b64909ce7b499e71dfb6}\label{class_d_b_connection_a2b99fe8f4ca4b64909ce7b499e71dfb6}} 
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{class_d_b_connection_ab7140b0e933334f00374b6675c60ffaf_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{class_d_b_connection_a2b99fe8f4ca4b64909ce7b499e71dfb6}} 
 \index{D\+B\+Connection@{D\+B\+Connection}!obj@{obj}}
 \index{obj@{obj}!D\+B\+Connection@{D\+B\+Connection}}
-\subsubsection{\texorpdfstring{obj()}{obj()}}
+\subsubsection{obj()}
 {\footnotesize\ttfamily static obj (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
 
 \begin{DoxyReturn}{Returns}
@@ -150,16 +173,16 @@ Returns a singleton instance of this class which is created upon first call to t
 
 \begin{DoxyCode}
 45                                    \{
-46         \textcolor{keywordflow}{return} self::$instance ?? (self::$instance = \textcolor{keyword}{new} \hyperlink{class_d_b_connection}{DBConnection} ());
+46         \textcolor{keywordflow}{return} self::$instance ?? (self::$instance = \textcolor{keyword}{new} DBConnection ());
 47     \}
 \end{DoxyCode}
 
 
 \subsection{Field Documentation}
-\mbox{\Hypertarget{class_d_b_connection_a8d01870fbfcf9232c0e94c50a7142331}\label{class_d_b_connection_a8d01870fbfcf9232c0e94c50a7142331}} 
+\mbox{\label{class_d_b_connection_a8d01870fbfcf9232c0e94c50a7142331}} 
 \index{D\+B\+Connection@{D\+B\+Connection}!\$connections@{\$connections}}
 \index{\$connections@{\$connections}!D\+B\+Connection@{D\+B\+Connection}}
-\subsubsection{\texorpdfstring{\$connections}{$connections}}
+\subsubsection{\$connections}
 {\footnotesize\ttfamily \$connections\hspace{0.3cm}{\ttfamily [private]}}
 
 {\bfseries Initial value\+:}
@@ -172,10 +195,10 @@ Returns a singleton instance of this class which is created upon first call to t
 
 \$connections holds all available database credentials. 
 
-\mbox{\Hypertarget{class_d_b_connection_a832ddc04754e8a43d4f3c6165b1294a7}\label{class_d_b_connection_a832ddc04754e8a43d4f3c6165b1294a7}} 
+\mbox{\label{class_d_b_connection_a832ddc04754e8a43d4f3c6165b1294a7}} 
 \index{D\+B\+Connection@{D\+B\+Connection}!host@{host}}
 \index{host@{host}!D\+B\+Connection@{D\+B\+Connection}}
-\subsubsection{\texorpdfstring{host}{host}}
+\subsubsection{host}
 {\footnotesize\ttfamily host}
 
 {\bfseries Initial value\+:}

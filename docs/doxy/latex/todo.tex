@@ -1,41 +1,34 @@
 
 \begin{DoxyRefList}
 \item[\label{todo__todo000001}%
-\Hypertarget{todo__todo000001}%
-Class \hyperlink{class_lora_1_1_configuration}{Configuration} ]Start using \$paths and \$exts.  
+Class \doxyref{Configuration}{p.}{class_lora_1_1_configuration} ]Start using \$paths and \$exts.  
+\item[\label{todo__todo000007}%
+Global \doxyref{Control\+Server\+:\+:broadcast}{p.}{class_lora_1_1_control_server_ab671527a81a457e51152cc532c716faa} (string \$command)]Write message subscription system.  
+\item[\label{todo__todo000006}%
+Global \doxyref{Data\+Server\+:\+:broadcast}{p.}{class_lora_1_1_data_server_a883eaf25eb21a0ba827bb9a9a3593861} (array \$msg, array \&\$messages)]Internal message processing (terminate). Broadcasts a received message to other server systems. Only interested one at the moment is the realtime sever which in turn broadcasts it onwards to clients who are interested in it.  
 \item[\label{todo__todo000002}%
-\Hypertarget{todo__todo000002}%
-Class \hyperlink{class_d_b_connection}{D\+B\+Connection} ]Move database access credentials to external file.  
+Class \doxyref{D\+B\+Connection}{p.}{class_d_b_connection} ]Move database access credentials to external file.  
 \item[\label{todo__todo000003}%
-\Hypertarget{todo__todo000003}%
-Global \hyperlink{class_d_b_connection_a1191ef26fe6381a3bfbd33c0c6f7b9f4}{D\+B\+Connection\+:\+:connect} (array \&\$db)]Automatize database type fetching so that this switch statement does not require updating everytime a new database type is added.  
-\item[\label{todo__todo000012}%
-\Hypertarget{todo__todo000012}%
-Class \hyperlink{class_html_1_1_html_tag}{Html\+Tag} ]Needs improvements and has to better comply H\+T\+ML structure.
+Global \doxyref{D\+B\+Connection\+:\+:connect}{p.}{class_d_b_connection_a1191ef26fe6381a3bfbd33c0c6f7b9f4} (array \&\$db)]Automatize database type fetching so that this switch statement does not require updating everytime a new database type is added.  
+\item[\label{todo__todo000014}%
+Class \doxyref{Html\+Tag}{p.}{class_html_1_1_html_tag} ]Needs improvements and has to better comply H\+T\+ML structure.
 \begin{DoxyItemize}
 \item Add an array for inner contents.
 \item Add utility funtions for certain commonly used attributes such as id and class.
 \item A better approach to creating an H\+T\+ML management system would be to write specialized attribute classes instead of tag classes.  
 \end{DoxyItemize}
-\item[\label{todo__todo000007}%
-\Hypertarget{todo__todo000007}%
-Global \hyperlink{class_lora_1_1_page_a9caaa1f5ea6177e55f13ebe7dec2bd60}{Page\+:\+:finalize} ()]Should be relocated. A possible place would be \hyperlink{class_lora_1_1_page_manager}{Page\+Manager}.  
-\item[\label{todo__todo000006}%
-\Hypertarget{todo__todo000006}%
-Global \hyperlink{class_lora_1_1_page_a943f0df56a6f8dbc260ddb31925ce4f6}{Page\+:\+:load\+View} (string \$view)]Rename to load. Loads a \hyperlink{class_lora_1_1_page}{Page}  
-\item[\label{todo__todo000008}%
-\Hypertarget{todo__todo000008}%
-Global \hyperlink{class_lora_1_1_page_a49b28f2ca7604e14af0d5829b4e8cc4a}{Page\+:\+:parse\+Views} (array \$views)]Needs cleaning  
 \item[\label{todo__todo000009}%
-\Hypertarget{todo__todo000009}%
-Global \hyperlink{class_lora_1_1_page_view_a087060b582403885d08e89ad894ecc5d}{Page\+View\+:\+:id} ()]This method should be renamed to \textquotesingle{}name\textquotesingle{}.  
-\item[\label{todo__todo000004}%
-\Hypertarget{todo__todo000004}%
-Class \hyperlink{class_request_data}{Request\+Data} ]Write type checks for default values and resolve to null if they are of incorrect type.  
+Global \doxyref{Page\+:\+:finalize}{p.}{class_lora_1_1_page_a9caaa1f5ea6177e55f13ebe7dec2bd60} ()]Should be relocated. A possible place would be \doxyref{Page\+Manager}{p.}{class_lora_1_1_page_manager}.  
+\item[\label{todo__todo000008}%
+Global \doxyref{Page\+:\+:load\+View}{p.}{class_lora_1_1_page_a943f0df56a6f8dbc260ddb31925ce4f6} (string \$view)]Rename to load. Loads a \doxyref{Page}{p.}{class_lora_1_1_page}  
 \item[\label{todo__todo000010}%
-\Hypertarget{todo__todo000010}%
-Global \hyperlink{class_lora_1_1_request_handler_af59b79c7f32e254704d9388105a67bee}{Request\+Handler\+:\+:handle\+Api\+Request} (array \$action)]Possibly add support to return X\+ML responses.  
+Global \doxyref{Page\+:\+:parse\+Views}{p.}{class_lora_1_1_page_a49b28f2ca7604e14af0d5829b4e8cc4a} (array \$views)]Needs cleaning  
 \item[\label{todo__todo000011}%
-\Hypertarget{todo__todo000011}%
-Global \hyperlink{class_lora_1_1_request_handler_a6fc4ced934cdeb3ef1d5a207ffb2a1e1}{Request\+Handler\+:\+:resolve\+Call} (array \$action, string \$file\+Path, string \$file\+Type, string \$namespace)]Move page processing somewhere else. 
+Global \doxyref{Page\+View\+:\+:id}{p.}{class_lora_1_1_page_view_a087060b582403885d08e89ad894ecc5d} ()]This method should be renamed to \textquotesingle{}name\textquotesingle{}.  
+\item[\label{todo__todo000004}%
+Class \doxyref{Request\+Data}{p.}{class_request_data} ]Write type checks for default values and resolve to null if they are of incorrect type.  
+\item[\label{todo__todo000012}%
+Global \doxyref{Request\+Handler\+:\+:handle\+Api\+Request}{p.}{class_lora_1_1_request_handler_af59b79c7f32e254704d9388105a67bee} (array \$action)]Possibly add support to return X\+ML responses.  
+\item[\label{todo__todo000013}%
+Global \doxyref{Request\+Handler\+:\+:resolve\+Call}{p.}{class_lora_1_1_request_handler_a6fc4ced934cdeb3ef1d5a207ffb2a1e1} (array \$action, string \$file\+Path, string \$file\+Type, string \$namespace)]Move page processing somewhere else. 
 \end{DoxyRefList}

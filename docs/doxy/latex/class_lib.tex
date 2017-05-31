@@ -1,16 +1,16 @@
-\hypertarget{class_lib}{}\section{Lib Class Reference}
+\section{Lib Class Reference}
 \label{class_lib}\index{Lib@{Lib}}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_lib_a792f12586807e89f69e34b7392d6417d}{array\+To\+String} (array \$data, string \$delim, bool \$keyed=false, string \$glue=\textquotesingle{}\textquotesingle{})
+\textbf{ array\+To\+String} (array \$data, string \$delim, bool \$keyed=false, string \$glue=\textquotesingle{}\textquotesingle{})
 \end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{class_lib_a29c2b6b4cde743c320b8a9e30056a6dd}{dump} (\$val, bool \$return=false)
+static \textbf{ dump} (\$val, bool \$return=false)
 \item 
-static \hyperlink{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}{check\+Extension} (string \$file\+Name, string \$extension)
+static \textbf{ check\+Extension} (string \$file\+Name, string \$extension)
 \end{DoxyCompactItemize}
 
 
@@ -18,10 +18,10 @@ static \hyperlink{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}{check\+Extension}
 A class to contain more or less universal library functions which can be used in any project. 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{class_lib_a792f12586807e89f69e34b7392d6417d}\label{class_lib_a792f12586807e89f69e34b7392d6417d}} 
+\mbox{\label{class_lib_a792f12586807e89f69e34b7392d6417d}} 
 \index{Lib@{Lib}!array\+To\+String@{array\+To\+String}}
 \index{array\+To\+String@{array\+To\+String}!Lib@{Lib}}
-\subsubsection{\texorpdfstring{array\+To\+String()}{arrayToString()}}
+\subsubsection{array\+To\+String()}
 {\footnotesize\ttfamily array\+To\+String (\begin{DoxyParamCaption}\item[{array}]{\$data,  }\item[{string}]{\$delim,  }\item[{bool}]{\$keyed = {\ttfamily false},  }\item[{string}]{\$glue = {\ttfamily \textquotesingle{}\textquotesingle{}} }\end{DoxyParamCaption})}
 
 Builds a string from an array of data. Only works with one dimensional arrays and scalar types. 
@@ -54,12 +54,17 @@ Builds a string from an array of data. Only works with one dimensional arrays an
 49         \} \textcolor{keywordflow}{return} substr ($string, 0, -strlen ($delim));
 50     \}
 \end{DoxyCode}
-Here is the caller graph for this function\+:
-% FIG 0
-\mbox{\Hypertarget{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}\label{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}} 
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=285pt]{class_lib_a792f12586807e89f69e34b7392d6417d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{class_lib_ab5fbdf394f09fcef4dcea271c344cb65}} 
 \index{Lib@{Lib}!check\+Extension@{check\+Extension}}
 \index{check\+Extension@{check\+Extension}!Lib@{Lib}}
-\subsubsection{\texorpdfstring{check\+Extension()}{checkExtension()}}
+\subsubsection{check\+Extension()}
 {\footnotesize\ttfamily static check\+Extension (\begin{DoxyParamCaption}\item[{string}]{\$file\+Name,  }\item[{string}]{\$extension }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 A function to check if a file name has given extension in it and adds one if it is not found. 
@@ -77,12 +82,17 @@ A function to check if a file name has given extension in it and adds one if it 
 60         \} \textcolor{keywordflow}{return} $fileName;
 61     \}
 \end{DoxyCode}
-Here is the caller graph for this function\+:
-% FIG 1
-\mbox{\Hypertarget{class_lib_a29c2b6b4cde743c320b8a9e30056a6dd}\label{class_lib_a29c2b6b4cde743c320b8a9e30056a6dd}} 
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_lib_ab5fbdf394f09fcef4dcea271c344cb65_icgraph}
+\end{center}
+\end{figure}
+\mbox{\label{class_lib_a29c2b6b4cde743c320b8a9e30056a6dd}} 
 \index{Lib@{Lib}!dump@{dump}}
 \index{dump@{dump}!Lib@{Lib}}
-\subsubsection{\texorpdfstring{dump()}{dump()}}
+\subsubsection{dump()}
 {\footnotesize\ttfamily static dump (\begin{DoxyParamCaption}\item[{}]{\$val,  }\item[{bool}]{\$return = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 Pretty prints the given value as H\+T\+ML, wrapped in pre -\/tags. Optionally, returns the pretty printed data instead of appending to the out buffer with echo. 

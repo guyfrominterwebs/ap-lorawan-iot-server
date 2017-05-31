@@ -1,72 +1,77 @@
-\hypertarget{class_lora_1_1_config}{}\section{Config Class Reference}
+\section{Config Class Reference}
 \label{class_lora_1_1_config}\index{Config@{Config}}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{class_lora_1_1_config_a0deb004950b8dc4f51836316fd19c111}{instance} ()
+static \textbf{ instance} ()
 \item 
-static \hyperlink{class_lora_1_1_config_ac14c17dc35a55cd5a44db48d7d7d1fd9}{load\+Config} (array \$configs)
+static \textbf{ load\+Config} (array \$configs)
 \item 
-static \hyperlink{class_lora_1_1_config_a9f949bb49001886679ff026aba1c3a5a}{get} (... \$key)
+static \textbf{ get} (... \$key)
 \item 
-static \hyperlink{class_lora_1_1_config_aade770941642defa7b826ff3ad193b4a}{path} (... \$key)
+static \textbf{ path} (... \$key)
 \item 
-static \hyperlink{class_lora_1_1_config_a36845afbe5fedb71da890df0ada263f6}{paths} (... \$key)
+static \textbf{ paths} (... \$key)
 \item 
-static \hyperlink{class_lora_1_1_config_a98a88f17bbc72a1f26f54b264be26068}{ext} (... \$key)
+static \textbf{ ext} (... \$key)
 \item 
-static \hyperlink{class_lora_1_1_config_af12ac9985e38465b53443034489f3526}{register\+Autoloaders} ()
+static \textbf{ port} (... \$key)
 \item 
-static \hyperlink{class_lora_1_1_config_a5d5d9fa893f5a5a8db61062e78248450}{autoloader} (\$class)
+static \textbf{ register\+Autoloaders} ()
+\item 
+static \textbf{ autoloader} (\$class)
 \end{DoxyCompactItemize}
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_lora_1_1_config_a1fc0f693347c58a8714672eeffa2e134}\label{class_lora_1_1_config_a1fc0f693347c58a8714672eeffa2e134}} 
-const \hyperlink{class_lora_1_1_config_a1fc0f693347c58a8714672eeffa2e134}{P\+A\+TH} = \textquotesingle{}path\+\_\+\textquotesingle{}
+\mbox{\label{class_lora_1_1_config_a1fc0f693347c58a8714672eeffa2e134}} 
+const \textbf{ P\+A\+TH} = \textquotesingle{}path\+\_\+\textquotesingle{}
 \begin{DoxyCompactList}\small\item\em Path prefix which can be used in configuration files to allow them to be fetched through path method. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_lora_1_1_config_a946f0934b6d4dce0bc46dbdb9119a624}\label{class_lora_1_1_config_a946f0934b6d4dce0bc46dbdb9119a624}} 
-const \hyperlink{class_lora_1_1_config_a946f0934b6d4dce0bc46dbdb9119a624}{E\+X\+T\+E\+N\+S\+I\+ON} = \textquotesingle{}ext\+\_\+\textquotesingle{}
-\begin{DoxyCompactList}\small\item\em Extension prefix which can be used in configuration files to allow them to be fetched through ext method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\label{class_lora_1_1_config_a946f0934b6d4dce0bc46dbdb9119a624}} 
+const \textbf{ E\+X\+T\+E\+N\+S\+I\+ON} = \textquotesingle{}ext\+\_\+\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Extension prefix which can be used in configuration files to allow them to be fetched through ext method. \end{DoxyCompactList}\item 
+\mbox{\label{class_lora_1_1_config_ab9a2d2c70deaf0f75cf0ee531f6ed0b5}} 
+const \textbf{ P\+O\+RT} = \textquotesingle{}port\+\_\+\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em Extension prefix which can be used in configuration files to allow them to be fetched through port method. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_lora_1_1_config_a3d0d06c2ac189761041669f7fbcb6ba5}\label{class_lora_1_1_config_a3d0d06c2ac189761041669f7fbcb6ba5}} 
-{\bfseries \$configurations} = \mbox{[}$\,$\mbox{]}
+\mbox{\label{class_lora_1_1_config_a3d0d06c2ac189761041669f7fbcb6ba5}} 
+{\bfseries \$configurations} = [$\,$]
 \end{DoxyCompactItemize}
 \subsection*{Static Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_lora_1_1_config_ad9d7ce33ebb142b70e58b68052ca0ea8}\label{class_lora_1_1_config_ad9d7ce33ebb142b70e58b68052ca0ea8}} 
+\mbox{\label{class_lora_1_1_config_ad9d7ce33ebb142b70e58b68052ca0ea8}} 
 static {\bfseries \$instance} = null
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-\hyperlink{class_lora_1_1_configuration}{Configuration} management class capable of managing multiple cinfiguration sets. Uses singleton pattern. Belongs to \hyperlink{namespace_lora}{Lora} -\/namespace. 
+\doxyref{Configuration}{p.}{class_lora_1_1_configuration} management class capable of managing multiple cinfiguration sets. Uses singleton pattern. Belongs to \doxyref{Lora}{p.}{namespace_lora} -\/namespace. 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{class_lora_1_1_config_a5d5d9fa893f5a5a8db61062e78248450}\label{class_lora_1_1_config_a5d5d9fa893f5a5a8db61062e78248450}} 
+\mbox{\label{class_lora_1_1_config_a5d5d9fa893f5a5a8db61062e78248450}} 
 \index{Lora\+::\+Config@{Lora\+::\+Config}!autoloader@{autoloader}}
 \index{autoloader@{autoloader}!Lora\+::\+Config@{Lora\+::\+Config}}
-\subsubsection{\texorpdfstring{autoloader()}{autoloader()}}
+\subsubsection{autoloader()}
 {\footnotesize\ttfamily static autoloader (\begin{DoxyParamCaption}\item[{}]{\$class }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
-Autoloader function capable of loading any script file as long as there are no name conflicts. See \href{http://php.net/manual/en/language.oop5.autoload.php}{\tt http\+://php.\+net/manual/en/language.\+oop5.\+autoload.\+php} for more details about autoloaders in P\+HP. 
+Autoloader function capable of loading any script file as long as there are no name conflicts. See {\tt http\+://php.\+net/manual/en/language.\+oop5.\+autoload.\+php} for more details about autoloaders in P\+HP. 
 \begin{DoxyCode}
-121                                                : \textcolor{keywordtype}{void} \{
-122         $class = strtolower (array\_slice (explode (\textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}, $class), -1)[0]);
-123         \textcolor{keywordflow}{foreach} (\hyperlink{class_lora_1_1_config_a0deb004950b8dc4f51836316fd19c111}{Config::instance} ()->configurations as $conf) \{
-124             \textcolor{keywordflow}{if} ($conf->includeScript ($class)) \{
-125                 \textcolor{keywordflow}{return};
-126             \}
-127         \}
-128     \}
+136                                                : \textcolor{keywordtype}{void} \{
+137         $class = strtolower (array\_slice (explode (\textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}, $class), -1)[0]);
+138         \textcolor{keywordflow}{foreach} (Config::instance ()->configurations as $conf) \{
+139             \textcolor{keywordflow}{if} ($conf->includeScript ($class)) \{
+140                 \textcolor{keywordflow}{return};
+141             \}
+142         \}
+143     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_config_a98a88f17bbc72a1f26f54b264be26068}\label{class_lora_1_1_config_a98a88f17bbc72a1f26f54b264be26068}} 
+\mbox{\label{class_lora_1_1_config_a98a88f17bbc72a1f26f54b264be26068}} 
 \index{Lora\+::\+Config@{Lora\+::\+Config}!ext@{ext}}
 \index{ext@{ext}!Lora\+::\+Config@{Lora\+::\+Config}}
-\subsubsection{\texorpdfstring{ext()}{ext()}}
+\subsubsection{ext()}
 {\footnotesize\ttfamily static ext (\begin{DoxyParamCaption}\item[{}]{\$key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 Allows extension searching. 
@@ -79,20 +84,20 @@ Returns an extension string if the extension is found and it is a string. An emp
 \end{DoxyReturn}
 
 \begin{DoxyCode}
-95                                          : \textcolor{keywordtype}{string} \{
-96         \textcolor{keywordflow}{foreach} (self::instance ()->configurations as $conf) \{
-97             \textcolor{keywordflow}{if} ($conf->has ($ext, $key)) \{
-98                 \textcolor{keywordflow}{if} (is\_string ($ext)) \{
-99                     \textcolor{keywordflow}{return} $ext;
-100                 \} \textcolor{keywordflow}{break};
-101             \}
-102         \} \textcolor{keywordflow}{return} \textcolor{stringliteral}{''};
-103     \}
+97                                          : \textcolor{keywordtype}{string} \{
+98         \textcolor{keywordflow}{foreach} (self::instance ()->configurations as $conf) \{
+99             \textcolor{keywordflow}{if} ($conf->has ($ext, $key)) \{
+100                 \textcolor{keywordflow}{if} (is\_string ($ext)) \{
+101                     \textcolor{keywordflow}{return} $ext;
+102                 \} \textcolor{keywordflow}{break};
+103             \}
+104         \} \textcolor{keywordflow}{return} \textcolor{stringliteral}{''};
+105     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_config_a9f949bb49001886679ff026aba1c3a5a}\label{class_lora_1_1_config_a9f949bb49001886679ff026aba1c3a5a}} 
+\mbox{\label{class_lora_1_1_config_a9f949bb49001886679ff026aba1c3a5a}} 
 \index{Lora\+::\+Config@{Lora\+::\+Config}!get@{get}}
 \index{get@{get}!Lora\+::\+Config@{Lora\+::\+Config}}
-\subsubsection{\texorpdfstring{get()}{get()}}
+\subsubsection{get()}
 {\footnotesize\ttfamily static get (\begin{DoxyParamCaption}\item[{}]{\$key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 Returns any configuration value if it exists. \begin{DoxyReturn}{Returns}
@@ -100,33 +105,33 @@ Returns requested configuration value if such exists or N\+U\+LL if it is not fo
 \end{DoxyReturn}
 
 \begin{DoxyCode}
-44                                          \{
-45         \textcolor{keywordflow}{foreach} (self::instance ()->configurations as $conf) \{
-46             \textcolor{keywordflow}{if} ($conf->has ($value, $key)) \{
-47                 \textcolor{keywordflow}{return} $value;
-48             \}
-49         \} \textcolor{keywordflow}{return} null;
-50     \}
+45                                          \{
+46         \textcolor{keywordflow}{foreach} (self::instance ()->configurations as $conf) \{
+47             \textcolor{keywordflow}{if} ($conf->has ($value, $key)) \{
+48                 \textcolor{keywordflow}{return} $value;
+49             \}
+50         \} \textcolor{keywordflow}{return} null;
+51     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_config_a0deb004950b8dc4f51836316fd19c111}\label{class_lora_1_1_config_a0deb004950b8dc4f51836316fd19c111}} 
+\mbox{\label{class_lora_1_1_config_a0deb004950b8dc4f51836316fd19c111}} 
 \index{Lora\+::\+Config@{Lora\+::\+Config}!instance@{instance}}
 \index{instance@{instance}!Lora\+::\+Config@{Lora\+::\+Config}}
-\subsubsection{\texorpdfstring{instance()}{instance()}}
+\subsubsection{instance()}
 {\footnotesize\ttfamily static instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 A method to fetch the singleton object. Initiates the object upon first call. \begin{DoxyReturn}{Returns}
-Returns the singleton instance of \hyperlink{class_lora_1_1_config}{Config}. 
+Returns the singleton instance of \doxyref{Config}{p.}{class_lora_1_1_config}. 
 \end{DoxyReturn}
 
 \begin{DoxyCode}
-28                                        : \hyperlink{class_lora_1_1_config}{\(\backslash\)Lora\(\backslash\)Config} \{
-29         \textcolor{keywordflow}{return} self::$instance ?? (self::$instance = \textcolor{keyword}{new} Config ());
-30     \}
+29                                        : \Lora\Config \{
+30         \textcolor{keywordflow}{return} self::$instance ?? (self::$instance = \textcolor{keyword}{new} Config ());
+31     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_config_ac14c17dc35a55cd5a44db48d7d7d1fd9}\label{class_lora_1_1_config_ac14c17dc35a55cd5a44db48d7d7d1fd9}} 
+\mbox{\label{class_lora_1_1_config_ac14c17dc35a55cd5a44db48d7d7d1fd9}} 
 \index{Lora\+::\+Config@{Lora\+::\+Config}!load\+Config@{load\+Config}}
 \index{load\+Config@{load\+Config}!Lora\+::\+Config@{Lora\+::\+Config}}
-\subsubsection{\texorpdfstring{load\+Config()}{loadConfig()}}
+\subsubsection{load\+Config()}
 {\footnotesize\ttfamily static load\+Config (\begin{DoxyParamCaption}\item[{array}]{\$configs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 Adds a new configuration set. 
@@ -136,14 +141,14 @@ Adds a new configuration set.
 \end{DoxyParams}
 
 \begin{DoxyCode}
-36                                                        : \textcolor{keywordtype}{void} \{
-37         self::instance ()->configurations [] = \textcolor{keyword}{new} Configuration ($configs);
-38     \}
+37                                                        : \textcolor{keywordtype}{void} \{
+38         self::instance ()->configurations [] = \textcolor{keyword}{new} Configuration ($configs);
+39     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_config_aade770941642defa7b826ff3ad193b4a}\label{class_lora_1_1_config_aade770941642defa7b826ff3ad193b4a}} 
+\mbox{\label{class_lora_1_1_config_aade770941642defa7b826ff3ad193b4a}} 
 \index{Lora\+::\+Config@{Lora\+::\+Config}!path@{path}}
 \index{path@{path}!Lora\+::\+Config@{Lora\+::\+Config}}
-\subsubsection{\texorpdfstring{path()}{path()}}
+\subsubsection{path()}
 {\footnotesize\ttfamily static path (\begin{DoxyParamCaption}\item[{}]{\$key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 Allows path searching. 
@@ -156,20 +161,20 @@ If path is found, it is passed to realpath to make it into an absolute path. If 
 \end{DoxyReturn}
 
 \begin{DoxyCode}
-60                                           : \textcolor{keywordtype}{string} \{
-61         \textcolor{keywordflow}{foreach} (self::instance ()->configurations as $conf) \{
-62             \textcolor{keywordflow}{if} ($conf->has ($path, $key)) \{
-63                 \textcolor{keywordflow}{if} (is\_string ($path) && ($path = realpath ($path)) !== \textcolor{keyword}{false}) \{
-64                     \textcolor{keywordflow}{return} $path;
-65                 \} \textcolor{keywordflow}{break};
-66             \}
-67         \} \textcolor{keywordflow}{return} \textcolor{stringliteral}{''};
-68     \}
+61                                           : \textcolor{keywordtype}{string} \{
+62         \textcolor{keywordflow}{foreach} (self::instance ()->configurations as $conf) \{
+63             \textcolor{keywordflow}{if} ($conf->has ($path, $key)) \{
+64                 \textcolor{keywordflow}{if} (is\_string ($path) && ($path = realpath ($path)) !== \textcolor{keyword}{false}) \{
+65                     \textcolor{keywordflow}{return} $path;
+66                 \} \textcolor{keywordflow}{break};
+67             \}
+68         \} \textcolor{keywordflow}{return} \textcolor{stringliteral}{''};
+69     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_config_a36845afbe5fedb71da890df0ada263f6}\label{class_lora_1_1_config_a36845afbe5fedb71da890df0ada263f6}} 
+\mbox{\label{class_lora_1_1_config_a36845afbe5fedb71da890df0ada263f6}} 
 \index{Lora\+::\+Config@{Lora\+::\+Config}!paths@{paths}}
 \index{paths@{paths}!Lora\+::\+Config@{Lora\+::\+Config}}
-\subsubsection{\texorpdfstring{paths()}{paths()}}
+\subsubsection{paths()}
 {\footnotesize\ttfamily static paths (\begin{DoxyParamCaption}\item[{}]{\$key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 Attempts to fetch an array of paths. 
@@ -179,36 +184,60 @@ Attempts to fetch an array of paths.
 \end{DoxyParams}
 
 \begin{DoxyCode}
-75                                            : array \{
-76         $result = [];
-77         \textcolor{keywordflow}{foreach} (self::instance ()->configurations as $conf) \{
-78             \textcolor{keywordflow}{if} ($conf->has ($paths, $key)) \{
-79                 \textcolor{keywordflow}{if} (is\_array ($paths)) \{
-80                     \textcolor{keywordflow}{foreach} ($paths as $path) \{
-81                         \textcolor{keywordflow}{if} (($path = realpath ($path)) !== \textcolor{keyword}{false}) \{
-82                             $result [] = $path;
-83                         \}
-84                     \}
-85                 \}
-86             \}
-87         \}
-88         \textcolor{keywordflow}{return} $result;
-89     \}
+76                                            : array \{
+77         $result = [];
+78         \textcolor{keywordflow}{foreach} (self::instance ()->configurations as $conf) \{
+79             \textcolor{keywordflow}{if} ($conf->has ($paths, $key)) \{
+80                 \textcolor{keywordflow}{if} (is\_array ($paths)) \{
+81                     \textcolor{keywordflow}{foreach} ($paths as $path) \{
+82                         \textcolor{keywordflow}{if} (($path = realpath ($path)) !== \textcolor{keyword}{false}) \{
+83                             $result [] = $path;
+84                         \}
+85                     \}
+86                 \}
+87             \}
+88         \}
+89         \textcolor{keywordflow}{return} $result;
+90     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_config_af12ac9985e38465b53443034489f3526}\label{class_lora_1_1_config_af12ac9985e38465b53443034489f3526}} 
+\mbox{\label{class_lora_1_1_config_a5ab2c8bd61df248f0487686a0d3f3cea}} 
+\index{Lora\+::\+Config@{Lora\+::\+Config}!port@{port}}
+\index{port@{port}!Lora\+::\+Config@{Lora\+::\+Config}}
+\subsubsection{port()}
+{\footnotesize\ttfamily static port (\begin{DoxyParamCaption}\item[{}]{\$key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Allows port searching. 
+\begin{DoxyParams}{Parameters}
+{\em \$key} & An argument list which is used as keys to locate the value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a port number as int if the port is found. -\/1 is returned is the port could not be found. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+112                                           : \textcolor{keywordtype}{int} \{
+113         \textcolor{keywordflow}{foreach} (self::instance ()->configurations as $conf) \{
+114             \textcolor{keywordflow}{if} ($conf->has ($port, $key)) \{
+115                 \textcolor{keywordflow}{return} $port;
+116             \}
+117         \} \textcolor{keywordflow}{return} -1;
+118     \}
+\end{DoxyCode}
+\mbox{\label{class_lora_1_1_config_af12ac9985e38465b53443034489f3526}} 
 \index{Lora\+::\+Config@{Lora\+::\+Config}!register\+Autoloaders@{register\+Autoloaders}}
 \index{register\+Autoloaders@{register\+Autoloaders}!Lora\+::\+Config@{Lora\+::\+Config}}
-\subsubsection{\texorpdfstring{register\+Autoloaders()}{registerAutoloaders()}}
+\subsubsection{register\+Autoloaders()}
 {\footnotesize\ttfamily static register\+Autoloaders (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 Prepares and registers autoloader functions for whole runtime. This includes hub server with all associated scripts and the hosted server. {\bfseries N\+O\+TE\+:} Only works when a server has configuration file with server root value set. 
 \begin{DoxyCode}
-110                                                   : \textcolor{keywordtype}{void} \{
-111         \textcolor{keywordflow}{foreach} (self::instance ()->configurations as $conf) \{
-112             $conf->setupAutoloader ();
-113         \}
-114         spl\_autoload\_register (\_\_CLASS\_\_.\textcolor{stringliteral}{'::autoloader'});
-115     \}
+125                                                   : \textcolor{keywordtype}{void} \{
+126         \textcolor{keywordflow}{foreach} (self::instance ()->configurations as $conf) \{
+127             $conf->setupAutoloader ();
+128         \}
+129         spl\_autoload\_register (\_\_CLASS\_\_.\textcolor{stringliteral}{'::autoloader'});
+130     \}
 \end{DoxyCode}
 
 

@@ -90,20 +90,6 @@
 \setcounter{secnumdepth}{5}
 \makeindex
 
-% Hyperlinks (required, but should be loaded last)
-\usepackage{ifpdf}
-\ifpdf
-  \usepackage[pdftex,pagebackref=true]{hyperref}
-\else
-  \usepackage[ps2pdf,pagebackref=true]{hyperref}
-\fi
-\hypersetup{%
-  colorlinks=true,%
-  linkcolor=blue,%
-  citecolor=blue,%
-  unicode%
-}
-
 % Custom commands
 \newcommand{\clearemptydoublepage}{%
   \newpage{\pagestyle{empty}\cleardoublepage}%
@@ -117,10 +103,6 @@
 \begin{document}
 
 % Titlepage & ToC
-\hypersetup{pageanchor=false,
-             bookmarksnumbered=true,
-             pdfencoding=unicode
-            }
 \pagenumbering{alph}
 \begin{titlepage}
 \vspace*{7cm}
@@ -135,20 +117,22 @@
 \tableofcontents
 \clearemptydoublepage
 \pagenumbering{arabic}
-\hypersetup{pageanchor=true}
 
 %--- Begin generated contents ---
+\chapter{Host server for Lora server cluster.}
+\label{md__r_e_a_d_m_e}
+\input{md__r_e_a_d_m_e}
+\chapter{Command \& Control server}
+\label{md_servers_cacserver__r_e_a_d_m_e}
+\input{md_servers_cacserver__r_e_a_d_m_e}
 \chapter{ap-\/lorawan-\/iot-\/mqttserver}
 \label{md_servers_mqttserver__r_e_a_d_m_e}
-\Hypertarget{md_servers_mqttserver__r_e_a_d_m_e}
 \input{md_servers_mqttserver__r_e_a_d_m_e}
 \chapter{ap-\/lorawan-\/iot-\/server}
 \label{md_servers_webserver__r_e_a_d_m_e}
-\Hypertarget{md_servers_webserver__r_e_a_d_m_e}
 \input{md_servers_webserver__r_e_a_d_m_e}
 \chapter{Todo List}
 \label{todo}
-\Hypertarget{todo}
 \input{todo}
 \chapter{Namespace Index}
 \input{namespaces}
@@ -178,13 +162,12 @@
 \input{class_lora_1_1_content_1_1_content___info}
 \input{class_lora_1_1_content_1_1_content___rtfeed}
 \input{class_lora_1_1_api_1_1_control_server}
-\input{class_control_server}
-\input{class_d_a_o}
+\input{class_lora_1_1_control_server}
+\input{class_lora_1_1_d_a_o}
 \input{class_data_lib}
-\input{class_data_server}
+\input{class_lora_1_1_data_server}
 \input{class_d_b_connection}
 \input{class_lora_1_1_api_1_1echo_server}
-\input{classecho_server}
 \input{class_html_1_1_html_lib}
 \input{class_html_1_1_html_tag}
 \input{class_internal_m_s_g}
@@ -195,8 +178,10 @@
 \input{class_lora_1_1_page_component}
 \input{class_lora_1_1_page_manager}
 \input{class_lora_1_1_page_view}
+\input{class_lora_1_1_realtime_server}
 \input{class_request_data}
 \input{class_lora_1_1_request_handler}
+\input{class_lora_1_1_server_1_1_response}
 \input{class_lora_1_1_response_crafter}
 \input{class_lora_1_1_user}
 %--- End generated contents ---

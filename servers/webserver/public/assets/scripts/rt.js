@@ -41,7 +41,9 @@ function RtLineChart () {
 	this.addData = function (id, type, data) {
 		// TODO: Figure out how time should be handled.
 		if (feeds [id] && feeds [id][type]) {
-			feeds [id][type].append (Date.now (), data);
+			var time = Date.now ();
+			console.log (time, data);
+			feeds [id][type].append (time, data);
 		}
 	};
 

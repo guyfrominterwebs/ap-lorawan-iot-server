@@ -19,8 +19,8 @@ function RTSocket (_handler, _devices, _values) {
 	};
 
 	this.connect = function () {
-		socket = new WebSocket ("ws://" + window.location.hostname + ":9000");
 		try {
+			socket = new WebSocket ("ws://" + window.location.hostname + ":9000");
 			socket.onopen = function () {
 				self.onopen ();
 			};

@@ -9,5 +9,5 @@ var searchData=
   ['content_5fhome',['Content_Home',['../class_lora_1_1_content_1_1_content___home.html',1,'Lora::Content']]],
   ['content_5finfo',['Content_Info',['../class_lora_1_1_content_1_1_content___info.html',1,'Lora::Content']]],
   ['content_5frtfeed',['Content_Rtfeed',['../class_lora_1_1_content_1_1_content___rtfeed.html',1,'Lora::Content']]],
-  ['controlserver',['ControlServer',['../class_lora_1_1_api_1_1_control_server.html',1,'ControlServer'],['../class_control_server.html',1,'ControlServer']]]
+  ['controlserver',['ControlServer',['../class_lora_1_1_api_1_1_control_server.html',1,'ControlServer'],['../class_lora_1_1_control_server.html',1,'ControlServer']]]
 ];

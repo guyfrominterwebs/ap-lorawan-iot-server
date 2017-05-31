@@ -2,7 +2,7 @@
 
 namespace Lora\Content;
 
-use \Lora\{PageManager, PageView};
+use \Lora\DAO as DAO;
 use \RequestData;
 
 final class Content_Device extends \Lora\BaseAction
@@ -11,6 +11,10 @@ final class Content_Device extends \Lora\BaseAction
 	public function _get (RequestData $req) {
 		if ($req->readString ('id', $id)) {
 			$this->mess->addData ($id, $this->name);
+			$devices = DAO::fetchDevices ([ '_id' => $id ]);
+			if (count ($devices) === 1) {
+				$this->page->addGlobal ('devices', $devices);
+			}
 		}
 		$this->page->addSubViewParameter ('id', $id);
 		if ($req->has ('rt-view')) {
@@ -20,20 +24,6 @@ final class Content_Device extends \Lora\BaseAction
 		} else if ($req->has ('madness')) {
 			$this->fetchData ($req, $id);
 		}
-		// $rt->addComponent ('graph');
-		// $history->addComponent ('device_history');
-		// $left_nav = [[
-				// 'heading' => 'Data',
-				// 'items' => [
-					// $rt->link ($this->page, 'Realtime data', [ 'id' => $id ]),
-					// $history->link ($this->page, 'Existing data', [ 'id' => $id ]),
-					// new \Html\Link ('Absolute madness!', $this->page->name (), [ 'madness' => '', 'id' => $id ])
-				// ]
-		// ]];
-		// $this->page->setSetting ($left_nav, 'side_nav');
-		// $this->page->addView ($rt);
-		// $this->page->addView ($history);
-		$this->page->addGlobal ('devices', [ $id ]);
 	}
 
 	public function _post (RequestData $req) {

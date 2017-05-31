@@ -17,6 +17,7 @@ var searchData=
   ['content_5fhome',['Content_Home',['../class_lora_1_1_content_1_1_content___home.html',1,'Lora::Content']]],
   ['content_5finfo',['Content_Info',['../class_lora_1_1_content_1_1_content___info.html',1,'Lora::Content']]],
   ['content_5frtfeed',['Content_Rtfeed',['../class_lora_1_1_content_1_1_content___rtfeed.html',1,'Lora::Content']]],
-  ['controlserver',['ControlServer',['../class_lora_1_1_api_1_1_control_server.html',1,'ControlServer'],['../class_control_server.html',1,'ControlServer']]],
-  ['create',['Create',['../class_lora_1_1_page_component.html#ab6c03d0ec66cb31bfc74a784387cef33',1,'Lora::PageComponent']]]
+  ['controlserver',['ControlServer',['../class_lora_1_1_api_1_1_control_server.html',1,'ControlServer'],['../class_lora_1_1_control_server.html',1,'ControlServer']]],
+  ['create',['Create',['../class_lora_1_1_page_component.html#ab6c03d0ec66cb31bfc74a784387cef33',1,'Lora::PageComponent']]],
+  ['command_20_26_20control_20server',['Command &amp; Control server',['../md_servers_cacserver__r_e_a_d_m_e.html',1,'']]]
 ];

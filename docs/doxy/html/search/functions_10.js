@@ -11,6 +11,7 @@ var searchData=
   ['show',['show',['../class_lora_1_1_page.html#a4bf70b1d635601a513ff8f2c31a9111a',1,'Lora\Page\show()'],['../class_lora_1_1_page_view.html#a14fdcc82bbf2c7647e9c6821a2227a1f',1,'Lora\PageView\show()']]],
   ['showsingle',['showSingle',['../class_lora_1_1_page.html#a3aa8e55512ba551535b423e88ec4c9b1',1,'Lora::Page']]],
   ['sidepanel',['sidePanel',['../class_lora_1_1_page.html#aac68ba2faa04ea9430b52d4de572d085',1,'Lora::Page']]],
+  ['start',['start',['../class_lora_1_1_data_server.html#af8fa59992209e36dccb3eefb0f75531f',1,'Lora::DataServer']]],
   ['styles',['styles',['../class_lora_1_1_page.html#a53d31780f290c90071a213e9f786abb3',1,'Lora\Page\styles()'],['../class_lora_1_1_page_component.html#a53d31780f290c90071a213e9f786abb3',1,'Lora\PageComponent\styles()']]],
   ['subviews',['subViews',['../class_lora_1_1_page.html#a420c4b91157962374150f731a2ac57dc',1,'Lora::Page']]]
 ];

@@ -1,3 +1,7 @@
 <map id="connection" name="connection">
-<area shape="rect" id="node2" href="$class_d_a_o.html#aad2161af4b52afb99e2a931538559823" title="DAO\\deviceExist" alt="" coords="139,5,259,32"/>
+<area shape="rect" id="node2" href="$class_lora_1_1_d_a_o.html#a223eeb00734ccb30b2a83b7557b4dbf1" title="Lora\\DAO\\fetchDevices" alt="" coords="158,5,314,32"/>
+<area shape="rect" id="node3" href="$class_lora_1_1_d_a_o.html#aad2161af4b52afb99e2a931538559823" title="Lora\\DAO\\deviceExist" alt="" coords="161,56,311,83"/>
+<area shape="rect" id="node4" href="$class_lora_1_1_d_a_o.html#ae6bdc6374713a2785aed2fb29c49ca31" title="Lora\\DAO\\insertMeasurement" alt="" coords="139,107,333,133"/>
+<area shape="rect" id="node5" href="$class_lora_1_1_d_a_o.html#ad231d647bc7bf221289e5e52254d3743" title="Lora\\DAO\\insertDevice" alt="" coords="159,157,313,184"/>
+<area shape="rect" id="node6" href="$class_lora_1_1_d_a_o.html#aa6d166466386cc6a0147d00719444276" title="Lora\\DAO\\insertRaw" alt="" coords="166,208,306,235"/>
 </map>

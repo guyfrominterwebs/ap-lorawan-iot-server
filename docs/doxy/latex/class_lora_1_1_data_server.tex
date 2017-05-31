@@ -1,0 +1,434 @@
+\section{Data\+Server Class Reference}
+\label{class_lora_1_1_data_server}\index{Data\+Server@{Data\+Server}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ start} ()
+\item 
+\textbf{ process} (string \$topic, string \$msg)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_lora_1_1_data_server_a0deb004950b8dc4f51836316fd19c111}} 
+static {\bfseries instance} ()
+\item 
+static \textbf{ process\+Message} (\$topic, \$msg)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_lora_1_1_data_server_af213a81daaf386c089bb36f148cfbd96}} 
+{\bfseries \$rt\+\_\+client} = null
+\item 
+\mbox{\label{class_lora_1_1_data_server_a721b31e1995c24214da0e89eb5ec3100}} 
+{\bfseries \$rt\+\_\+address} = \textquotesingle{}\textquotesingle{}
+\item 
+\mbox{\label{class_lora_1_1_data_server_aaf8416d215d1e9710dfe026490c998dc}} 
+{\bfseries \$allow\+Print} = true
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ broadcast} (array \$msg, array \&\$messages)
+\item 
+\textbf{ parse\+Received} (string \$topic, string \$msg, array \&\$parsed\+Topic, array \&\$parsed\+Msg)
+\item 
+\textbf{ parse\+Topic} (string \$topic)
+\item 
+\textbf{ parse\+Message} (\textbackslash{}\textbf{ Request\+Data} \$req)
+\item 
+\textbf{ parse\+Activation} (\textbackslash{}\textbf{ Request\+Data} \$req)
+\item 
+\textbf{ parse\+Payload} (string \$payload)
+\item 
+\mbox{\label{class_lora_1_1_data_server_aa22496921de05f8626d82a7530fcc517}} 
+{\bfseries rt\+Connect} ()
+\item 
+\mbox{\label{class_lora_1_1_data_server_af355edd34f94d0643a98664a966a9658}} 
+{\bfseries M\+Q\+T\+T\+Connect} ()
+\item 
+\textbf{ insert} (string \$device\+Id, array \$data)
+\item 
+\mbox{\label{class_lora_1_1_data_server_ae86e92ed03b6395cfc4cb99e2371e14a}} 
+{\bfseries print} (\$msg, \$eol=true)
+\item 
+\mbox{\label{class_lora_1_1_data_server_aca780669b9640bfb9f17dcbb11e592d1}} 
+{\bfseries print\+All} (array \$msgs)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_lora_1_1_data_server_a5946274cba635d6d4e49d93b66aa1964}} 
+{\bfseries \$mqtt\+\_\+client} = null
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_lora_1_1_data_server_ad9d7ce33ebb142b70e58b68052ca0ea8}} 
+static {\bfseries \$instance}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+T\+O\+DO\+: Maybe add a buffer for failed broadcasts so that they can be sent later on again. A singleton based class for managing M\+Q\+TT connection to The Things Network and broadcasting data to the system. 
+
+\subsection{Member Function Documentation}
+\mbox{\label{class_lora_1_1_data_server_a883eaf25eb21a0ba827bb9a9a3593861}} 
+\index{Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}!broadcast@{broadcast}}
+\index{broadcast@{broadcast}!Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}}
+\subsubsection{broadcast()}
+{\footnotesize\ttfamily broadcast (\begin{DoxyParamCaption}\item[{array}]{\$msg,  }\item[{array \&}]{\$messages }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\textbf{ Todo}]Internal message processing (terminate). Broadcasts a received message to other server systems. Only interested one at the moment is the realtime sever which in turn broadcasts it onwards to clients who are interested in it. \end{DoxyRefDesc}
+
+\begin{DoxyParams}{Parameters}
+{\em \$msg} & Parsed M\+Q\+TT message payload with device id and time stamp. \\
+\hline
+{\em \$messages} & Messages array to allow this method add messages about the data processing. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if the data was succesfully broadcasted and false if not. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+100                                                               : \textcolor{keywordtype}{bool} \{
+101         \textcolor{keywordflow}{if} (!$this->rt\_client) \{
+102             $messages [] = \textcolor{stringliteral}{"Establishing realtime server connection; \{$this->rt\_address\}"};
+103             \textcolor{keywordflow}{if} (!$this->rtConnect ()) \{
+104                 $messages [] = \textcolor{stringliteral}{"Could not establish realtime connection."};
+105                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+106             \}
+107             $messages [] = \textcolor{stringliteral}{"Realtime connection established."};
+108         \}
+109         $messages [] = \textcolor{stringliteral}{"Broadcasting data."};
+110         $data = InternalMSG::composeMsg (Command::DATA, $msg);
+111         \textcolor{keywordflow}{if} (!$this->rt\_client->send ($data)) \{
+112             \textcolor{keywordflow}{if} (!$this->rt\_client->isConnected ()) \{
+113                 $messages [] = \textcolor{stringliteral}{"Realtime client connection error: "}.$this->rt\_client->lastError ();
+114             \}
+115             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+116         \}
+117         $this->rt\_client->receive ($response);
+118         \textcolor{keywordflow}{if} ($response === \textcolor{stringliteral}{'terminate'}) \{
+119             $this->rt\_client->close ();
+120             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+121         \}
+122         $messages [] = \textcolor{stringliteral}{"Response: $\{response\}"};
+123         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+124     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{class_lora_1_1_data_server_a883eaf25eb21a0ba827bb9a9a3593861_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{class_lora_1_1_data_server_a6502357e2b91bc3e73f34ec4233b60d3}} 
+\index{Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}!insert@{insert}}
+\index{insert@{insert}!Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}}
+\subsubsection{insert()}
+{\footnotesize\ttfamily insert (\begin{DoxyParamCaption}\item[{string}]{\$device\+Id,  }\item[{array}]{\$data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+A context aware method for inserting data into database. Checks for the presence of certain values in \$data and uses that information to determine if data should be inserted or not. 
+\begin{DoxyParams}{Parameters}
+{\em \$device\+Id} & Device hardware id. \\
+\hline
+{\em \$data} & An array containing parsed M\+Q\+TT originated data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true on success and false if an erro occured. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+279                                                             : \textcolor{keywordtype}{bool} \{
+280         $result = DAO::insertDevice ($deviceId);
+281         \textcolor{keywordflow}{if} (isset ($data [\textcolor{stringliteral}{'msg'}])) \{
+282             $result &= DAO::insertRaw ($data);
+283         \}
+284         \textcolor{keywordflow}{if} (isset ($data [\textcolor{stringliteral}{'msg'}][\textcolor{stringliteral}{'payload'}], $data [\textcolor{stringliteral}{'msg'}][\textcolor{stringliteral}{'time'}])) \{
+285             $result &= DAO::insertMeasurement ($deviceId, $data [\textcolor{stringliteral}{'msg'}][\textcolor{stringliteral}{'time'}], $data [\textcolor{stringliteral}{'msg'}][\textcolor{stringliteral}{'payload'}]);
+286         \}
+287         \textcolor{keywordflow}{return} $result;
+288     \}
+\end{DoxyCode}
+\mbox{\label{class_lora_1_1_data_server_a48fb1fc7a81a6cf12d17e919e7d724c0}} 
+\index{Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}!parse\+Activation@{parse\+Activation}}
+\index{parse\+Activation@{parse\+Activation}!Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}}
+\subsubsection{parse\+Activation()}
+{\footnotesize\ttfamily parse\+Activation (\begin{DoxyParamCaption}\item[{\textbackslash{}\textbf{ Request\+Data}}]{\$req }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+A case specific parser for an activation message. \doxyref{Data\+Server\+::parse\+Message}{p.}{class_lora_1_1_data_server_ac16e17dca8edf6daf34e403654f9c2c2} cannot parse this without unreasonably large changes so it is wrapped as its own function. 
+\begin{DoxyParams}{Parameters}
+{\em \$req} & An instance of \doxyref{Request\+Data}{p.}{class_request_data} wrapping the M\+Q\+TT message. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a nullable array. An array of parsed data is returned on success and null if the message cannot be parsed. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+220                                                          : ?array \{
+221         $required = [
+222             \textcolor{stringliteral}{'dev\_eui'}
+223         ];
+224         $hwId = $req->getString (\textcolor{stringliteral}{'dev\_eui'}, \textcolor{stringliteral}{''});
+225         \textcolor{keywordflow}{if} (!$req->has ($required) || !DataLib::isHexString ($hwId)) \{
+226             \textcolor{keywordflow}{return} null;
+227         \}
+228         \textcolor{keywordflow}{return} [ \textcolor{stringliteral}{'device'} => [ \textcolor{stringliteral}{'\_id'} => $hwId ] ];
+229     \}
+\end{DoxyCode}
+\mbox{\label{class_lora_1_1_data_server_ac16e17dca8edf6daf34e403654f9c2c2}} 
+\index{Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}!parse\+Message@{parse\+Message}}
+\index{parse\+Message@{parse\+Message}!Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}}
+\subsubsection{parse\+Message()}
+{\footnotesize\ttfamily parse\+Message (\begin{DoxyParamCaption}\item[{\textbackslash{}\textbf{ Request\+Data}}]{\$req }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Parses the M\+Q\+TT messaage and ensures precense of required value as well as their type correctness. 
+\begin{DoxyParams}{Parameters}
+{\em \$req} & An instance of \doxyref{Request\+Data}{p.}{class_request_data} wrapping the M\+Q\+TT message. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a nullable array. An array of parsed data is returned on success and null if the message cannot be parsed. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+171                                                       : ?array \{
+172         $required = [
+173             \textcolor{stringliteral}{'metadata'},
+174             \textcolor{stringliteral}{'dev\_id'},
+175             \textcolor{stringliteral}{'hardware\_serial'},
+176             \textcolor{stringliteral}{'payload\_raw'}
+177         ];
+178         $requiredMeta = [
+179             \textcolor{stringliteral}{'time'}
+180         ];
+181         \textcolor{keywordflow}{if} (!$req->has ($required)) \{
+182             \textcolor{keywordflow}{return} $this->parseActivation ($data);
+183         \}
+184         \textcolor{keywordflow}{if} ($req->readArray (\textcolor{stringliteral}{'metadata'}, $meta)) \{
+185             \textcolor{keywordflow}{return} null;
+186         \}
+187         $meta = \textcolor{keyword}{new} RequestData ($meta);
+188         \textcolor{keywordflow}{if} (!$meta->has ($requiredMeta)) \{
+189             \textcolor{keywordflow}{return} null;
+190         \}
+191         $req->readString (\textcolor{stringliteral}{'dev\_id'}, $devId, \textcolor{stringliteral}{''});
+192         $req->readString (\textcolor{stringliteral}{'hardware\_serial'}, $hwId, \textcolor{stringliteral}{''});
+193         $payload = $this->parsePayload ($req->getString (\textcolor{stringliteral}{'payload\_raw'}, \textcolor{stringliteral}{''}));
+194         $datetime = DateTime::createFromFormat (\textcolor{stringliteral}{'Y-m-d\(\backslash\)TH:i:s+'}, $meta->getString (\textcolor{stringliteral}{'time'}, \textcolor{stringliteral}{''}));
+195         \textcolor{keywordflow}{if} ($datetime === \textcolor{keyword}{false} || $payload === null || !DataLib::isHexString ($hwId)) \{
+196             \textcolor{keywordflow}{return} null;
+197         \}
+198         $result = [
+199             \textcolor{stringliteral}{'device'} => [
+200                 \textcolor{stringliteral}{'\_id'}               => $hwId,
+201                 \textcolor{stringliteral}{'dev\_id'}            => $devId,
+202                 \textcolor{stringliteral}{'hardware\_serial'}   => $hwId
+203             ],
+204             \textcolor{stringliteral}{'msg'} => [
+205                 \textcolor{stringliteral}{'device\_id'}         => $hwId,
+206                 \textcolor{stringliteral}{'time'}              => $datatime->getTimestamp (),
+207                 \textcolor{stringliteral}{'payload'}           => $payload
+208             ]
+209         ];
+210         \textcolor{keywordflow}{return} $result;
+211     \}
+\end{DoxyCode}
+\mbox{\label{class_lora_1_1_data_server_a67382ebb6b28ebe3ad81d2f0ae541a84}} 
+\index{Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}!parse\+Payload@{parse\+Payload}}
+\index{parse\+Payload@{parse\+Payload}!Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}}
+\subsubsection{parse\+Payload()}
+{\footnotesize\ttfamily parse\+Payload (\begin{DoxyParamCaption}\item[{string}]{\$payload }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+A method to parse the raw payload data from the M\+Q\+TT server. 
+\begin{DoxyParams}{Parameters}
+{\em \$payload} & Raw payload string in base64 encoded form. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns null on failure and an array of associative arrays containing type value pairs of the measured values. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+237                                                     : ?array \{
+238         \textcolor{keywordflow}{if} (($payload = base64\_decode ($payload)) === \textcolor{keyword}{false}) \{
+239             \textcolor{keywordflow}{return} null;
+240         \}
+241         $data = explode (\textcolor{charliteral}{'|'}, $payload);
+242         $result = [];
+243         \textcolor{keywordflow}{foreach} ($data as $key => $entry) \{
+244             \textcolor{keywordflow}{if} (empty ($entry)) \{
+245                 unset ($data [$key]);
+246                 \textcolor{keywordflow}{continue};
+247             \}
+248             $type = substr ($entry, 0, 3);
+249             $value = substr ($entry, 3);
+250             $result [] = [ $type => floatval ($value) ];
+251         \}
+252         \textcolor{keywordflow}{return} $result;
+253     \}
+\end{DoxyCode}
+\mbox{\label{class_lora_1_1_data_server_afc5d093aad072fb26010dc33782491e1}} 
+\index{Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}!parse\+Received@{parse\+Received}}
+\index{parse\+Received@{parse\+Received}!Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}}
+\subsubsection{parse\+Received()}
+{\footnotesize\ttfamily parse\+Received (\begin{DoxyParamCaption}\item[{string}]{\$topic,  }\item[{string}]{\$msg,  }\item[{array \&}]{\$parsed\+Topic,  }\item[{array \&}]{\$parsed\+Msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Parses the topic and message received from the M\+Q\+TT server into more flexible form for this class to use. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em \$topic} & Topic received from the M\+Q\+TT server. \\
+\hline
+ & {\em \$msg} & Message receieved from the M\+Q\+TT server. \\
+\hline
+\mbox{\tt out}  & {\em \$parsed\+Topic} & An array to which the parsed topic data will be set. Set to null if it cannot be parsed. \\
+\hline
+\mbox{\tt out}  & {\em \$parsed\+Msg} & An array to which the parsed message data will be set. Set to null if it cannot be parsed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if parsing was succesful and false if not. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+134                                                                                                         : \textcolor{keywordtype}{
+      bool} \{
+135         $msg = json\_decode ($msg, \textcolor{keyword}{true});
+136         $parsedTopic = $this->parseTopic ($topic);
+137         $parsedMsg = $this->parseMessage (\textcolor{keyword}{new} \(\backslash\)RequestData ($msg));
+138         \textcolor{keywordflow}{return} $parsedTopic !== null && $parsedMsg !== null;
+139     \}
+\end{DoxyCode}
+\mbox{\label{class_lora_1_1_data_server_a5443eb6d2b44355a72718463885b4631}} 
+\index{Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}!parse\+Topic@{parse\+Topic}}
+\index{parse\+Topic@{parse\+Topic}!Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}}
+\subsubsection{parse\+Topic()}
+{\footnotesize\ttfamily parse\+Topic (\begin{DoxyParamCaption}\item[{string}]{\$topic }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Parses M\+Q\+TT topic string into an associative array. 
+\begin{DoxyParams}{Parameters}
+{\em \$topic} & An M\+Q\+TT topic. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns an associative array containing the topic information. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+146                                                 : array \{
+147         $topic = explode (\textcolor{charliteral}{'/'}, $topic);
+148         $keys = [
+149             \textcolor{stringliteral}{'application'},
+150             \textcolor{stringliteral}{'source'},
+151             \textcolor{stringliteral}{'device'},
+152             \textcolor{stringliteral}{'message'},
+153             \textcolor{stringliteral}{'event'}
+154         ];
+155         \textcolor{keywordflow}{foreach} ($topic as $key => $value) \{
+156             \textcolor{keywordflow}{if} (!isset ($keys [$key])) \{
+157                 \textcolor{keywordflow}{continue};
+158             \}
+159             $topic [$keys [$key]] = $value;
+160             unset ($topic [$key]);
+161         \}
+162         \textcolor{keywordflow}{return} $topic;
+163     \}
+\end{DoxyCode}
+\mbox{\label{class_lora_1_1_data_server_acf279a7b53dd92327b68f3b3f376ee2f}} 
+\index{Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}!process@{process}}
+\index{process@{process}!Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}}
+\subsubsection{process()}
+{\footnotesize\ttfamily process (\begin{DoxyParamCaption}\item[{string}]{\$topic,  }\item[{string}]{\$msg }\end{DoxyParamCaption})}
+
+Main processing method. Parses, stores and broadcasts the received data. 
+\begin{DoxyParams}{Parameters}
+{\em \$topic} & Topic of the M\+Q\+TT messagae. \\
+\hline
+{\em \$msg} & Message received from the M\+Q\+TT server. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An array of messages is returned describing the processing of the message. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+76                                                          : array \{
+77         $messages = [];
+78         $messages [] = \textcolor{stringliteral}{"Message received: "}.date (\textcolor{stringliteral}{"r"}).\textcolor{stringliteral}{"\(\backslash\)nTopic:$\{topic\}\(\backslash\)n$\{msg\}\(\backslash\)n"};
+79         \textcolor{keywordflow}{if} (!$this->parseReceived ($topic, $msg, $parsedTopic, $parsedMsg)) \{
+80             $messages [] = \textcolor{stringliteral}{"Failed to parse message."};
+81             \textcolor{keywordflow}{return} $messages;
+82         \}
+83         \textcolor{keywordflow}{if} (strtolower ($parsedMsg [\textcolor{stringliteral}{'msg'}][\textcolor{stringliteral}{'payload'}]) === \textcolor{stringliteral}{'heartbeat'}) \{
+84             \textcolor{keywordflow}{return} $messages;
+85         \}
+86         $parsedMsg [\textcolor{stringliteral}{'topic'}] = $parsedTopic;
+87         $this->insert ($parsedMsg [\textcolor{stringliteral}{'device'}][\textcolor{stringliteral}{'\_id'}], $parsedMsg);
+88         $this->broadcast ($parsedMsg [\textcolor{stringliteral}{'msg'}], $messages);
+89         \textcolor{keywordflow}{return} $messages;
+90     \}
+\end{DoxyCode}
+\mbox{\label{class_lora_1_1_data_server_a4b928f64ca70f6b6d9bb388bc943ff3f}} 
+\index{Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}!process\+Message@{process\+Message}}
+\index{process\+Message@{process\+Message}!Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}}
+\subsubsection{process\+Message()}
+{\footnotesize\ttfamily static process\+Message (\begin{DoxyParamCaption}\item[{}]{\$topic,  }\item[{}]{\$msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+A static entry point to message processing routine. Performs primitive validity checks on data types to see if it is the data is even remotely processable. Proper data sanity checks are done later. 
+\begin{DoxyParams}{Parameters}
+{\em \$topic} & Topic of the M\+Q\+TT message. \\
+\hline
+{\em \$msg} & Message received from the M\+Q\+TT server. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}
+60                                                          : \textcolor{keywordtype}{void} \{
+61         $temp = self::instance ();
+62         \textcolor{keywordflow}{if} (!is\_string ($topic) || !is\_string ($msg) || !DataLib::isJson ($msg)) \{
+63             $temp->print (\textcolor{stringliteral}{"Invalid message received."});
+64             \textcolor{keywordflow}{return};
+65         \}
+66         $messages = $temp->process ($topic, $msg);
+67         $temp->printAll ($messages);
+68     \}
+\end{DoxyCode}
+\mbox{\label{class_lora_1_1_data_server_af8fa59992209e36dccb3eefb0f75531f}} 
+\index{Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}!start@{start}}
+\index{start@{start}!Lora\+::\+Data\+Server@{Lora\+::\+Data\+Server}}
+\subsubsection{start()}
+{\footnotesize\ttfamily start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Start the server loop. This is a blocking wait function. 
+\begin{DoxyCode}
+35                              : \textcolor{keywordtype}{void} \{
+36         $this->print (\textcolor{stringliteral}{"Establishing TTN connection."});
+37         \textcolor{keywordflow}{if} (!$this->MQTTConnect ()) \{
+38             $this->print (\textcolor{stringliteral}{"Could not establish connection to TTN."});
+39             \textcolor{keywordflow}{return};
+40         \}
+41         $this->print (\textcolor{stringliteral}{"Connection to TTN server established. Subscribing to channels..."});
+42         $topics [\textcolor{charliteral}{'#'}] = [
+43             \textcolor{stringliteral}{"qos"} => 0,
+44             \textcolor{stringliteral}{"function"} => \textcolor{stringliteral}{"\(\backslash\)Lora\(\backslash\)DataServer::processMessage"}
+45         ];
+46         $this->mqtt\_client->subscribe ($topics);
+47         \textcolor{comment}{// $this->mqtt\_client->debug = true;}
+48         $this->print (\textcolor{stringliteral}{"Subscribing complete. Listening for messages."}.PHP\_EOL);
+49         \textcolor{keywordflow}{while} ($this->mqtt\_client->proc ());
+50         $this->mqtt\_client->close ();
+51         $this->rt\_client->close ();
+52     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+servers/mqttserver/server/dataserver.\+php\end{DoxyCompactItemize}

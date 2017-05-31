@@ -12,6 +12,7 @@ var class_lora_1_1_configuration =
     [ "$exclude", "class_lora_1_1_configuration.html#aa9e9e35cde2e009dabb6a066e3202c5c", null ],
     [ "$exts", "class_lora_1_1_configuration.html#afe662821d69ab461c44b3b7003bfcd19", null ],
     [ "$paths", "class_lora_1_1_configuration.html#a20dd412769e0754189f5ce036e857a37", null ],
+    [ "$ports", "class_lora_1_1_configuration.html#ae5d9eb7d80081176e92db51fbecf2448", null ],
     [ "$root", "class_lora_1_1_configuration.html#ab37f7c32f41c3c61ed940887453767f4", null ],
     [ "$systemFiles", "class_lora_1_1_configuration.html#a98263b0e190394325c61f471c0ba1e80", null ]
 ];

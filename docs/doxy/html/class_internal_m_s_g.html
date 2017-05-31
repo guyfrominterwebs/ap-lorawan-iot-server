@@ -92,6 +92,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:ae3b91a7baffc1bef8eaeb4a5bcca65f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab515acd10479df5ff64b2584a2f8fa9d"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_internal_m_s_g.html#ab515acd10479df5ff64b2584a2f8fa9d">decomposeMsg</a> (string $msg)</td></tr>
 <tr class="separator:ab515acd10479df5ff64b2584a2f8fa9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a747d0ca9fce2e083cbb6c9701fcaa795"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_internal_m_s_g.html#a747d0ca9fce2e083cbb6c9701fcaa795">extractMsg</a> (string $msg)</td></tr>
+<tr class="separator:a747d0ca9fce2e083cbb6c9701fcaa795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A messaging utility class used to unify and manage internal messaging within various server subsystems. </p>
@@ -137,7 +139,15 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns a formatted message string. </dd></dl>
-<div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                                                     : <span class="keywordtype">string</span> {</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;$command:&quot;</span>.json_encode ($message);</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                                                     : <span class="keywordtype">string</span> {</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">if</span> (!Command::isCommand ($command)) {</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            <span class="keywordflow">return</span> Command::INVALID;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        }</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordflow">return</span> <span class="stringliteral">&quot;$command:&quot;</span>.json_encode ($message);</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    }</div></div><!-- fragment --><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_internal_m_s_g_ae3b91a7baffc1bef8eaeb4a5bcca65f0_icgraph.png" border="0" usemap="#class_internal_m_s_g_ae3b91a7baffc1bef8eaeb4a5bcca65f0_icgraph" alt=""/></div>
+<map name="class_internal_m_s_g_ae3b91a7baffc1bef8eaeb4a5bcca65f0_icgraph" id="class_internal_m_s_g_ae3b91a7baffc1bef8eaeb4a5bcca65f0_icgraph">
+<area shape="rect" id="node2" href="class_lora_1_1_data_server.html#a883eaf25eb21a0ba827bb9a9a3593861" title="Lora\\DataServer\\broadcast" alt="" coords="153,5,328,32"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="ab515acd10479df5ff64b2584a2f8fa9d"></a>
@@ -170,12 +180,56 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns an array containing the decoded message. 0 index holds the Command -value and 1 index the decoded message. </dd></dl>
-<div class="fragment"><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                                                      : array {</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">if</span> (($pos = strpos ($message, <span class="charliteral">&#39;:&#39;</span>)) === <span class="keyword">false</span> || ($command = <a class="code" href="class_data_lib.html#a60cb59e0d64619154c155046e6e4ca66">DataLib::isInt</a> (substr ($message, 0, $pos))) === <span class="keyword">false</span> || !Command::isCommand ($command)) {</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keywordflow">return</span> [ Command::INVALID ];</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        }</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">return</span> [</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            $command,</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            json_decode (substr ($message, $pos + 1))</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        ];</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div><div class="ttc" id="class_data_lib_html_a60cb59e0d64619154c155046e6e4ca66"><div class="ttname"><a href="class_data_lib.html#a60cb59e0d64619154c155046e6e4ca66">DataLib\isInt</a></div><div class="ttdeci">static isInt($value)</div><div class="ttdef"><b>Definition:</b> datalib.php:44</div></div>
+<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                                                      : array {</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">if</span> (($pos = strpos ($msg, <span class="charliteral">&#39;:&#39;</span>)) === <span class="keyword">false</span> || ($command = <a class="code" href="class_data_lib.html#a60cb59e0d64619154c155046e6e4ca66">DataLib::isInt</a> (substr ($msg, 0, $pos))) === <span class="keyword">false</span> || !Command::isCommand ($command)) {</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keywordflow">return</span> [ Command::INVALID ];</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">return</span> [</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            $command,</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            json_decode (substr ($msg, $pos + 1), <span class="keyword">true</span>)</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        ];</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div><div class="ttc" id="class_data_lib_html_a60cb59e0d64619154c155046e6e4ca66"><div class="ttname"><a href="class_data_lib.html#a60cb59e0d64619154c155046e6e4ca66">DataLib\isInt</a></div><div class="ttdeci">static isInt($value)</div><div class="ttdef"><b>Definition:</b> datalib.php:52</div></div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_internal_m_s_g_ab515acd10479df5ff64b2584a2f8fa9d_cgraph.png" border="0" usemap="#class_internal_m_s_g_ab515acd10479df5ff64b2584a2f8fa9d_cgraph" alt=""/></div>
-<!-- MAP 0 -->
+<map name="class_internal_m_s_g_ab515acd10479df5ff64b2584a2f8fa9d_cgraph" id="class_internal_m_s_g_ab515acd10479df5ff64b2584a2f8fa9d_cgraph">
+<area shape="rect" id="node2" href="class_data_lib.html#a60cb59e0d64619154c155046e6e4ca66" title="DataLib\\isInt" alt="" coords="168,5,263,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a747d0ca9fce2e083cbb6c9701fcaa795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a747d0ca9fce2e083cbb6c9701fcaa795">&#9670;&nbsp;</a></span>extractMsg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static extractMsg </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Extracts and returns the message part of an internal message (Command is excluded). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$msg</td><td>A message string in internal message format. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the extracted section or an empty string on failure. </dd></dl>
+<div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                                                    : <span class="keywordtype">string</span> {</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">if</span> (($pos = strpos ($msg, <span class="charliteral">&#39;:&#39;</span>)) === <span class="keyword">false</span> || ($command = <a class="code" href="class_data_lib.html#a60cb59e0d64619154c155046e6e4ca66">DataLib::isInt</a> (substr ($msg, 0, $pos))) === <span class="keyword">false</span> || !Command::isCommand ($command)) {</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordflow">return</span> <span class="stringliteral">&#39;&#39;</span>;</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        }</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> substr ($msg, $pos + 1);</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div><div class="ttc" id="class_data_lib_html_a60cb59e0d64619154c155046e6e4ca66"><div class="ttname"><a href="class_data_lib.html#a60cb59e0d64619154c155046e6e4ca66">DataLib\isInt</a></div><div class="ttdeci">static isInt($value)</div><div class="ttdef"><b>Definition:</b> datalib.php:52</div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_internal_m_s_g_a747d0ca9fce2e083cbb6c9701fcaa795_cgraph.png" border="0" usemap="#class_internal_m_s_g_a747d0ca9fce2e083cbb6c9701fcaa795_cgraph" alt=""/></div>
+<map name="class_internal_m_s_g_a747d0ca9fce2e083cbb6c9701fcaa795_cgraph" id="class_internal_m_s_g_a747d0ca9fce2e083cbb6c9701fcaa795_cgraph">
+<area shape="rect" id="node2" href="class_data_lib.html#a60cb59e0d64619154c155046e6e4ca66" title="DataLib\\isInt" alt="" coords="140,5,235,32"/>
+</map>
 </div>
 
 </div>

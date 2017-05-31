@@ -4,7 +4,8 @@ namespace Lora;
 
 use \Lora\Server\{
 	Command as Command,
-	Response as Response
+	Response as Response,
+	InternalMSG as InternalMSG
 };
 
 class ControlServer extends \WebSocketServer
@@ -20,7 +21,7 @@ class ControlServer extends \WebSocketServer
 
 	protected function process ($user, $message) : void {
 		// $this->send ($user, $message);
-		$command = \InternalMSG::decomposeMsg ($message);
+		$command = InternalMSG::decomposeMsg ($message);
 		$this->resolveCommand ($command, $user, $message);
 		$this->send ($user, Response::OK);
 	}
@@ -39,7 +40,7 @@ class ControlServer extends \WebSocketServer
 					$this->terminate ();
 				break;
 			case Command::DATA:
-					$this->publicServer->broadcast (\InternalMSG::extractMsg ($message));
+					$this->publicServer->broadcast (InternalMSG::extractMsg ($message));
 				break;
 		}
 	}

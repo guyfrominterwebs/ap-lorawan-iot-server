@@ -28,8 +28,7 @@
 		"jquery"
 	],
 	"scripts": [
-		"main",
-		"device"
+		"main"
 	],
 	"styles": [
 		"main"

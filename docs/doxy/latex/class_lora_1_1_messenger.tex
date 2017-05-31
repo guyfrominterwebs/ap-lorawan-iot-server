@@ -1,36 +1,36 @@
-\hypertarget{class_lora_1_1_messenger}{}\section{Messenger Class Reference}
+\section{Messenger Class Reference}
 \label{class_lora_1_1_messenger}\index{Messenger@{Messenger}}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_lora_1_1_messenger_a81a67162a6288d78fc4c55283325f0b4}{get\+Data} ()
+\textbf{ get\+Data} ()
 \item 
-\hyperlink{class_lora_1_1_messenger_a6e548ebf2656742bfd19939ead923ed2}{get\+Errors} ()
+\textbf{ get\+Errors} ()
 \item 
-\hyperlink{class_lora_1_1_messenger_a5a1b761c901432b2bfd7fc4e5e75a6bd}{get\+Logs} ()
+\textbf{ get\+Logs} ()
 \item 
-\hyperlink{class_lora_1_1_messenger_ae50fa30a5d787c06060bb4b759533d5d}{add\+Data} (\$value, \$key=false)
+\textbf{ add\+Data} (\$value, \$key=false)
 \item 
-\hyperlink{class_lora_1_1_messenger_a87449bdd364c33ff024d32896342bf31}{set\+Data} (array \$data)
+\textbf{ set\+Data} (array \$data)
 \item 
-\hyperlink{class_lora_1_1_messenger_a9f1c67f1ddff94d1fc4f665243996ce5}{error} (string \$error)
+\textbf{ error} (string \$error)
 \item 
-\hyperlink{class_lora_1_1_messenger_a0a48838f3bd7b73107241ac3ce7c5f02}{log} (string \$msg)
+\textbf{ log} (string \$msg)
 \end{DoxyCompactItemize}
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_lora_1_1_messenger_ab24faf4aa647cdcee494fc48524ad4ff}\label{class_lora_1_1_messenger_ab24faf4aa647cdcee494fc48524ad4ff}} 
-{\bfseries \$errors} = \mbox{[}$\,$\mbox{]}
+\mbox{\label{class_lora_1_1_messenger_ab24faf4aa647cdcee494fc48524ad4ff}} 
+{\bfseries \$errors} = [$\,$]
 \item 
-\mbox{\Hypertarget{class_lora_1_1_messenger_a1985bbbc5349038a012f02c97f5276e6}\label{class_lora_1_1_messenger_a1985bbbc5349038a012f02c97f5276e6}} 
-{\bfseries \$logs} = \mbox{[}$\,$\mbox{]}
+\mbox{\label{class_lora_1_1_messenger_a1985bbbc5349038a012f02c97f5276e6}} 
+{\bfseries \$logs} = [$\,$]
 \end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_lora_1_1_messenger_a6efc15b5a2314dd4b5aaa556a375c6d6}\label{class_lora_1_1_messenger_a6efc15b5a2314dd4b5aaa556a375c6d6}} 
-{\bfseries \$data} = \mbox{[}$\,$\mbox{]}
+\mbox{\label{class_lora_1_1_messenger_a6efc15b5a2314dd4b5aaa556a375c6d6}} 
+{\bfseries \$data} = [$\,$]
 \end{DoxyCompactItemize}
 
 
@@ -38,10 +38,10 @@
 A class used to pass data and system state information from actions to higher level systems. 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{class_lora_1_1_messenger_ae50fa30a5d787c06060bb4b759533d5d}\label{class_lora_1_1_messenger_ae50fa30a5d787c06060bb4b759533d5d}} 
+\mbox{\label{class_lora_1_1_messenger_ae50fa30a5d787c06060bb4b759533d5d}} 
 \index{Lora\+::\+Messenger@{Lora\+::\+Messenger}!add\+Data@{add\+Data}}
 \index{add\+Data@{add\+Data}!Lora\+::\+Messenger@{Lora\+::\+Messenger}}
-\subsubsection{\texorpdfstring{add\+Data()}{addData()}}
+\subsubsection{add\+Data()}
 {\footnotesize\ttfamily add\+Data (\begin{DoxyParamCaption}\item[{}]{\$value,  }\item[{}]{\$key = {\ttfamily false} }\end{DoxyParamCaption})}
 
 A method to add more data to the messenger. 
@@ -61,10 +61,10 @@ A method to add more data to the messenger.
 52         $this->data [] = $value;
 53     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_messenger_a9f1c67f1ddff94d1fc4f665243996ce5}\label{class_lora_1_1_messenger_a9f1c67f1ddff94d1fc4f665243996ce5}} 
+\mbox{\label{class_lora_1_1_messenger_a9f1c67f1ddff94d1fc4f665243996ce5}} 
 \index{Lora\+::\+Messenger@{Lora\+::\+Messenger}!error@{error}}
 \index{error@{error}!Lora\+::\+Messenger@{Lora\+::\+Messenger}}
-\subsubsection{\texorpdfstring{error()}{error()}}
+\subsubsection{error()}
 {\footnotesize\ttfamily error (\begin{DoxyParamCaption}\item[{string}]{\$error }\end{DoxyParamCaption})}
 
 Adds a new error message. 
@@ -78,10 +78,10 @@ Adds a new error message.
 68         $this->errors [] = $error;
 69     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_messenger_a81a67162a6288d78fc4c55283325f0b4}\label{class_lora_1_1_messenger_a81a67162a6288d78fc4c55283325f0b4}} 
+\mbox{\label{class_lora_1_1_messenger_a81a67162a6288d78fc4c55283325f0b4}} 
 \index{Lora\+::\+Messenger@{Lora\+::\+Messenger}!get\+Data@{get\+Data}}
 \index{get\+Data@{get\+Data}!Lora\+::\+Messenger@{Lora\+::\+Messenger}}
-\subsubsection{\texorpdfstring{get\+Data()}{getData()}}
+\subsubsection{get\+Data()}
 {\footnotesize\ttfamily get\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 Returns all the data that has been added to this messenger. \begin{DoxyReturn}{Returns}
@@ -93,10 +93,10 @@ An array of data.
 23         \textcolor{keywordflow}{return} $this->data;
 24     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_messenger_a6e548ebf2656742bfd19939ead923ed2}\label{class_lora_1_1_messenger_a6e548ebf2656742bfd19939ead923ed2}} 
+\mbox{\label{class_lora_1_1_messenger_a6e548ebf2656742bfd19939ead923ed2}} 
 \index{Lora\+::\+Messenger@{Lora\+::\+Messenger}!get\+Errors@{get\+Errors}}
 \index{get\+Errors@{get\+Errors}!Lora\+::\+Messenger@{Lora\+::\+Messenger}}
-\subsubsection{\texorpdfstring{get\+Errors()}{getErrors()}}
+\subsubsection{get\+Errors()}
 {\footnotesize\ttfamily get\+Errors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 Get errors. \begin{DoxyReturn}{Returns}
@@ -108,10 +108,10 @@ Returns an array of all errors that occured during one request.
 31         \textcolor{keywordflow}{return} $this->errors;
 32     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_messenger_a5a1b761c901432b2bfd7fc4e5e75a6bd}\label{class_lora_1_1_messenger_a5a1b761c901432b2bfd7fc4e5e75a6bd}} 
+\mbox{\label{class_lora_1_1_messenger_a5a1b761c901432b2bfd7fc4e5e75a6bd}} 
 \index{Lora\+::\+Messenger@{Lora\+::\+Messenger}!get\+Logs@{get\+Logs}}
 \index{get\+Logs@{get\+Logs}!Lora\+::\+Messenger@{Lora\+::\+Messenger}}
-\subsubsection{\texorpdfstring{get\+Logs()}{getLogs()}}
+\subsubsection{get\+Logs()}
 {\footnotesize\ttfamily get\+Logs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 Get logs. \begin{DoxyReturn}{Returns}
@@ -123,10 +123,10 @@ Returns an array of all log entries which were generated during one request.
 39         \textcolor{keywordflow}{return} $this->logs;
 40     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_messenger_a0a48838f3bd7b73107241ac3ce7c5f02}\label{class_lora_1_1_messenger_a0a48838f3bd7b73107241ac3ce7c5f02}} 
+\mbox{\label{class_lora_1_1_messenger_a0a48838f3bd7b73107241ac3ce7c5f02}} 
 \index{Lora\+::\+Messenger@{Lora\+::\+Messenger}!log@{log}}
 \index{log@{log}!Lora\+::\+Messenger@{Lora\+::\+Messenger}}
-\subsubsection{\texorpdfstring{log()}{log()}}
+\subsubsection{log()}
 {\footnotesize\ttfamily log (\begin{DoxyParamCaption}\item[{string}]{\$msg }\end{DoxyParamCaption})}
 
 Adds a new log message. 
@@ -140,10 +140,10 @@ Adds a new log message.
 76         $this->logs [] = $msg;
 77     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_lora_1_1_messenger_a87449bdd364c33ff024d32896342bf31}\label{class_lora_1_1_messenger_a87449bdd364c33ff024d32896342bf31}} 
+\mbox{\label{class_lora_1_1_messenger_a87449bdd364c33ff024d32896342bf31}} 
 \index{Lora\+::\+Messenger@{Lora\+::\+Messenger}!set\+Data@{set\+Data}}
 \index{set\+Data@{set\+Data}!Lora\+::\+Messenger@{Lora\+::\+Messenger}}
-\subsubsection{\texorpdfstring{set\+Data()}{setData()}}
+\subsubsection{set\+Data()}
 {\footnotesize\ttfamily set\+Data (\begin{DoxyParamCaption}\item[{array}]{\$data }\end{DoxyParamCaption})}
 
 Replaces current data array with one given as parameter. 

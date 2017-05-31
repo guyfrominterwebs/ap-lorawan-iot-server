@@ -1,6 +1,8 @@
 var NAVTREE =
 [
   [ "LoRaWAN", "index.html", [
+    [ "Host server for Lora server cluster.", "md__r_e_a_d_m_e.html", null ],
+    [ "Command & Control server", "md_servers_cacserver__r_e_a_d_m_e.html", null ],
     [ "ap-lorawan-iot-mqttserver", "md_servers_mqttserver__r_e_a_d_m_e.html", null ],
     [ "ap-lorawan-iot-server", "md_servers_webserver__r_e_a_d_m_e.html", null ],
     [ "Todo List", "todo.html", null ],
@@ -27,7 +29,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"class_lora_1_1_page.html#aebdf4663cb6825d8f47de13850be31bd"
+"class_lora_1_1_page.html#aaed74f7942d3fc56582e99324500e87b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
