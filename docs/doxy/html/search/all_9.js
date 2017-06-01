@@ -6,5 +6,6 @@ var searchData=
   ['href',['href',['../class_html_1_1_link.html#acca9a5a3248aa2412373b1fe3a7e2a01',1,'Html::Link']]],
   ['html',['Html',['../namespace_html.html',1,'']]],
   ['htmllib',['HtmlLib',['../class_html_1_1_html_lib.html',1,'Html']]],
-  ['htmltag',['HtmlTag',['../class_html_1_1_html_tag.html',1,'Html']]]
+  ['htmltag',['HtmlTag',['../class_html_1_1_html_tag.html',1,'Html']]],
+  ['host_20server_20for_20lora_20server_20cluster_2e',['Host server for Lora server cluster.',['../md__r_e_a_d_m_e.html',1,'']]]
 ];

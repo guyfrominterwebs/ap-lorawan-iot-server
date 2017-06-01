@@ -15,7 +15,7 @@
 ;	The servers may override these values using their own configuration files.
 
 [system]
-debug						=false
+debug						=true
 
 [server]
 path_root					=.

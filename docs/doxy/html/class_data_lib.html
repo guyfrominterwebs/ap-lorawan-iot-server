@@ -88,6 +88,12 @@ $(document).ready(function(){initNavTree('class_data_lib.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a13d18479fbd2ba6266e58aff32f0937d"><td class="memItemLeft" align="right" valign="top"><a id="a13d18479fbd2ba6266e58aff32f0937d"></a>
+static&#160;</td><td class="memItemRight" valign="bottom"><b>isJson</b> (string $value)</td></tr>
+<tr class="separator:a13d18479fbd2ba6266e58aff32f0937d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8550f4875faca7b33f2aff29e6d5066a"><td class="memItemLeft" align="right" valign="top"><a id="a8550f4875faca7b33f2aff29e6d5066a"></a>
+static&#160;</td><td class="memItemRight" valign="bottom"><b>isHexString</b> (string $val)</td></tr>
+<tr class="separator:a8550f4875faca7b33f2aff29e6d5066a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ab5c189422f1366403e4375a42673d1"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_data_lib.html#a4ab5c189422f1366403e4375a42673d1">IsInstanceOf</a> ($object, string $class)</td></tr>
 <tr class="separator:a4ab5c189422f1366403e4375a42673d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bff9a99c41391c309a7618d522c8f16"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_data_lib.html#a2bff9a99c41391c309a7618d522c8f16">AreInstanceOf</a> (array $objects, string $class)</td></tr>
@@ -139,11 +145,13 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true if and only if all the items in $objects are instances of $class and there are more then 0 items in $objects. False is returned otherwise. </dd></dl>
-<div class="fragment"><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                                                                         : <span class="keywordtype">bool</span> {</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">if</span> (!class_exists ($class, <span class="keyword">false</span>)) {</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        }</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">foreach</span> ($objects as $object) {</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keywordflow">if</span> (!($object instanceof $class)) {</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            }</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        } <span class="keywordflow">return</span> count ($objects) &gt; 0;</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div></div><!-- fragment --><div class="dynheader">
+<div class="fragment"><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                                                                         : <span class="keywordtype">bool</span> {</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> (!class_exists ($class, <span class="keyword">false</span>)) {</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        }</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">foreach</span> ($objects as $object) {</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keywordflow">if</span> (!($object instanceof $class)) {</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            }</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        } <span class="keywordflow">return</span> count ($objects) &gt; 0;</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div></div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_data_lib_a2bff9a99c41391c309a7618d522c8f16_icgraph.png" border="0" usemap="#class_data_lib_a2bff9a99c41391c309a7618d522c8f16_icgraph" alt=""/></div>
-<!-- MAP 0 -->
+<map name="class_data_lib_a2bff9a99c41391c309a7618d522c8f16_icgraph" id="class_data_lib_a2bff9a99c41391c309a7618d522c8f16_icgraph">
+<area shape="rect" id="node2" href="class_lora_1_1_page.html#a3af53cb9d6437cde1e23d590488e683a" title="Lora\\Page\\addViews" alt="" coords="157,5,299,32"/>
+</map>
 </div>
 
 </div>
@@ -189,7 +197,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns boolean true if $object is instance of $class and false if not. </dd></dl>
-<div class="fragment"><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                                                 : <span class="keywordtype">bool</span> {</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">if</span> (!class_exists ($class, <span class="keyword">false</span>)) {</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        } <span class="keywordflow">return</span> $object instanceof $class;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                                                                 : <span class="keywordtype">bool</span> {</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (!class_exists ($class, <span class="keyword">false</span>)) {</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        } <span class="keywordflow">return</span> $object instanceof $class;</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div></div><!-- fragment -->
 </div>
 </div>
 <a id="a60cb59e0d64619154c155046e6e4ca66"></a>
@@ -222,11 +230,14 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns filtered $value as an integer if it can be converted and false if not. </dd></dl>
-<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                          {</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">return</span> filter_var ($value, FILTER_VALIDATE_INT);</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div></div><!-- fragment --><div class="dynheader">
+<div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                          {</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> filter_var ($value, FILTER_VALIDATE_INT);</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div></div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_data_lib_a60cb59e0d64619154c155046e6e4ca66_icgraph.png" border="0" usemap="#class_data_lib_a60cb59e0d64619154c155046e6e4ca66_icgraph" alt=""/></div>
-<!-- MAP 1 -->
+<map name="class_data_lib_a60cb59e0d64619154c155046e6e4ca66_icgraph" id="class_data_lib_a60cb59e0d64619154c155046e6e4ca66_icgraph">
+<area shape="rect" id="node2" href="class_internal_m_s_g.html#ab515acd10479df5ff64b2584a2f8fa9d" title="InternalMSG\\decomposeMsg" alt="" coords="100,5,291,32"/>
+<area shape="rect" id="node3" href="class_internal_m_s_g.html#a747d0ca9fce2e083cbb6c9701fcaa795" title="InternalMSG\\extractMsg" alt="" coords="114,56,277,83"/>
+</map>
 </div>
 
 </div>

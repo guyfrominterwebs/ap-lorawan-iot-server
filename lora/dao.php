@@ -14,11 +14,11 @@ abstract class DAO
 		\param $projection An optional projection parameter to define the fields which are fetched for each device
 		\return An array containing all the devices with fields defined by projection. An empty array is returned in case of an error.
 	*/
-	public static function fetchDevices (array $projection = []) {
+	public static function fetchDevices (array $filter = [], array $projection = []) {
 		$result = [];
 		try {
 			$manager = \DBConnection::connection ('measurements');
-			$query = new \MongoDB\Driver\Query ([], [ 'projection' => $projection ]);
+			$query = new \MongoDB\Driver\Query ($filter, [ 'projection' => $projection ]);
 			$cursor = $manager->executeQuery ('lorawan.devices', $query);
 			$result = $cursor->toArray ();
 		} catch (\Exception $e) {
@@ -56,7 +56,7 @@ abstract class DAO
 		try {
 			# Insert parsed measurement data for actual use.
 			$manager = \DBConnection::connection ('measurements');
-			$writer = new MongoDB\Driver\BulkWrite ([ 'ordered' => true ]);
+			$writer = new \MongoDB\Driver\BulkWrite ([ 'ordered' => true ]);
 			$writer->insert ([ 'device' => $device_id, $measurements ]);
 			$result = $manager->executeBulkWrite ('lorawan.data', $writer);
 		} catch (Exception $e) {
@@ -69,12 +69,13 @@ abstract class DAO
 		\param $device Device hardware id.
 		\return True on success, false on error.
 	*/
-	public static function insertDevice (string $device) : bool {
+	public static function insertDevice (string $hwid, string $dev_name) : bool {
 		try {
 			# Insert device information or update existing.
+			$data = [ '_id' => $hwid, 'dev_id' => $dev_name, 'hardware_serial' => $hwid ];
 			$manager = \DBConnection::connection ('measurements');
-			$writer = new MongoDB\Driver\BulkWrite ([ 'ordered' => true ]);
-			$writer->update ([ '_id' => $device ['dev']['_id'] ], $device ['dev'], [ 'upsert' => true ]);
+			$writer = new \MongoDB\Driver\BulkWrite ([ 'ordered' => true ]);
+			$writer->update ($data, $data, [ 'upsert' => true ]);
 			$result = $manager->executeBulkWrite ('lorawan.devices', $writer);
 		} catch (Exception $e) {
 			return false;
@@ -89,7 +90,7 @@ abstract class DAO
 		try {
 			# Insert whole data blob for archiving purposes
 			$manager = \DBConnection::connection ('measurements');
-			$writer = new MongoDB\Driver\BulkWrite ([ 'ordered' => true ]);
+			$writer = new \MongoDB\Driver\BulkWrite ([ 'ordered' => true ]);
 			$writer->insert ($raw);
 			$result = $manager->executeBulkWrite ('lorawan.raw_data', $writer);
 		} catch (Exception $e) {

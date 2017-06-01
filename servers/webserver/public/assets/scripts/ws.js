@@ -19,8 +19,8 @@ function RTSocket (_handler, _devices, _values) {
 	};
 
 	this.connect = function () {
-		socket = new WebSocket ("ws://" + window.location.hostname + ":9000");
 		try {
+			socket = new WebSocket ("ws://" + window.location.hostname + ":9000");
 			socket.onopen = function () {
 				self.onopen ();
 			};
@@ -72,7 +72,6 @@ function RTSocket (_handler, _devices, _values) {
 	}
 
 	this.onmessage = function (event) {
-		console.log (event.data);
 		var temp = handler || self.getHandler ();
 		if (temp) {
 			temp (event.data);

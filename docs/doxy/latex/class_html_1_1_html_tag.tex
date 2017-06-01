@@ -1,40 +1,45 @@
-\hypertarget{class_html_1_1_html_tag}{}\section{Html\+Tag Class Reference}
+\section{Html\+Tag Class Reference}
 \label{class_html_1_1_html_tag}\index{Html\+Tag@{Html\+Tag}}
 
 
-Inheritance diagram for Html\+Tag\+:
-% FIG 0
+Inheritance diagram for Html\+Tag\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=133pt]{class_html_1_1_html_tag__inherit__graph}
+\end{center}
+\end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_html_1_1_html_tag_ab2972fb46953f5babb049c5f1c664512}{tag} ()
+\textbf{ tag} ()
 \item 
-\hyperlink{class_html_1_1_html_tag_a80b8713959c19499c9a177d883a5a96b}{set\+Attr} (string \$name, \$value)
+\textbf{ set\+Attr} (string \$name, \$value)
 \item 
-\hyperlink{class_html_1_1_html_tag_a75ef0c456595eaa6a574c438803fb072}{attrs} (bool \$string=false)
+\textbf{ attrs} (bool \$string=false)
 \item 
-\hyperlink{class_html_1_1_html_tag_a43374e600f552e0a9308ab96b1964aba}{print} ()
+\textbf{ print} ()
 \end{DoxyCompactItemize}
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_html_1_1_html_tag_af4cf24d99d068a1aefe99caf8dd8a458}\label{class_html_1_1_html_tag_af4cf24d99d068a1aefe99caf8dd8a458}} 
-{\bfseries \$attrs} = \mbox{[}$\,$\mbox{]}
+\mbox{\label{class_html_1_1_html_tag_af4cf24d99d068a1aefe99caf8dd8a458}} 
+{\bfseries \$attrs} = [$\,$]
 \item 
-\mbox{\Hypertarget{class_html_1_1_html_tag_a4212f1eca3e4faf764728d56bc13dfd3}\label{class_html_1_1_html_tag_a4212f1eca3e4faf764728d56bc13dfd3}} 
-{\bfseries \$classes} = \mbox{[}$\,$\mbox{]}
+\mbox{\label{class_html_1_1_html_tag_a4212f1eca3e4faf764728d56bc13dfd3}} 
+{\bfseries \$classes} = [$\,$]
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_html_1_1_html_tag_a81d5015d41ed8ec66e9db8cdc5db9555}\label{class_html_1_1_html_tag_a81d5015d41ed8ec66e9db8cdc5db9555}} 
+\mbox{\label{class_html_1_1_html_tag_a81d5015d41ed8ec66e9db8cdc5db9555}} 
 {\bfseries \$tag} = \textquotesingle{}\textquotesingle{}
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 An abstract base class for representing H\+T\+ML tags. Makes certain things easier when working with template engines such as printing comples hyperlinks easily. \begin{DoxyRefDesc}{Todo}
-\item[\hyperlink{todo__todo000012}{Todo}]Needs improvements and has to better comply H\+T\+ML structure.
+\item[\textbf{ Todo}]Needs improvements and has to better comply H\+T\+ML structure.
 \begin{DoxyItemize}
 \item Add an array for inner contents.
 \item Add utility funtions for certain commonly used attributes such as id and class.
@@ -43,10 +48,10 @@ An abstract base class for representing H\+T\+ML tags. Makes certain things easi
 
 
 \subsection{Member Function Documentation}
-\mbox{\Hypertarget{class_html_1_1_html_tag_a75ef0c456595eaa6a574c438803fb072}\label{class_html_1_1_html_tag_a75ef0c456595eaa6a574c438803fb072}} 
+\mbox{\label{class_html_1_1_html_tag_a75ef0c456595eaa6a574c438803fb072}} 
 \index{Html\+::\+Html\+Tag@{Html\+::\+Html\+Tag}!attrs@{attrs}}
 \index{attrs@{attrs}!Html\+::\+Html\+Tag@{Html\+::\+Html\+Tag}}
-\subsubsection{\texorpdfstring{attrs()}{attrs()}}
+\subsubsection{attrs()}
 {\footnotesize\ttfamily attrs (\begin{DoxyParamCaption}\item[{bool}]{\$string = {\ttfamily false} }\end{DoxyParamCaption})}
 
 Returns this Html\+Tags attributes in either string or array form. 
@@ -62,25 +67,25 @@ Returns attributes as an array if \$string is false and as a string if it is tru
 56                                                  \{
 57         \textcolor{keywordflow}{if} ($string) \{
 58             $attrs = \textcolor{stringliteral}{''};
-59             \textcolor{keywordflow}{foreach} ($this->\hyperlink{class_html_1_1_html_tag_a75ef0c456595eaa6a574c438803fb072}{attrs} as $name => $value) \{
+59             \textcolor{keywordflow}{foreach} ($this->attrs as $name => $value) \{
 60                 $attrs .= \textcolor{stringliteral}{"$\{name\}=\(\backslash\)"$\{value\}\(\backslash\)" "};
 61             \} \textcolor{keywordflow}{return} substr ($attrs, 0, -1);
 62         \} \textcolor{keywordflow}{return} $this->attrs;
 63     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_html_1_1_html_tag_a43374e600f552e0a9308ab96b1964aba}\label{class_html_1_1_html_tag_a43374e600f552e0a9308ab96b1964aba}} 
+\mbox{\label{class_html_1_1_html_tag_a43374e600f552e0a9308ab96b1964aba}} 
 \index{Html\+::\+Html\+Tag@{Html\+::\+Html\+Tag}!print@{print}}
 \index{print@{print}!Html\+::\+Html\+Tag@{Html\+::\+Html\+Tag}}
-\subsubsection{\texorpdfstring{print()}{print()}}
+\subsubsection{print()}
 {\footnotesize\ttfamily print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [abstract]}}
 
-A method to print this tag instance as a string. \mbox{\Hypertarget{class_html_1_1_html_tag_a80b8713959c19499c9a177d883a5a96b}\label{class_html_1_1_html_tag_a80b8713959c19499c9a177d883a5a96b}} 
+A method to print this tag instance as a string. \mbox{\label{class_html_1_1_html_tag_a80b8713959c19499c9a177d883a5a96b}} 
 \index{Html\+::\+Html\+Tag@{Html\+::\+Html\+Tag}!set\+Attr@{set\+Attr}}
 \index{set\+Attr@{set\+Attr}!Html\+::\+Html\+Tag@{Html\+::\+Html\+Tag}}
-\subsubsection{\texorpdfstring{set\+Attr()}{setAttr()}}
+\subsubsection{set\+Attr()}
 {\footnotesize\ttfamily set\+Attr (\begin{DoxyParamCaption}\item[{string}]{\$name,  }\item[{}]{\$value }\end{DoxyParamCaption})}
 
-Checks attribute name and sets it for this \hyperlink{class_html_1_1_html_tag}{Html\+Tag} if found valid. 
+Checks attribute name and sets it for this \doxyref{Html\+Tag}{p.}{class_html_1_1_html_tag} if found valid. 
 \begin{DoxyParams}{Parameters}
 {\em \$name} & Name of the attribute. \\
 \hline
@@ -93,20 +98,20 @@ Returns this current instance.
 
 \begin{DoxyCode}
 44                                                    \{
-45         \textcolor{keywordflow}{if} (\hyperlink{class_html_1_1_html_lib_a53ec3d81bbf119ac8be017abed712c32}{HtmlLib::attrNameCheck} ($name)) \{
-46             $this->\hyperlink{class_html_1_1_html_tag_a75ef0c456595eaa6a574c438803fb072}{attrs} [$name] = $value;
+45         \textcolor{keywordflow}{if} (HtmlLib::attrNameCheck ($name)) \{
+46             $this->attrs [$name] = $value;
 47         \}
 48         \textcolor{keywordflow}{return} $this;
 49     \}
 \end{DoxyCode}
-\mbox{\Hypertarget{class_html_1_1_html_tag_ab2972fb46953f5babb049c5f1c664512}\label{class_html_1_1_html_tag_ab2972fb46953f5babb049c5f1c664512}} 
+\mbox{\label{class_html_1_1_html_tag_ab2972fb46953f5babb049c5f1c664512}} 
 \index{Html\+::\+Html\+Tag@{Html\+::\+Html\+Tag}!tag@{tag}}
 \index{tag@{tag}!Html\+::\+Html\+Tag@{Html\+::\+Html\+Tag}}
-\subsubsection{\texorpdfstring{tag()}{tag()}}
+\subsubsection{tag()}
 {\footnotesize\ttfamily tag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \begin{DoxyReturn}{Returns}
-Returns tag name of this \hyperlink{class_html_1_1_html_tag}{Html\+Tag}. 
+Returns tag name of this \doxyref{Html\+Tag}{p.}{class_html_1_1_html_tag}. 
 \end{DoxyReturn}
 
 \begin{DoxyCode}

@@ -4,8 +4,8 @@ var indexSectionsWithContent =
   1: "abcdehilmpru",
   2: "hl",
   3: "_abcdefghilmnoprstv",
-  4: "$adeip",
-  5: "at"
+  4: "$adeiop",
+  5: "acht"
 };
 
 var indexSectionNames =

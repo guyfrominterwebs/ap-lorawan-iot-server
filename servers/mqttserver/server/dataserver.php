@@ -3,7 +3,7 @@
 namespace Lora;
 
 use \Lora\DAO as DAO;
-use \Lora\Server\Command as Command;
+use \Lora\Server\{Command as Command, InternalMSG as InternalMSG};
 
 /**
 	TODO: Maybe add a buffer for failed broadcasts so that they can be sent later on again.
@@ -59,7 +59,7 @@ class DataServer
 	*/
 	public static function processMessage ($topic, $msg) : void {
 		$temp = self::instance ();
-		if (!is_string ($topic) || !is_string ($msg) || !DataLib::isJson ($msg)) {
+		if (!is_string ($topic) || !is_string ($msg) || !\DataLib::isJson ($msg)) {
 			$temp->print ("Invalid message received.");
 			return;
 		}
@@ -75,6 +75,8 @@ class DataServer
 	*/
 	public function process (string $topic, string $msg) : array {
 		$messages = [];
+		$parsedTopic = [];
+		$parsedMsg = [];
 		$messages [] = "Message received: ".date ("r")."\nTopic:${topic}\n${msg}\n";
 		if (!$this->parseReceived ($topic, $msg, $parsedTopic, $parsedMsg)) {
 			$messages [] = "Failed to parse message.";
@@ -181,18 +183,18 @@ class DataServer
 		if (!$req->has ($required)) {
 			return $this->parseActivation ($data);
 		}
-		if ($req->readArray ('metadata', $meta)) {
+		if (!$req->readArray ('metadata', $meta)) {
 			return null;
 		}
-		$meta = new RequestData ($meta);
+		$meta = new \RequestData ($meta);
 		if (!$meta->has ($requiredMeta)) {
 			return null;
 		}
 		$req->readString ('dev_id', $devId, '');
 		$req->readString ('hardware_serial', $hwId, '');
 		$payload = $this->parsePayload ($req->getString ('payload_raw', ''));
-		$datetime = DateTime::createFromFormat ('Y-m-d\TH:i:s+', $meta->getString ('time', ''));
-		if ($datetime === false || $payload === null || !DataLib::isHexString ($hwId)) {
+		$datetime = \DateTime::createFromFormat ('Y-m-d\TH:i:s+', $meta->getString ('time', ''));
+		if ($datetime === false || $payload === null || !\DataLib::isHexString ($hwId)) {
 			return null;
 		}
 		$result = [
@@ -203,7 +205,7 @@ class DataServer
 			],
 			'msg' => [
 				'device_id'			=> $hwId,
-				'time'				=> $datatime->getTimestamp (),
+				'time'				=> $datetime->getTimestamp (),
 				'payload'			=> $payload
 			]
 		];
@@ -222,7 +224,7 @@ class DataServer
 			'dev_eui'
 		];
 		$hwId = $req->getString ('dev_eui', '');
-		if (!$req->has ($required) || !DataLib::isHexString ($hwId)) {
+		if (!$req->has ($required) || !\DataLib::isHexString ($hwId)) {
 			return null;
 		}
 		return [ 'device' => [ '_id' => $hwId ] ];
@@ -235,7 +237,7 @@ class DataServer
 			containing type value pairs of the measured values.
 	*/
 	private function parsePayload (string $payload) : ?array {
-		if (($payload = base64_decode ($payload)) === false) {
+		if (($payload = base64_decode ($payload)) === false || strlen ($payload) < 4) {
 			return null;
 		}
 		$data = explode ('|', $payload);
@@ -277,7 +279,7 @@ class DataServer
 		\return Returns true on success and false if an erro occured.
 	*/
 	private function insert (string $deviceId, array $data) : bool {
-		$result = DAO::insertDevice ($deviceId);
+		$result = DAO::insertDevice ($deviceId, $data ['device']['dev_id']);
 		if (isset ($data ['msg'])) {
 			$result &= DAO::insertRaw ($data);
 		}

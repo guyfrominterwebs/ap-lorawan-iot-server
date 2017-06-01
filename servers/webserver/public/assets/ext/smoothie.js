@@ -200,7 +200,6 @@
       // Add to the end of the array
       this.data.push([timestamp, value]);
     }
-
     this.maxValue = isNaN(this.maxValue) ? value : Math.max(this.maxValue, value);
     this.minValue = isNaN(this.minValue) ? value : Math.min(this.minValue, value);
   };

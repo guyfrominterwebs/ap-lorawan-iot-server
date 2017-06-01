@@ -1,0 +1,105 @@
+\section{Control\+Server Class Reference}
+\label{class_lora_1_1_control_server}\index{Control\+Server@{Control\+Server}}
+
+
+Inheritance diagram for Control\+Server\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{class_lora_1_1_control_server__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Control\+Server\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{class_lora_1_1_control_server__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_lora_1_1_control_server_af1f52d912f7264309f424e05c28b31cb}} 
+{\bfseries \+\_\+\+\_\+construct} (\textbf{ Realtime\+Server} \$public\+Server, string \$address, int \$port)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_lora_1_1_control_server_a1d6ddc9c52e0994f2ec85eb34cc1b1cf}} 
+{\bfseries \$run} = true
+\item 
+\mbox{\label{class_lora_1_1_control_server_a2543b9ff8834fe7f10c97240667dd121}} 
+{\bfseries \$public\+Server} = null
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_lora_1_1_control_server_a805b6933fa0b69978e35fe94f3884de7}} 
+{\bfseries process} (\$user, \$message)
+\item 
+\mbox{\label{class_lora_1_1_control_server_a3e89014762456a67edbe843811c78736}} 
+{\bfseries connected} (\$user)
+\item 
+\mbox{\label{class_lora_1_1_control_server_aaf6375ec8ee41584a5adcf3d85d73018}} 
+{\bfseries closed} (\$user)
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_lora_1_1_control_server_a6523ac8f5d1a8bc4978d80b60193ce73}} 
+{\bfseries resolve\+Command} (array \$command, \$user, string \$message)
+\item 
+\textbf{ terminate} ()
+\item 
+\textbf{ broadcast} (string \$command)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\label{class_lora_1_1_control_server_ab671527a81a457e51152cc532c716faa}} 
+\index{Lora\+::\+Control\+Server@{Lora\+::\+Control\+Server}!broadcast@{broadcast}}
+\index{broadcast@{broadcast}!Lora\+::\+Control\+Server@{Lora\+::\+Control\+Server}}
+\subsubsection{broadcast()}
+{\footnotesize\ttfamily broadcast (\begin{DoxyParamCaption}\item[{string}]{\$command }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Broadcast a message to all interested clients. \begin{DoxyRefDesc}{Todo}
+\item[\textbf{ Todo}]Write message subscription system. \end{DoxyRefDesc}
+
+\begin{DoxyCode}
+63                                                  : \textcolor{keywordtype}{void} \{
+64         \textcolor{keywordflow}{if} (empty ($command)) \{
+65             \textcolor{keywordflow}{return};
+66         \}
+67         \textcolor{keywordflow}{foreach} ($this->users as $user) \{
+68             \textcolor{keywordflow}{if} ($user->socket !== $this->master) \{
+69                 $this->send ($user, $command);
+70             \}
+71         \}
+72     \}
+\end{DoxyCode}
+\mbox{\label{class_lora_1_1_control_server_aae6d2f0ed43d77087c71ffd4919dcf5d}} 
+\index{Lora\+::\+Control\+Server@{Lora\+::\+Control\+Server}!terminate@{terminate}}
+\index{terminate@{terminate}!Lora\+::\+Control\+Server@{Lora\+::\+Control\+Server}}
+\subsubsection{terminate()}
+{\footnotesize\ttfamily terminate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Graceful shotdown routine. Disconnects all clients and finally terminates this process by setting run to false. 
+\begin{DoxyCode}
+50                                   \{
+51         \textcolor{keywordflow}{foreach} ($this->users as $user) \{
+52             \textcolor{keywordflow}{if} ($user->socket !== $this->master) \{
+53                 $this->disconnect ($user);
+54             \}
+55         \}
+56         $this->run = \textcolor{keyword}{false};
+57     \}
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+servers/rtserver/server/controlserver.\+php\end{DoxyCompactItemize}

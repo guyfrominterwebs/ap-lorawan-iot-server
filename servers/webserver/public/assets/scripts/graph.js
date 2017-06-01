@@ -3,7 +3,14 @@ var initiators = initiators || [];
 
 // TODO: More flexible way to provide list of devices and measurement values.
 window.graphModels = $ ('#graph-models');
+window.graphChannel = null;
+
 initiators.push (function () {
+	prepareGraphs ();
+	prepareCommunication ();
+});
+
+function prepareGraphs () {
 	// TODO: Some checks prior to start up to ensure browser compatability and presence of required dom structures.
 	if (window.graphModels.length === 0) {
 		// Model elements not present; rendering not possible unless they are added.
@@ -11,6 +18,7 @@ initiators.push (function () {
 	if (!devices || !Array.isArray (devices)) {
 		return;
 	}
+	var graphMan = window.graphMan = new GraphManager ();
 	var i = 0,
 		count = devices.length,
 		container = $ ('#graph-container'),
@@ -20,23 +28,58 @@ initiators.push (function () {
 	}
 	container.prepend (last);
 	for (; i < count; ++i) {
-		newGraph (last, devices [i]._id, devices [i]._id + ' (' + devices [i].dev_id + ')');
+		graphMan.newGraph (last, devices [i]._id, devices [i]._id + ' (' + devices [i].dev_id + ')');
 		if (i + 1 < count) {
 			last = $ ('<div/>', { class: 'container' }).insertAfter (last);
 		}
 	}
-});
-
-function newGraph (container, device, heading) {
-	var graph = new Graph (),
-		view = new GraphView (heading);
-	graph.addItem (device);
-	view.setGraph (graph);
-	view.setContainer (container);
-	return graph;
 }
 
-function toggleGraph (event) {
+function prepareCommunication () {
+	graphChannel = new RTSocket (receiveData, '*', '*');
+	graphChannel.connect ();
+}
+
+function receiveData (data) {
+	graphMan.addData (JSON.parse (data));
+}
+
+function GraphManager (_allowNew, _domContainer) {
+
+	var self = this,
+		allowNew = false,
+		graphs = {};
+
+	this.newGraph = function (container, device, heading) {
+		var graph = new Graph (),
+			view = new GraphView (heading);
+		graph.addItem (device);
+		view.setGraph (graph);
+		view.setContainer (container);
+		graphs [device] = graph;
+		return graph;
+	};
+
+	this.addData = function (data) {
+		var i = 0, count = data.values.length;
+		if (!graphs [data.device]) {
+			if (!allowNew) {
+				return;
+			}
+			// self.newGraph (); // Do dis
+		}
+		var graph = graphs [data.device];
+		for (; i < count; ++i) {
+			for (var value in data.values [i]) {
+				graph.addType (value);
+				graph.addData (data.device, value, data.values [i][value]);
+			}
+		}
+	};
+
+}
+
+GraphManager.toggleGraph = function (event) {
 	var target = $ (event.currentTarget),
 		body = target.closest ('.graph-layout').find ('.graph-body');
 	if (body.is (':visible')) {
@@ -46,17 +89,6 @@ function toggleGraph (event) {
 		target.html ('&#x22C0;');
 		body.slideDown ();
 	}
-}
-
-function GraphManager () {
-
-	var self = this,
-		grahps = [];
-
-	this.newGraph = function () {
-		return new Graph ();
-	};
-
 }
 
 function Graph () {

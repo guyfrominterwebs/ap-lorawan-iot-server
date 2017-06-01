@@ -3,68 +3,63 @@
 	TODO: Global autoloader in addition to server specific autoloaders.
 */
 require '../../frameworks/wsclient/Client.php';
+require 'server/clilib.php';
 require 'server/datastore.php';
 
-use \Lora\Server\Command as Command;
+use \Lora\Server\{Command as Command, InternalMSG as InternalMSG};
 
 $args = arguments ();
 $argsc = count ($args);
 $command = '';
 
-$halp = [
-	's' => [
-		"Silent mode, no user input required beside command line arguments."
-	],
-	'h' => [
-		"Displays this help message."
-	],
-	'temperature' => [
-		"A temperature value.",
-		'fakeTemperature'
-	],
-	'light' => [
-		"A light value",
-		'fakeLight'
-	]
-];
 if ($argsc > 0) {
-	if (isset ($args ['h'])) { ///< Help!
+	if (hasHelp ($args)) { ///< Help!
+		outHelp ();
 		exit ();
 	}
 }
-if (!isset ($args ['s'])) { ///< Silents mode. Does not ask for additional input.
+$commands = [];
+if (!hasSilent ($args)) { ///< Silents mode. Does not ask for additional input.
 	echo 'Input command: ';
-	$command = trim (fgets (fopen ('php://stdin', 'r')));
+	$commands = parseCommand (trim (fgets (fopen ('php://stdin', 'r'))));
 }
 
-foreach ($args as $key => $arg) {
-	if (isset ($halp [$key], $halp [$key][1]) && is_callable ($halp [$key][1])) {
-		broadcast ($halp [$key][1] ($arg));
+$repeat = getRepeat ($args);
+$delay = getDelay ($args);
+$device = randomDeviceHwId (1);
+$single = hasSingle ($args);
+$random = getRandomCount ($args);
+$range = getValueRange ($args);
+$send = array_merge (
+			runArgs ($args, $device, $single, $random, $range),
+			runArgs ($commands, $device, $single, $random, $range)
+		);
+$last = false;
+for ($i = 0; $i < $repeat || $repeat === 0; ++$i) {
+	foreach ($send as $msg) {
+		$asd = broadcast ($msg, $last);
+		sleep ($delay);
 	}
-}
-
-foreach (explode (' ', $command) as $c) {
-	broadcast (resolveCommand ($c));
+	$last = $i + 1 === $repeat;
 }
 exit ();
 
-function parseCommand () {
-	
-}
-
-function resolveCommand ($command) {
+function commandToInternal (string $command, string $device, array $values) : string {
 	switch ($command) {
-		case "terminate": return InternalMSG::composeMsg (Command::ACTION, [ 'terminate' ]);
-		case "temperature": return fakeTemperature ([21]);
-		case "light": return fakeLight ([1]);
-		case "many": return fakeMany ();
+		case "terminate":
+			return InternalMSG::composeMsg (Command::ACTION, [ 'terminate' ]);
+		case "temperature":
+		case "light":
+		case "many":
+			$func = "construct_${command}";
+			return  $func ($device, $values);
 	}
-		// broadcast (trim ($command));
+	return '';
 }
 
 # TODO: Better server machine support. Should have a way to differ a server machine 
 # using ws from browser doing the same.
-function broadcast ($data) {
+function broadcast (string $data, bool $last) {
 	static $client = null;
 	if (empty ($data)) {
 		return false;
@@ -81,41 +76,45 @@ function broadcast ($data) {
 	if (!$client->send ($data) || !$client->receive ($msg)) { // Something went wrong.
 		return false;
 	}
-	$client->disconnect ();
+	if ($last) {
+		$client->disconnect ();
+	}
 	return true;
 }
 
-function fakeTemperature (array $tempeatures) : string {
+function construct_temperature (string $device, array $temperatures) : string {
 	$data = [
-		"device" => "0039ABFB7C0F69F5",
-		"values" => []
+		"device" => $device,
+		"values" => buildValues ($temperatures, 'TMP')
 	];
-	foreach ($tempeatures as $temperature) {
-		$data ['values'][] = [ 'TMP' => $temperature ];
-	}
 	return InternalMSG::composeMsg (Command::DATA, $data);
 }
 
-function fakeLight (array $lights) : string {
+function construct_light (string $device, array $lights) : string {
 	$data = [
-		"device" => "0039ABFB7C0F69F5",
-		"values" => []
+		"device" => $device,
+		"values" => buildValues ($lights, 'LT.')
 	];
-	foreach ($lights as $light) {
-		$data ['values'][] = [ 'LT.' => $light ];
-	}
 	return InternalMSG::composeMsg (Command::DATA, $data);
 }
 
-function fakeMany () {
+function construct_many (string $device, array $args) : string {
 	$data = [
-		"device" => "0039ABFB7C0F69F5",
+		"device" => $device,
 		"values" => [
 			[ "TMP" => 21 ],
 			[ "LT." => 1 ]
 		]
 	];
 	return InternalMSG::composeMsg (Command::DATA, $data);
+}
+
+function buildValues (array $values, string $type) {
+	$result = [];
+	foreach ($values as $value) {
+		$result [] = [ $type => trim ($value, '\'"')];
+	}
+	return $result;
 }
 
 function msg_print ($msg) {

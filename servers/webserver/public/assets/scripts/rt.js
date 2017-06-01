@@ -40,8 +40,10 @@ function RtLineChart () {
 
 	this.addData = function (id, type, data) {
 		// TODO: Figure out how time should be handled.
+		data = +data;
 		if (feeds [id] && feeds [id][type]) {
-			feeds [id][type].append (Date.now (), data);
+			var time = Date.now ();
+			feeds [id][type].append (time, data);
 		}
 	};
 

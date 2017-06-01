@@ -1,0 +1,201 @@
+\section{D\+AO Class Reference}
+\label{class_lora_1_1_d_a_o}\index{D\+AO@{D\+AO}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \textbf{ fetch\+Devices} (array \$projection=[$\,$])
+\item 
+static \textbf{ device\+Exist} (string \$device\+\_\+id)
+\item 
+static \textbf{ insert\+Measurement} (string \$device\+\_\+id, int \$time, array \$measurements)
+\item 
+static \textbf{ insert\+Device} (string \$device)
+\item 
+static \textbf{ insert\+Raw} (array \$raw)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\label{class_lora_1_1_d_a_o_aad2161af4b52afb99e2a931538559823}} 
+\index{Lora\+::\+D\+AO@{Lora\+::\+D\+AO}!device\+Exist@{device\+Exist}}
+\index{device\+Exist@{device\+Exist}!Lora\+::\+D\+AO@{Lora\+::\+D\+AO}}
+\subsubsection{device\+Exist()}
+{\footnotesize\ttfamily static device\+Exist (\begin{DoxyParamCaption}\item[{string}]{\$device\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyReturn}{Returns}
+Returns a boolean indiciation existence of a device. Null is returned is query failed. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+32                                                            : ?\textcolor{keywordtype}{bool} \{
+33         \textcolor{keywordflow}{try} \{
+34             $manager = \DBConnection::connection (\textcolor{stringliteral}{'measurements'});
+35             $command = new \(\backslash\)MongoDB\(\backslash\)Driver\(\backslash\)Command ([
+36                 \textcolor{stringliteral}{'count'} => \textcolor{stringliteral}{'devices'},
+37                 \textcolor{stringliteral}{'query'} => [
+38                     \textcolor{stringliteral}{'\_id'} => $device\_id
+39                 ]
+40             ]);
+41             $cursor = $manager->executeCommand (\textcolor{stringliteral}{'lorawan'}, $command);
+42             \textcolor{keywordflow}{return} $cursor->toArray ()[0]->n === 1;
+43         \} \textcolor{keywordflow}{catch} (Exception $e) \{
+44         \}
+45         \textcolor{keywordflow}{return} null;
+46     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=311pt]{class_lora_1_1_d_a_o_aad2161af4b52afb99e2a931538559823_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{class_lora_1_1_d_a_o_a223eeb00734ccb30b2a83b7557b4dbf1}} 
+\index{Lora\+::\+D\+AO@{Lora\+::\+D\+AO}!fetch\+Devices@{fetch\+Devices}}
+\index{fetch\+Devices@{fetch\+Devices}!Lora\+::\+D\+AO@{Lora\+::\+D\+AO}}
+\subsubsection{fetch\+Devices()}
+{\footnotesize\ttfamily static fetch\+Devices (\begin{DoxyParamCaption}\item[{array}]{\$projection = {\ttfamily []} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Returns an array containing all devices found in the database. 
+\begin{DoxyParams}{Parameters}
+{\em \$projection} & An optional projection parameter to define the fields which are fetched for each device \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An array containing all the devices with fields defined by projection. An empty array is returned in case of an error. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+17                                                                  \{
+18         $result = [];
+19         \textcolor{keywordflow}{try} \{
+20             $manager = \DBConnection::connection (\textcolor{stringliteral}{'measurements'});
+21             $query = new \(\backslash\)MongoDB\(\backslash\)Driver\(\backslash\)Query ([], [ \textcolor{stringliteral}{'projection'} => $projection ]);
+22             $cursor = $manager->executeQuery (\textcolor{stringliteral}{'lorawan.devices'}, $query);
+23             $result = $cursor->toArray ();
+24         \} \textcolor{keywordflow}{catch} (\(\backslash\)Exception $e) \{
+25         \}
+26         \textcolor{keywordflow}{return} $result;
+27     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{class_lora_1_1_d_a_o_a223eeb00734ccb30b2a83b7557b4dbf1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{class_lora_1_1_d_a_o_ad231d647bc7bf221289e5e52254d3743}} 
+\index{Lora\+::\+D\+AO@{Lora\+::\+D\+AO}!insert\+Device@{insert\+Device}}
+\index{insert\+Device@{insert\+Device}!Lora\+::\+D\+AO@{Lora\+::\+D\+AO}}
+\subsubsection{insert\+Device()}
+{\footnotesize\ttfamily static insert\+Device (\begin{DoxyParamCaption}\item[{string}]{\$device }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Insert a new device or update an existing one. 
+\begin{DoxyParams}{Parameters}
+{\em \$device} & Device hardware id. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True on success, false on error. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+72                                                          : \textcolor{keywordtype}{bool} \{
+73         \textcolor{keywordflow}{try} \{
+74 \textcolor{preprocessor}{            # Insert device information or update existing.}
+75             $manager = \DBConnection::connection (\textcolor{stringliteral}{'measurements'});
+76             $writer = \textcolor{keyword}{new} MongoDB\(\backslash\)Driver\(\backslash\)BulkWrite ([ \textcolor{stringliteral}{'ordered'} => \textcolor{keyword}{true} ]);
+77             $writer->update ([ \textcolor{stringliteral}{'\_id'} => $device [\textcolor{stringliteral}{'dev'}][\textcolor{stringliteral}{'\_id'}] ], $device [\textcolor{stringliteral}{'dev'}], [ \textcolor{stringliteral}{'upsert'} => \textcolor{keyword}{true} ]);
+78             $result = $manager->executeBulkWrite (\textcolor{stringliteral}{'lorawan.devices'}, $writer);
+79         \} \textcolor{keywordflow}{catch} (Exception $e) \{
+80             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+81         \} \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+82     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{class_lora_1_1_d_a_o_ad231d647bc7bf221289e5e52254d3743_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{class_lora_1_1_d_a_o_ae6bdc6374713a2785aed2fb29c49ca31}} 
+\index{Lora\+::\+D\+AO@{Lora\+::\+D\+AO}!insert\+Measurement@{insert\+Measurement}}
+\index{insert\+Measurement@{insert\+Measurement}!Lora\+::\+D\+AO@{Lora\+::\+D\+AO}}
+\subsubsection{insert\+Measurement()}
+{\footnotesize\ttfamily static insert\+Measurement (\begin{DoxyParamCaption}\item[{string}]{\$device\+\_\+id,  }\item[{int}]{\$time,  }\item[{array}]{\$measurements }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Insert a new measurement set for a device. 
+\begin{DoxyParams}{Parameters}
+{\em \$device\+\_\+id} & Hardware id of the device. \\
+\hline
+{\em \$time} & Unix timestamp in seconds. \\
+\hline
+{\em \$measurement} & Measurement data in parsed form. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true on succesful insert, false otherwise. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+55                                                                                                  : \textcolor{keywordtype}{bool} \{
+56         \textcolor{keywordflow}{try} \{
+57 \textcolor{preprocessor}{            # Insert parsed measurement data for actual use.}
+58             $manager = \DBConnection::connection (\textcolor{stringliteral}{'measurements'});
+59             $writer = \textcolor{keyword}{new} MongoDB\(\backslash\)Driver\(\backslash\)BulkWrite ([ \textcolor{stringliteral}{'ordered'} => \textcolor{keyword}{true} ]);
+60             $writer->insert ([ \textcolor{stringliteral}{'device'} => $device\_id, $measurements ]);
+61             $result = $manager->executeBulkWrite (\textcolor{stringliteral}{'lorawan.data'}, $writer);
+62         \} \textcolor{keywordflow}{catch} (Exception $e) \{
+63             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+64         \} \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+65     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{class_lora_1_1_d_a_o_ae6bdc6374713a2785aed2fb29c49ca31_cgraph}
+\end{center}
+\end{figure}
+\mbox{\label{class_lora_1_1_d_a_o_aa6d166466386cc6a0147d00719444276}} 
+\index{Lora\+::\+D\+AO@{Lora\+::\+D\+AO}!insert\+Raw@{insert\+Raw}}
+\index{insert\+Raw@{insert\+Raw}!Lora\+::\+D\+AO@{Lora\+::\+D\+AO}}
+\subsubsection{insert\+Raw()}
+{\footnotesize\ttfamily static insert\+Raw (\begin{DoxyParamCaption}\item[{array}]{\$raw }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Stores raw data from sensor nodes for archiving and inspection purposes. \begin{DoxyReturn}{Returns}
+True on success, false on error. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}
+88                                                   : \textcolor{keywordtype}{bool} \{
+89         \textcolor{keywordflow}{try} \{
+90 \textcolor{preprocessor}{            # Insert whole data blob for archiving purposes}
+91             $manager = \DBConnection::connection (\textcolor{stringliteral}{'measurements'});
+92             $writer = \textcolor{keyword}{new} MongoDB\(\backslash\)Driver\(\backslash\)BulkWrite ([ \textcolor{stringliteral}{'ordered'} => \textcolor{keyword}{true} ]);
+93             $writer->insert ($raw);
+94             $result = $manager->executeBulkWrite (\textcolor{stringliteral}{'lorawan.raw\_data'}, $writer);
+95         \} \textcolor{keywordflow}{catch} (Exception $e) \{
+96             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+97         \} \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+98     \}
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{class_lora_1_1_d_a_o_aa6d166466386cc6a0147d00719444276_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lora/dao.\+php\end{DoxyCompactItemize}

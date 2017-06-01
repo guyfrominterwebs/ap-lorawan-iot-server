@@ -8,9 +8,11 @@ var class_lora_1_1_config =
     [ "loadConfig", "class_lora_1_1_config.html#ac14c17dc35a55cd5a44db48d7d7d1fd9", null ],
     [ "path", "class_lora_1_1_config.html#aade770941642defa7b826ff3ad193b4a", null ],
     [ "paths", "class_lora_1_1_config.html#a36845afbe5fedb71da890df0ada263f6", null ],
+    [ "port", "class_lora_1_1_config.html#a5ab2c8bd61df248f0487686a0d3f3cea", null ],
     [ "registerAutoloaders", "class_lora_1_1_config.html#af12ac9985e38465b53443034489f3526", null ],
     [ "$configurations", "class_lora_1_1_config.html#a3d0d06c2ac189761041669f7fbcb6ba5", null ],
     [ "$instance", "class_lora_1_1_config.html#ad9d7ce33ebb142b70e58b68052ca0ea8", null ],
     [ "EXTENSION", "class_lora_1_1_config.html#a946f0934b6d4dce0bc46dbdb9119a624", null ],
-    [ "PATH", "class_lora_1_1_config.html#a1fc0f693347c58a8714672eeffa2e134", null ]
+    [ "PATH", "class_lora_1_1_config.html#a1fc0f693347c58a8714672eeffa2e134", null ],
+    [ "PORT", "class_lora_1_1_config.html#ab9a2d2c70deaf0f75cf0ee531f6ed0b5", null ]
 ];

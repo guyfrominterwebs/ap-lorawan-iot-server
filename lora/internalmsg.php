@@ -1,5 +1,7 @@
 <?php
 
+namespace Lora\Server;
+
 use \Lora\Server\Command as Command;
 
 /**
@@ -29,7 +31,7 @@ class InternalMSG
 		\return Returns an array containing the decoded message. 0 index holds the Command -value and 1 index the decoded message.
 	*/
 	public static function decomposeMsg (string $msg) : array {
-		if (($pos = strpos ($msg, ':')) === false || ($command = DataLib::isInt (substr ($msg, 0, $pos))) === false || !Command::isCommand ($command)) {
+		if (($pos = strpos ($msg, ':')) === false || ($command = \DataLib::isInt (substr ($msg, 0, $pos))) === false || !Command::isCommand ($command)) {
 			return [ Command::INVALID ];
 		}
 		return [
@@ -44,7 +46,7 @@ class InternalMSG
 		\return Returns the extracted section or an empty string on failure.
 	*/
 	public static function extractMsg (string $msg) : string {
-		if (($pos = strpos ($msg, ':')) === false || ($command = DataLib::isInt (substr ($msg, 0, $pos))) === false || !Command::isCommand ($command)) {
+		if (($pos = strpos ($msg, ':')) === false || ($command = \DataLib::isInt (substr ($msg, 0, $pos))) === false || !Command::isCommand ($command)) {
 			return '';
 		}
 		return substr ($msg, $pos + 1);
