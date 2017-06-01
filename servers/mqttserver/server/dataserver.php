@@ -201,7 +201,7 @@ class DataServer
 				'hardware_serial'	=> $hwId
 			],
 			'msg' => [
-				'device_id'			=> $hwId,
+				'_id'				=> $hwId,
 				'time'				=> $datetime->getTimestamp (),
 				'payload'			=> $payload
 			]
