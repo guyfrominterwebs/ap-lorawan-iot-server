@@ -61,18 +61,18 @@ function GraphManager (_allowNew, _domContainer) {
 	};
 
 	this.addData = function (data) {
-		var i = 0, count = data.values.length;
-		if (!graphs [data.device]) {
+		var i = 0, count = data.payload.length;
+		if (!graphs [data._id]) {
 			if (!allowNew) {
 				return;
 			}
 			// self.newGraph (); // Do dis
 		}
-		var graph = graphs [data.device];
+		var graph = graphs [data._id];
 		for (; i < count; ++i) {
-			for (var value in data.values [i]) {
+			for (var value in data.payload [i]) {
 				graph.addType (value);
-				graph.addData (data.device, value, data.values [i][value]);
+				graph.addData (data._id, value, data.payload [i][value]);
 			}
 		}
 	};
