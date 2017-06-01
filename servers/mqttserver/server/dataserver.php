@@ -82,9 +82,6 @@ class DataServer
 			$messages [] = "Failed to parse message.";
 			return $messages;
 		}
-		if (strtolower ($parsedMsg ['msg']['payload']) === 'heartbeat') {
-			return $messages;
-		}
 		$parsedMsg ['topic'] = $parsedTopic;
 		$this->insert ($parsedMsg ['device']['_id'], $parsedMsg);
 		$this->broadcast ($parsedMsg ['msg'], $messages);
@@ -237,7 +234,7 @@ class DataServer
 			containing type value pairs of the measured values.
 	*/
 	private function parsePayload (string $payload) : ?array {
-		if (($payload = base64_decode ($payload)) === false || strlen ($payload) < 4) {
+		if (($payload = base64_decode ($payload)) === false || strlen ($payload) < 4 || $payload === "heartbeat") {
 			return null;
 		}
 		$data = explode ('|', $payload);
