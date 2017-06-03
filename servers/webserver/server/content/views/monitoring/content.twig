@@ -1,0 +1,14 @@
+{#
+	Page template for device page.
+#}
+{% extends page.template %}
+{% block view %}
+	{% embed page.layout %}
+		{% block view_content %}
+			<h1>Monitoring</h1>
+			{% for view in page.subViews %}
+				{{ generators.sub_view (view, _context) }}
+			{% endfor %}
+		{% endblock view_content %}
+	{% endembed %}
+{% endblock %}

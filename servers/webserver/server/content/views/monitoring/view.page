@@ -1,0 +1,45 @@
+{
+	"__comment": "Page definition for monitoring page.",
+	"settings": {
+		"view_name": "Monitoring"
+	},
+	"views": {
+		"views": [{
+				"name": "monitoring",
+				"default": true,
+				"components": [
+				]
+			}, {
+				"name": "monitor-wizard",
+				"content": "monitor_wizard.twig",
+				"components": [
+				]
+			}, {
+				"name": "measurement-wizard",
+				"content": "measurement_wizard.twig",
+				"components": [
+				]
+			}],
+		"navigation": [{
+				"heading": "Monitoring",
+				"items": [
+					{ "view": "monitoring", "text": "Monitoring" }
+				]
+			}, {
+				"heading": "Tools",
+				"items": [
+					{ "view": "monitor-wizard", "text": "Monitoring wizard" },
+					{ "view": "measurement-wizard", "text": "Measurement wizard" }
+				]
+		}]
+	},
+	"libraries": [
+		"jquery"
+	],
+	"scripts": [
+		"main"
+	],
+	"styles": [
+		"main"
+	]
+}

@@ -12,7 +12,7 @@ class RealtimeServer extends \WebSocketServer
 	}
 	
 	protected function connected ($user) {
-		var_dump ($user->requestedResource);
+		// var_dump ($user->requestedResource);
 	}
 	
 	protected function closed ($user) {

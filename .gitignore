@@ -1,5 +1,6 @@
 *cache/
 *page_cache/
 *.zip
+*.png
 .vagrant/
 ttn.ini

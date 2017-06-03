@@ -18,6 +18,7 @@ final class DBConnection
 	private $connections = [ ///< $connections holds all available database credentials.
 				'measurements' => [
 					"type"			=> DBConnection::MONGO,
+					"databasename"	=> "lorawan",
 					"host" 			=> "localhost",
 					"port" 			=> "27017",
 					"connection"	=> null
@@ -56,8 +57,15 @@ final class DBConnection
 	public static function connection (string $db) {
 		$obj = self::obj ();
 		if (isset ($obj->connections [$db])) {
-			return $obj->connect ($obj->connections  [$db]);
+			return $obj->connect ($obj->connections [$db]);
 		} return null;
+	}
+
+	public static function dbName (string $db) : string {
+		$obj = self::obj ();
+		if (isset ($obj->connections  [$db])) {
+			return $obj->connections [$db]['databasename'];
+		} return '';
 	}
 
 	private function connect (array &$db) {

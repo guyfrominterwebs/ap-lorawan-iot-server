@@ -43,5 +43,5 @@ function allowAccess () {
 	\return An instance of user.
 */
 function getUser () {
-	return User::Dummy ();
+	return \Lora\Database\User::dummy ();
 }
