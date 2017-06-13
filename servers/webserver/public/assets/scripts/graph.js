@@ -28,7 +28,7 @@ function prepareGraphs () {
 	}
 	container.prepend (last);
 	for (; i < count; ++i) {
-		graphMan.newGraph (last, devices [i]._id, devices [i]._id + ' (' + devices [i].dev_id + ')');
+		graphMan.newGraph (last, devices [i]._id, devices [i]._id + ' (' + devices [i].name + ')');
 		if (i + 1 < count) {
 			last = $ ('<div/>', { class: 'container' }).insertAfter (last);
 		}

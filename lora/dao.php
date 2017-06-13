@@ -57,7 +57,7 @@ abstract class DAO
 			# Insert parsed measurement data for actual use.
 			$manager = \DBConnection::connection ('measurements');
 			$writer = new \MongoDB\Driver\BulkWrite ([ 'ordered' => true ]);
-			$writer->insert ([ 'device' => $device_id, $measurements ]);
+			$writer->insert ([ 'device' => $device_id, 'measurements' => $measurements ]);
 			$result = $manager->executeBulkWrite ('lorawan.data', $writer);
 		} catch (Exception $e) {
 			return false;

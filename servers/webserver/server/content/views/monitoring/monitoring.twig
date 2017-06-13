@@ -1,0 +1,14 @@
+{% import 'generators.twig' as generators %}
+<h1>Monitoring areas</h1>
+<div>
+	<div>
+		<a href="{{ _cntx.public_pages }}monitoring?monitor-wizard" class="button">Add new</a>
+	</div>
+{% if _cntx.data.areas is iterable %}
+	<div class="item-list">
+	{% for a in _cntx.data.areas %}
+		{{ generators.monitoring_item (a, _cntx) }}
+	{% endfor %}
+	</div>
+{% endif %}
+</div>

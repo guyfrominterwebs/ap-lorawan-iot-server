@@ -1,0 +1,7 @@
+{#
+	Page template for device page.
+#}
+<h1>Measurement wizard</h1>
+{% for view in page.subViews %}
+	{{ generators.sub_view (view, _context) }}
+{% endfor %}

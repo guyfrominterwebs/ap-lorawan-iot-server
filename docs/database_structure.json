@@ -1,0 +1,138 @@
+
+Database structure
+
+Required queries
+
+	Primary queries
+		Add device
+			- Done
+		Add sensor to device
+			- Done
+		Add parameter
+			- Done
+		Add monitoring target
+			- Done
+		Add monitoring group
+			- Done
+		Add data
+			- Done
+		Find parameter by quantity
+			- Done
+		Find target by device
+			- Done
+		Find sensor by device, parameter and pin number (measurement data)
+			- Done
+
+	Secondary queries
+		Update device (name, monitoring target)
+			- Done
+		Update monitoring target (location)
+			- Done
+		Move target to another group
+			- Done
+		Deactivate device
+			- Done
+		Deactivate target
+			- Done
+		Find all devices in a target
+			- Done
+		Find all targets a device has been part of
+		Find all targets in a group
+			- Done
+		Find all parameters
+			- Done
+
+Problematic cases
+
+	Data with unknown parameter is received
+		- Create a pseudo parameter and inform users about it
+			- Allow trashing or filling proper data.
+	Data with unknow sensor is received
+		- Add the sensor to the device which sent it.
+			- Eventually leads to having number of various sensors for each pin.
+	Data with conflicting sensor information is received. (Parameter type does not match).
+		- Add as a new sensor to the device
+	Data with unknown device is received
+		- Add the device and inform users about this device
+	Device sends data when it has no monitoring target configured
+		- Create a new void target if and only if the device has no previous void target.
+			Assign the device to its void target.
+
+Memo
+
+	- Every collection must have an _id field.
+	- Void targets should belong to void group.
+	- Device only has a void target if it has sent data which has been linked to a target belonging to the void group.
+
+Document dictionary
+	numeric: A numeric type which can be either an integer or a floating/fixed point value of any precision.
+
+collection: devices
+	{
+		_id: "same_as_hardware_id",
+		name: "GUI name",
+		hardware_id: "DEADBEEF0909090",
+		active: true,
+		deactivation_time: unix_timestamp
+		target: <monitoring_targets ObjectId>
+	}
+
+collection: device_sensors
+	{
+		_id: <ObjectId>,
+		device: <devices ObjectId>,
+		parameter: <parameters ObjectId>,
+		pin_number: integer,
+		description: "GUI text description"
+	}
+
+collection: parameters
+	{
+		_id: <ObjectId>,
+		name: "GUI name",
+		symbol: "unit_symbol_used_in_physics",
+		quantity: "three_letter_quantity_unit_used_by_sensors"
+	}
+
+collection: monitoring_targets
+	{
+		_id: <ObjectId>,
+		name: "GUI name",
+		group: <monitoring_groups ObjectId>,
+		location: [ longitude, latitude ],
+		active: true,
+		deactivation_time: unix_timestamp
+	}
+
+collection: monitoring_groups
+	{
+		_id: <ObjectId>,
+		name: "GUI name",
+		description: "Some description"
+	}
+
+collection: monitoring_data
+	{
+		_id: <ObjectId>,
+		device: <devices ObjectId>,
+		sensor: <device_sensors ObjectId>,
+		target: <monitoring_targets ObjectId>,
+		parameter: <parameters ObjectId>,
+		timestamp: unix_timestamp,
+		value: usually a numeric value but may contain an array with multiple numbers.
+	}
+
+
+Create unique indexes
+
+	db.devices.createIndex ({ hardware_id: 1 }, { unique: true })
+	db.device_sensors.createIndex ({ device: 1, parameter: 1, pin_number: 1 }, { unique: true })
+	db.parameters.createIndex ({ symbol: 1, quantity: 1 }, { unique: true })
+	db.monitoring_targets.createIndex ({ name: 1, group: 1 }, { unique: true })
+	db.monitoring_groups.createIndex ({ name: 1 }, { unique: true })
+	db.monitoring_data.createIndex ({ device: 1, sensor: 1, target: 1, parameter: 1, timestamp: 1 }, { unique: true })
+
+Modifications to existing data
+
+	db.devices.updateMany ({}, { $rename: { "dev_id": "name", "hardware_serial": "hardware_id" }, $set: { "active": true, "deactivation_time": 0, target: null } });
+	db.devices.updateMany ({}, { $set: { target: <"void target id here"> } })

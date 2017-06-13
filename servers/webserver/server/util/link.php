@@ -27,8 +27,8 @@ final class Link extends HtmlTag
 		Print implementation for HTML anchor tag. Overrides HtmlTag::print.
 		\return Returns a string representation of an HTML link.
 	*/
-	public function print () : string {
-		return "<{$this->tag} href=\"".$this->href ()."\" ".$this->attrs (true).">{$this->text}</{$this->tag}>";
+	public function print (string $webroot = '/') : string {
+		return "<{$this->tag} href=\"${webroot}".$this->href ()."\" ".$this->attrs (true).">{$this->text}</{$this->tag}>";
 	}
 
 	/**

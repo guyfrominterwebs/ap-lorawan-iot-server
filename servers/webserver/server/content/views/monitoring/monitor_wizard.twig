@@ -1,0 +1,50 @@
+{% import 'generators.twig' as generators %}
+{#
+	Page template for device page.
+#}
+<h1>Monitoring wizard</h1>
+<div class="">
+	{% if _cntx.data.error %}
+		{{ generators.print_error (_cntx.data.error, _cntx) }}
+	{% endif %}
+	{{ dump (_cntx.data.phase) }}
+	{% if _cntx.data.phase == 1 %}
+		<form action="{{ _cntx.public_pages ~ _cntx.page.name }}?{{ view.id }}" method="post">
+			<div class="form-entry">
+				<div class="form-text">
+					Monitoring area name:
+				</div>
+				<div class="form-field">
+					<input type="text" name="name" autofocus><br>
+				</div>
+			</div>
+			<div class="form-entry">
+				<div class="form-field">
+					<input type="submit" value="Next">
+				</div>
+			</div>
+			<input type="hidden" name="step" value="{{ _cntx.data.phase }}">
+		</form>
+	{% endif %}
+	{% if _cntx.data.phase == 2 %}
+		<form action="{{ _cntx.public_pages ~ _cntx.page.name }}" method="post">
+			<div class="form-entry">
+				<div class="form-text">
+					Available nodes for {{ _cntx.data.target.name }}
+				</div>
+				<div class="form-field">
+					{% for d in _cntx.data.devices %}
+						{{ generators.checkbox (d._id, d.name, 'devices[]') }}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="form-entry">
+				<div class="form-field">
+					<input type="submit" value="Next">
+				</div>
+			</div>
+			<input type="hidden" name="area" value="{{ _cntx.data.target._id }}">
+			<input type="hidden" name="step" value="{{ _cntx.data.phase }}">
+		</form>
+	{% endif %}
+</div>

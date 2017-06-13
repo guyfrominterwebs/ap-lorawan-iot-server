@@ -15,6 +15,7 @@ final class RequestHandler
 			$mess			= null,
 			$page			= null,
 			$pm				= null,
+			$action			= null,
 			$method			= '',
 			$root			= '';
 
@@ -24,40 +25,49 @@ final class RequestHandler
 		$this->req 			= new \RequestData ($this->slim->request->params ());
 		$this->mess			= new Messenger ();
 		$this->root			= Config::path ('server', 'root');
+		if ($this->req->has ('delete')) {
+			$this->method = '_delete';
+		}
+		if ($this->req->has ('put')) {
+			$this->method = '_put';
+		}
+		if ($this->req->has ('post')) {
+			$this->method = '_post';
+		}
 	}
 
 	/**
 		Processes all requests which would return an HTML document.
-		\param $action An array containing the URI path sections.
+		\param $url An array containing the URI path sections.
 	*/
-	public function handleContentRequest (array $action) : void {
+	public function handleContentRequest (array $url) : void {
 		require "{$this->root}/server/login.php";
 		if (!isLoggedIn () && !login ()) {
 			return; # Login failed.
 		}
 		$this->pm = new PageManager ();
-		$this->resolveCall ($action, Config::path ('server', 'pages'), "Content", "Lora\Content");
+		$this->resolveCall ($url, Config::path ('server', 'pages'), "Content", "Lora\Content");
 		$this->buildPage ();
 	}
 
 	/**
 		Processes all API requests and returns responses as JSON.
-		\param $action An array containing the URI path sections.
+		\param $url An array containing the URI path sections.
 		\todo Possibly add support to return XML responses.
 	*/
-	public function handleApiRequest (array $action) : void {
-		$this->resolveCall ($action, Config::path ('server', 'api'), "Action", "Lora\Api");
+	public function handleApiRequest (array $url) : void {
+		$this->resolveCall ($url, Config::path ('server', 'api'), "Action", "Lora\Api");
 		$this->slim->response->header ('Content-Type', 'application/json');
 		$this->slim->response->write (json_encode ($this->mess->getData ()));
 	}
 
 	/**
 		Shared processing logic for both content and api requests.
-		\param $action An array containing the URL path section which is not used for routing.
+		\param $url An array containing the URL path section which is not used for routing.
 		\param $filePath Path to content and API directory.
 		\todo Move page processing somewhere else.
 	*/
-	private function resolveCall (array $action, string $filePath, string $fileType, string $namespace) : void {
+	private function resolveCall (array $url, string $filePath, string $fileType, string $namespace) : void {
 		# TODO: 400, 403, 404, 405, ...
 		# TODO: Separate page and action routines.
 		$path = '';
@@ -65,19 +75,19 @@ final class RequestHandler
 		$className = '';
 		$consumed = [];
 		$excess = [];
-		if (!$this->actionToPath ($action, $consumed, $excess, $path, $filePath)) {
-			$excess = $action;
+		if (!$this->actionToPath ($url, $consumed, $excess, $path, $filePath)) {
+			$excess = $url;
 			$this->notFound ($consumed, $path, $filePath);
 		}
 		if ($this->buildClassName ($consumed, $class, $className, $fileType, $namespace) && $this->loadFile ($path)) {
 			if (class_exists ($class, false) && method_exists ($class, $this->method)) {
-				$action = new $class ($className, $this->mess);
-				if ($this->pm !== null && ($this->page = $this->pm->load ($action)) !== null) {
+				$this->action = new $class ($className, $this->mess);
+				if ($this->pm !== null && ($this->page = $this->pm->load ($this->action)) !== null) {
 					$this->page->finalize ();
 					$this->defaultVisibility ();
-					$this->pm->cache ($this->page, $action->getId ());
+					$this->pm->cache ($this->page, $this->action->getId ());
 				}
-				$action->run ($this->req, $this->method, $excess, $this->page);
+				$this->action->run ($this->req, $this->method, $excess, $this->page);
 			}
 		}
 	}
@@ -93,23 +103,23 @@ final class RequestHandler
 
 	/**
 		Builds a script path from the URI path section array.
-		\param $action URI path section which is not used for routing.
+		\param $url URI path section which is not used for routing.
 		\param[out] $consumed An array containing the parts of the URI which were used to construct the script path.
 		\param[out] $excess An array containing the parts of the URI which where not used to contruct the script path.
 		\param[out] $path Script path will be set to this variable. Must not be used if this method returns false.
 		\params $folder API or content directory path.
 		\return Returns true if the path was succesfully constructed and false if not.
 	*/
-	private function actionToPath (array $action, array &$consumed, array &$excess, string &$path, string $folder) : bool {
+	private function actionToPath (array $url, array &$consumed, array &$excess, string &$path, string $folder) : bool {
 		$file = '';
-		$max = ($count = count ($action)) < 6 ? $count : 6;
+		$max = ($count = count ($url)) < 6 ? $count : 6;
 		$i = 0;
 		while ($i++ < $max) {
-			if (!empty ($part = array_splice ($action, 0, 1)[0]) && preg_match ('/^[a-z\/]+$/i', $part) === 1) {
+			if (!empty ($part = array_splice ($url, 0, 1)[0]) && preg_match ('/^[a-z\/]+$/i', $part) === 1) {
 				$file .= "${part}";
 				if (file_exists ($lastPath = "${folder}/${file}/{$file}.php")) {
 					$consumed [] = $part;
-					$excess = $action;
+					$excess = $url;
 					$path = $lastPath;
 				}
 				$file .= '_';
@@ -127,7 +137,7 @@ final class RequestHandler
 		$paths				= Config::paths ('twig', 'filesystem');
 		$paths []			= $this->page->path ();
 		$twigEnv			= Config::get ('client', 'paths');
-		$twigEnv ['page']	=  $this->page;
+		$twigEnv ['page']	= $this->page;
 		$twigEnv ['data']	= $this->mess->getData ();
 		$loader				= new \Twig_Loader_Filesystem ($paths);
 		$twig				= new \Twig_Environment ($loader, [
@@ -153,7 +163,7 @@ final class RequestHandler
 
 	/**
 		Takes the request URL path and uses that to locate the correct class name.
-		\param $action An array containing the URL path section which is not used for routing.
+		\param $url An array containing the URL path section which is not used for routing.
 		\param[out] $class A string where the full class name (namespace included) will be set.
 		\param[out] $plainName A string where only the class name (namespace excluded) will be set.
 		\param $prefix A prefix for the class name. Used to differ between content and api scripts. Possible values 
@@ -164,8 +174,8 @@ final class RequestHandler
 		\return A boolean value is returned telling whether or not a class name could be formed. True is returned if 
 			a class name could be created and false if not.
 	*/
-	private function buildClassName (array $action, string &$class, string &$plainName, string $prefix, string $namespace) : bool {
-		foreach ($action as $part) {
+	private function buildClassName (array $url, string &$class, string &$plainName, string $prefix, string $namespace) : bool {
+		foreach ($url as $part) {
 			if (!empty ($part) && preg_match ('/^[a-z\/]+$/i', $part) === 1) {
 				$class .= ucfirst ($part);
 			}

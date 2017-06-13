@@ -93,7 +93,7 @@ final class Page
 	public function addViews (array $views) : void {
 		if (\DataLib::AreInstanceOf ($view, PageView::class)) {
 			foreach ($views as $v) {
-				$this->view [$v->id ()] = $v;;
+				$this->view [$v->id ()] = $v;
 			}
 		}
 	}
@@ -365,7 +365,7 @@ final class Page
 				foreach ($items as $link) {
 					$view = isset ($link ['view']) && is_string ($link ['view']) ? $link ['view'] : '';
 					$text = isset ($link ['text']) && is_string ($link ['text']) ? $link ['text'] : '';
-					if (!empty ($temp = $this->views [$link ['view']])) {
+					if (isset ($this->views [$link ['view']]) && !empty ($temp = $this->views [$link ['view']])) {
 						$entry ['items'][] = $temp->link ($this, $text);
 					} else {
 						$target = isset ($link ['target']) && is_string ($link ['target']) ? $link ['target'] : '';

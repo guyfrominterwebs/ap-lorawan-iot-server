@@ -2,6 +2,9 @@
 
 namespace Lora;
 
+/**
+	Manager class for Pages. Takes care of their common routines, caching and loading them.
+*/
 final class PageManager
 {
 
