@@ -57,16 +57,28 @@ final class Content_Monitoring extends \Lora\BaseAction
 	}
 
 	protected function _post (RequestData $req) : void {
-		$req->readInt ('step', $step, 0);
-		switch ($step) {
-			case 0:
-					$step = $this->createTarget ($req);
-				break;
-			case 1:
-					$step = $this->addDevices ($req);
-				break;
+		$counter = 0;
+		$phases = [
+			++$counter => new CreateTarget ($counter),
+			++$counter => new AssignDevice ($counter),
+			++$counter => new DeviceAssignEnd ($counter)
+		];
+		$req->readInt ('step', $step, 1);
+		if (isset ($phases [$step])) {
+			if ($phases [$step]->processData ($req)) {
+				$phases [$step]->process ();
+			}
+			$error = $phases [$step]->getError ();
+			if (!empty ($error)) {
+				$this->mess->addData ($error, 'error');
+			}
+			$step = $phases [$step]->nextPhase ();
+			if (isset ($phases [$step])) {
+				$phases [$step]->gatherData ($req, $this->mess);
+			}
 		}
 		$this->mess->addData ($step, 'phase');
+		$this->page->showSingle ('monitor-wizard');
 	}
 
 	protected function _put (RequestData $req) : void {
@@ -112,6 +124,7 @@ final class Content_Monitoring extends \Lora\BaseAction
 		}
 		$this->mess->addData ($target->toArray ([], true), 'target');
 		$this->mess->addData ($devices, 'devices');
+
 		return 2;
 	}
 
@@ -147,4 +160,100 @@ final class Content_Monitoring extends \Lora\BaseAction
 		}
 		return 3;
 	}
+}
+
+class CreateTarget extends FormPhase
+{
+
+	private $name = '',
+			$edit = false;
+
+	public function gatherData (\RequestData $req, \Lora\Messenger $mess) : void {
+	}
+
+	public function processData (RequestData $req) : bool {
+		$this->edit = $req->has ('edit');
+		if (!$req->readString ('area', $this->name, '') || empty ($this->name)) {
+			if ($req->has ('step')) {
+				$this->error = 'Could not create new monitoring area; no name given.';
+			}
+			$this->nextPhase = $this->phase;
+			return false;
+		}
+		if (MonitoringTarget::fromName ($this->name) !== null && !$this->edit) {
+			$this->error = "Could not create new monitoring area; an area called \"{$this->name}\" already exists.";
+			$this->nextPhase = $this->phase;
+			return false;
+		}
+		return true;
+	}
+
+	public function process () : void {
+		if (!$this->edit) {
+			$target = MonitoringTarget::create ($this->name);
+			if (!$target->toDatabase ()) {
+				$this->error = 'Could not create new monitoring area.';
+				$this->nextPhase = $this->phase;
+			}
+		}
+	}
+
+}
+
+class AssignDevice extends FormPhase
+{
+
+	private $devices					= [],
+			$availableDevs				= [],
+			$target						= null;
+
+	public function gatherData (\RequestData $req, \Lora\Messenger $mess) : void {
+		if ($this->target === null && ($this->target = MonitoringTarget::fromId ($req->getString ('area', ''))) === null && ($this->target = MonitoringTarget::fromName ($req->getString ('area', ''))) === null) {
+			return;
+		}
+		$mess->addData ($this->target->toArray ([], true), 'target');
+		$devices = [];
+		foreach (Device::fetchFree () as $dev) {
+			$devices [] = $dev->toArray ([], true);
+		}
+		$mess->addData ($devices, 'devices');
+	}
+
+	public function processData (\RequestData $req) : bool {
+		$this->devices = $req->getArray ('devices');
+		if (($this->target = MonitoringTarget::fromId ($req->getString ('area', ''))) === null) {
+			$this->error = 'Could not add devices; invalid area.';
+			return false;
+		}
+		return true;
+	}
+
+	public function process () : void {
+		foreach ($this->devices as $dev) {
+			if (($temp = Device::fromId ($dev)) !== null && $temp->setTarget ($this->target)) {
+				$temp->toDatabase ();
+			}
+		}
+	}
+
+}
+
+class DeviceAssignEnd extends FormPhase
+{
+
+	public function gatherData (\RequestData $req, \Lora\Messenger $mess) : void {
+		if (($target = MonitoringTarget::fromId ($req->getString ('area', ''))) !== null) {
+			$mess->addData ($target->toArray ([], true), 'target');
+			$this->nextPhase = 3;
+		}
+	}
+
+	public function processData (\RequestData $req) : bool {
+		return true;
+	}
+
+	public function process () : void {
+		
+	}
+
 }

@@ -11,6 +11,7 @@ class MonitoringTarget extends BaseModel
 {
 
 	public const COLLECTION = 'monitoring_targets';
+	private const VOID_NAME = 'Non-assigned devices';
 
 	protected	$name					= '',
 				$group					= null,
@@ -28,9 +29,9 @@ class MonitoringTarget extends BaseModel
 	}
 
 	public static function voidTarget () : ?self {
-		$target = self::fromName ('void');
+		$target = self::fromName (self::VOID_NAME);
 		if ($target === null) {
-			$target = self::create ('void');
+			$target = self::create (self::VOID_NAME);
 			$target->toDatabase ();
 		} return $target;
 	}
