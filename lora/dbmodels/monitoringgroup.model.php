@@ -22,7 +22,7 @@ class MonitoringGroup extends BaseModel
 		return $temp->verify () ? $temp : null;
 	}
 
-	public function getId () : \MongoDB\BSON\ObjectID {
+	public function getId () : ?\MongoDB\BSON\ObjectID {
 		return $this->_id;
 	}
 
@@ -30,9 +30,20 @@ class MonitoringGroup extends BaseModel
 		self::query ([ 'group' => $this->_id ], MonitoringTarget::class, true);
 	}
 
+	/*
+		Abstract overrides
+	*/
+
+	public function formatId ($id) {
+		if (is_string ($id)) {
+			return new \MongoDB\BSON\ObjectID ($id);
+		} else if (\DataLib::isa ($id, \MongoDB\BSON\ObjectID::class)) {
+			return $id;
+		} return null;
+	}
+
 	public function verify () : bool {
-		$this->valid = $this->_id instanceof \MongoDB\BSON\ObjectID;
-		return $this->valid;
+		return $this->__valid = $this->_id instanceof \MongoDB\BSON\ObjectID;
 	}
 
 }

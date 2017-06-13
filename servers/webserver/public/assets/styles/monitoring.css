@@ -1,0 +1,13 @@
+#monitor-wizard {
+	width: 600px;
+}
+.form-text {
+	float: left;
+}
+.form-field {
+	width: 50%;
+	float: right;
+}
+.form-entry {
+	height: 30px;
+}

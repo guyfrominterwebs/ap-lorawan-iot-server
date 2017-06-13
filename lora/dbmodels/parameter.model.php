@@ -49,11 +49,22 @@ class Parameter extends BaseModel
 		return $this->_id;
 	}
 
+	/*
+		Abstract overrides
+	*/
+
+	public function formatId ($id) {
+		if (is_string ($id)) {
+			return new \MongoDB\BSON\ObjectID ($id);
+		} else if (\DataLib::isa ($id, \MongoDB\BSON\ObjectID::class)) {
+			return $id;
+		} return null;
+	}
+
 	public function verify () : bool {
-		$this->valid = $this->_id instanceof \MongoDB\BSON\ObjectID
+		return $this->__valid = $this->_id instanceof \MongoDB\BSON\ObjectID
 				&& (empty ($this->symbol) || \SILib::isSymbol ($this->symbol))
 				&& \DataLib::text ($this->quantity, 3, 3);
-		return $this->valid;
 	}
 
 }

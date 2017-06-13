@@ -1,0 +1,13 @@
+{% import 'generators.twig' as generators %}
+<h1>{{ _cntx.data.area.name }}</h1>
+<h3>Devices in this monitoring area</h3>
+{% if _cntx.data.devices | length > 0 %}
+	{% for d in _cntx.data.devices %}
+		<div>
+			<p><a href="{{ _cntx.public_pages }}device?id={{ d._id }}">{{ d._id ~ ' (' ~ d.name ~ ')' }}</a><a href="{{ _cntx.public_pages }}monitoring?delete&id={{ _cntx.data.area.id }}&device={{ d._id }}" class="button">Remove</a></p>
+		</div>
+	{% endfor %}
+{% else %}
+	<p>No devices have been assigned to this area.</p>
+{% endif %}
+<a href="{{ _cntx.public_pages }}monitoring/monitor-wizard?step=1&area={{ _cntx.data.area.id }}" class="button">Add device</a>

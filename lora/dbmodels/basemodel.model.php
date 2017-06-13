@@ -12,7 +12,7 @@ abstract class BaseModel implements \MongoDB\BSON\Unserializable
 {
 
 	protected	$_id					= null,
-				$valid					= true;
+				$__valid				= true;
 
 	/*
 		Abstract methods to ensure data consistency.
@@ -23,6 +23,10 @@ abstract class BaseModel implements \MongoDB\BSON\Unserializable
 		\return Returns true if the object is in a valid state and false otherwise.
 	*/
 	public abstract function verify () : bool;
+	/**
+		Takes in an id value, inspects it and transforms it into correct format if not already.
+	*/
+	public abstract function formatId ($id);
 
 	/*
 		Static utility land
@@ -43,6 +47,7 @@ abstract class BaseModel implements \MongoDB\BSON\Unserializable
 		\return Returns an instance of a class which was used to call this method or null on failure.
 	*/
 	public static function fromId ($id) : ?self {
+		$id = static::formatId ($id);
 		return self::query ([ '_id' => $id ], static::class, false);
 	}
 
@@ -112,7 +117,7 @@ abstract class BaseModel implements \MongoDB\BSON\Unserializable
 		\return Returns true if this object is in valid state and false if not.
 	*/
 	protected function isValid () : bool {
-		return $this->valid = !$this->valid ? $this->verify () : $this->valid;
+		return $this->__valid = !$this->__valid ? $this->verify () : $this->__valid;
 	}
 	/**
 		Implements \MongoDB\BSON\Unserializable::bsonUnserialize. 
@@ -135,13 +140,14 @@ abstract class BaseModel implements \MongoDB\BSON\Unserializable
 		\return Returns true on succesful insert or update and false on error.
 	*/
 	public function toDatabase () : bool {
-		if (!$this->valid) {
+		if ($this->isValid ()) {
 			try {
 				$writer = new \MongoDB\Driver\BulkWrite ([ 'ordered' => false ]);
 				$writer->update ([ '_id' => $this->_id ], $this->toArray (), [ 'upsert' => true, 'multi' => false ]);
 				$result = \DBConnection::connection ('measurements')->executeBulkWrite (self::collection (), $writer);
 				return $result->getUpsertedCount () > 0 || $result->getMatchedCount () > 0;
 			} catch (\Exception | \Error $e) {
+				var_dump ($e->getmessage ());
 			}
 		} return false;
 	}
@@ -149,13 +155,24 @@ abstract class BaseModel implements \MongoDB\BSON\Unserializable
 	/**
 		Creates an associative array with database fields of this object as keys and values from those fields.
 		\param $exclude An array of field names to exclude from the result.
+		\param $convert If true, certain values, such as ObjectIDs, are converted into less informative form.
 		\return An associative array of this objects database fields.
 	*/
-	public function toArray (array $exclude = []) : array {
+	public function toArray (array $exclude = [], bool $convert = false) : array {
 		$result = [];
-		foreach (self::fields ($exclude) as $field) {
-			$result [$field] = $this->$field;
-		} return $result;
+		if ($convert) {
+			foreach (self::fields ($exclude) as $field) {
+				$value = $this->$field;
+				if (\DataLib::isa ($value, \MongoDB\BSON\ObjectId::class)) {
+					$value = (string)$value;
+				}
+				$result [$field] = $value;
+			}
+		} else {
+			foreach (self::fields ($exclude) as $field) {
+				$result [$field] = $this->$field;
+			}
+		}
+		return $result;
 	}
-
 }

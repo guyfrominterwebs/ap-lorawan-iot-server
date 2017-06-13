@@ -3,7 +3,9 @@
 namespace Lora\Database;
 
 /**
-	A database model class for 
+	A database model class for MonitoringTarget.
+	\todo: Get rid of MonitoringGroup and merge it into this class to allow infinite grouping.
+		Something similar to unix file system where everything is a file.
 */
 class MonitoringTarget extends BaseModel
 {
@@ -37,6 +39,10 @@ class MonitoringTarget extends BaseModel
 		return $this->_id;
 	}
 
+	public function name () : string {
+		return $this->name;
+	}
+
 	public function setLocation (float $latitude, float $longitude) : bool {
 		if (!\DataLib::validGPSCoordinate ($latitude, $longitude)) {
 			return false;
@@ -68,12 +74,23 @@ class MonitoringTarget extends BaseModel
 		return self::query ([ "target" => $this->_id ], Device::class, true);
 	}
 
+	/*
+		Abstract overrides
+	*/
+
+	public function formatId ($id) {
+		if (is_string ($id) && \DataLib::text ($id, 24, 24) && \DataLib::isHexString ($id)) {
+			return new \MongoDB\BSON\ObjectID ($id);
+		} else if (\DataLib::isa ($id, \MongoDB\BSON\ObjectID::class)) {
+			return $id;
+		} return null;
+	}
+
 	public function verify () : bool {
-		$this->valid = $this->_id instanceof \MongoDB\BSON\ObjectID
+		return $this->__valid = $this->_id instanceof \MongoDB\BSON\ObjectID
 				&& ($this->group === null || MonitoringGroup::fromId ($this->group) !== null)
 				&& \DataLib::validGPSCoordinate ($this->location [0], $this->location [1])
 				&& \DataLib::isInt ($this->deactivation_time) !== false;
-		return $this->valid;
 	}
 
 }

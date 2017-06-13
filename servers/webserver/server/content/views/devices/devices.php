@@ -2,7 +2,11 @@
 
 namespace Lora\Content;
 
-use \Lora\PageManager, \RequestData;
+use \Lora\PageManager,
+	\RequestData;
+use \Lora\Database\{
+		Device
+	};
 
 final class Content_Devices extends \Lora\BaseAction
 {
@@ -14,7 +18,10 @@ final class Content_Devices extends \Lora\BaseAction
 				break;
 			}
 		}
-		$devices = \Lora\DAO::fetchDevices ();
+		$devices = [];
+		foreach (Device::fetchAll () as $dev) {
+			$devices [] = $dev->toArray ([], true);
+		}
 		$this->mess->addData ($devices, 'devices');
 		$this->page->addGlobal ('devices', $devices);
 	}

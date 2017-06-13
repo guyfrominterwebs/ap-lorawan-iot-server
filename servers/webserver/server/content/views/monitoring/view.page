@@ -6,6 +6,7 @@
 	"views": {
 		"views": [{
 				"name": "monitoring",
+				"content": "monitoring.twig",
 				"default": true,
 				"components": [
 				]
@@ -19,6 +20,9 @@
 				"content": "measurement_wizard.twig",
 				"components": [
 				]
+			}, {
+				"name": "monitoring-area",
+				"content": "monitoring_area.twig"
 			}],
 		"navigation": [{
 				"heading": "Monitoring",
@@ -40,6 +44,7 @@
 		"main"
 	],
 	"styles": [
-		"main"
+		"main.css",
+		"monitoring.css"
 	]
 }

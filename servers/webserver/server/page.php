@@ -93,7 +93,7 @@ final class Page
 	public function addViews (array $views) : void {
 		if (\DataLib::AreInstanceOf ($view, PageView::class)) {
 			foreach ($views as $v) {
-				$this->view [$v->id ()] = $v;;
+				$this->view [$v->id ()] = $v;
 			}
 		}
 	}

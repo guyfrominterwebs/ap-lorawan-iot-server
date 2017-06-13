@@ -43,12 +43,23 @@ class DeviceSensor extends BaseModel
 		return $this->device;
 	}
 
+	/*
+		Abstract overrides
+	*/
+
+	public function formatId ($id) {
+		if (is_string ($id)) {
+			return new \MongoDB\BSON\ObjectID ($id);
+		} else if (\DataLib::isa ($id, \MongoDB\BSON\ObjectID::class)) {
+			return $id;
+		} return null;
+	}
+
 	public function verify () : bool {
-		$this->valid = $this->_id instanceof \MongoDB\BSON\ObjectID
+		return $this->__valid = $this->_id instanceof \MongoDB\BSON\ObjectID
 				&& Device::fromId ($this->device) !== null
 				&& Parameter::fromId ($this->parameter) !== null
 				&& \DataLib::isInt ($this->pin_number) !== false;
-		return $this->valid;
 	}
 
 }  

@@ -3,7 +3,7 @@
 namespace Lora\Database;
 
 /**
-	A database model class for 
+	A database model class for Device.
 */
 class Device extends BaseModel
 {
@@ -35,6 +35,10 @@ class Device extends BaseModel
 		} return $temp;
 	}
 
+	public static function fetchFree () : array {
+		return self::query ([ 'target' => MonitoringTarget::voidTarget ()->getId () ], Device::class, true);
+	}
+
 	public function getId () : string  {
 		return $this->_id;
 	}
@@ -49,6 +53,11 @@ class Device extends BaseModel
 		}
 		$this->target = $target->getId ();
 		return true;
+	}
+
+	public function removeTarget () {
+		$target = MonitoringTarget::voidTarget ();
+		$this->target = $target->getId ();
 	}
 
 	public function setName (string $name) : void {
@@ -96,11 +105,20 @@ class Device extends BaseModel
 		return $sensors;
 	}
 
+	/*
+		Abstract overrides
+	*/
+
+	public function formatId ($id) {
+		if (is_string ($id)) {
+			return $id;
+		} return null;
+	}
+
 	public function verify () : bool {
-		$this->valid = ($this->_id === $this->hardware_id
+		return $this->__valid = ($this->_id === $this->hardware_id
 				&& \DataLib::isHexString ($this->_id)
 				&& \DataLib::regex ($this->_id, self::NAME_REGEX)
 				&& \DataLib::isInt ($this->deactivation_time) !== false);
-		return $this->valid;
 	}
 }

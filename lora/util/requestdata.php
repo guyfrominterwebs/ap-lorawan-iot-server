@@ -102,24 +102,24 @@ final class RequestData
 		return $val;
 	}
 
-	public function getArray ($key, $default = null) : ?array {
+	public function getArray ($key, $default = []) : array {
 		$this->readArray ($key, $val, $default);
 		return $val;
 	}
 
-	public function getIntArray (array $keys) : ?array {
+	public function getIntArray (array $keys) : array {
 		return $this->getTypedArray ($keys, 'getInt');
 	}
 
-	public function getBoolArray (array $keys) : ?array {
+	public function getBoolArray (array $keys) : array {
 		return $this->getTypedArray ($keys, 'getBool');
 	}
 
-	public function getStringArray (array $keys) : ?array {
+	public function getStringArray (array $keys) : array {
 		return $this->getTypedArray ($keys, 'getString');
 	}
 
-	public function getArrayArray (array $keys) : ?array {
+	public function getArrayArray (array $keys) : array {
 		return $this->getTypedArray ($keys, 'getArray');
 	}
 
@@ -128,7 +128,7 @@ final class RequestData
 		Values are fetched from $data under same keys.
 		If no entry is found for a key, the value is set to default.
 	*/
-	private function getTypedArray (array $keys, string $method) : ?array {
+	private function getTypedArray (array $keys, string $method) : array {
 		$values = [];
 		foreach ($keys as $key => $value) {
 			$values [$key] = $this->$method ($key, $value);

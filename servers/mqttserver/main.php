@@ -12,6 +12,9 @@ function msg_print ($msg) {
 
 /*
 # Example data.
+
+|TMP12:28|TMP42:32|LT.:28
+
 {
 	"app_id":"not_an_application",
 	"dev_id":"lorawan_asd",

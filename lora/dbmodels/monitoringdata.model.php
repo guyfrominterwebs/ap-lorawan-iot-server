@@ -37,16 +37,26 @@ class MonitoringData extends BaseModel
 		} return $temp;
 	}
 
+	/*
+		Abstract overrides
+	*/
+
+	public function formatId ($id) {
+		if (is_string ($id)) {
+			return new \MongoDB\BSON\ObjectID ($id);
+		} else if (\DataLib::isa ($id, \MongoDB\BSON\ObjectID::class)) {
+			return $id;
+		} return null;
+	}
+
 	public function verify () : bool {
-		$this->valid = $this->_id instanceof \MongoDB\BSON\ObjectID
-				&& $this->device instanceof \MongoDB\BSON\ObjectID
+		return $this->__valid = $this->_id instanceof \MongoDB\BSON\ObjectID
 				&& $this->target instanceof \MongoDB\BSON\ObjectID
 				&& $this->parameter instanceof \MongoDB\BSON\ObjectID
 				&& Device::fromId ($this->device) !== null
 				&& MonitoringTarget::fromId ($this->target) !== null
-				&& Parameter::fromId ($this->device) !== null
+				&& Parameter::fromId ($this->parameter) !== null
 				&& \DataLib::isInt ($this->timestamp) !== false;
-		return $this->valid;
 	}
 
 }

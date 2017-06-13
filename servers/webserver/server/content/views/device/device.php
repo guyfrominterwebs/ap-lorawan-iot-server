@@ -2,8 +2,11 @@
 
 namespace Lora\Content;
 
-use \Lora\DAO as DAO;
-use \RequestData;
+use \Lora\DAO,
+	\RequestData;
+use \Lora\Database\{
+		Device
+	};
 
 final class Content_Device extends \Lora\BaseAction
 {
@@ -11,9 +14,9 @@ final class Content_Device extends \Lora\BaseAction
 	public function _get (RequestData $req) {
 		if ($req->readString ('id', $id)) {
 			$this->mess->addData ($id, $this->name);
-			$devices = DAO::fetchDevices ([ '_id' => $id ]);
-			if (count ($devices) === 1) {
-				$this->page->addGlobal ('devices', $devices);
+			$device = Device::fromId ($id);
+			if ($device !== null) {
+				$this->page->addGlobal ('devices', [ $device->toArray ([], true) ]);
 			}
 		}
 		$this->page->addSubViewParameter ('id', $id);

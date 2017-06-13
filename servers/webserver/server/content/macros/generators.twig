@@ -68,7 +68,7 @@
 
 {% macro collapse_menu_item (i, _cntx) %}
 	{% import _self as generators %}
-	<div class="collapse-menu-item">{{ i.print | raw }}</div>
+	<div class="collapse-menu-item">{{ i.print (_cntx.public_pages) | raw }}</div>
 {% endmacro collapse_menu_item %}
 
 {% macro link (target, text, _cntx) %}
@@ -77,23 +77,20 @@
 
 {% macro device_item (device, _cntx) %}
 	<div>
-		<p><a href="{{ _cntx.public_pages }}device?id={{ device._id }}">{{ device._id ~ ' (' ~ device.dev_id ~ ')' }}</a></p>
+		<p><a href="{{ _cntx.public_pages }}device?id={{ device._id }}">{{ device._id ~ ' (' ~ device.name ~ ')' }}</a></p>
 	</div>
 {% endmacro device_item %}
 
-{% macro param_link (target, text, params, _cntx) %}
-	{%- spaceless -%}
-		<a href="{{- _cntx.public_pages ~ target -}}
-		{%- if params is iterable -%}
-			{{- '?' -}}
-			{%- for key, val in params -%}
-				{{- key -}}
-				{%- if val is not empty -%}
-					{{- '=' ~val -}}
-				{%- endif -%}
-				{{- not loop.last ? '&' : '' -}}
-			{%- endfor -%}
-		{%- endif -%}
-		">{{ text }}</a>
-	{%- endspaceless -%}
-{% endmacro param_link %}
+{% macro monitoring_item (area, _cntx) %}
+	<div>
+		<p><a href="{{ _cntx.public_pages }}monitoring?id={{ area.id }}">{{ area.name }}</a></p>
+	</div>
+{% endmacro monitoring_item %}
+
+{% macro print_error (error, _cntx) %}
+	<h4 class="error">{{ error }}</h4>
+{% endmacro print_error %}
+
+{% macro checkbox (value, text, name_attr, _cntx) %}
+	<input type="checkbox" name="{{ name_attr }}" value="{{ value }}">{{ text }}<br>
+{% endmacro %}

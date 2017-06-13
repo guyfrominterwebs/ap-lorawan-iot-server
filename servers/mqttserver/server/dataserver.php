@@ -125,6 +125,12 @@ class DataServer
 	*/
 	private function parseReceived (string $topic, string $msg, array &$parsedTopic, array &$parsedMsg) : bool {
 		$msg = json_decode ($msg, true);
+		if (isset ($msg ['message'])) {
+			$msg = $msg ['message'];
+		}
+		if (isset ($msg ['payload_fields'])) {
+			$msg = $msg ['payload_fields'];
+		}
 		$parsedTopic = $this->parseTopic ($topic);
 		$parsedMsg = $this->parseMessage (new \RequestData ($msg));
 		return !empty ($parsedTopic) && !empty ($parsedMsg);
@@ -164,15 +170,15 @@ class DataServer
 		$result = [];
 		$required = [
 			'metadata',
-			'name',
-			'hardware_id',
+			'dev_id',
+			'hardware_serial',
 			'payload_raw'
 		];
 		$requiredMeta = [
-			'time'
+			// 'time'
 		];
 		if (!$req->has ($required)) {
-			return $this->parseActivation ($data);
+			return $this->parseActivation ($req);
 		}
 		if (!$req->readArray ('metadata', $meta)) {
 			return $result;
@@ -181,14 +187,14 @@ class DataServer
 		if (!$meta->has ($requiredMeta)) {
 			return $result;
 		}
-		$req->readString ('name', $name, '');
-		$req->readString ('hardware_id', $hwId, '');
+		$req->readString ('dev_id', $name, '');
+		$req->readString ('hardware_serial', $hwId, '');
 		$payload = $this->parsePayload ($req->getString ('payload_raw', ''));
-		$datetime = \DateTime::createFromFormat ('Y-m-d\TH:i:s+', $meta->getString ('time', ''));
+		// $datetime = \DateTime::createFromFormat ('Y-m-d\TH:i:s+', $meta->getString ('time', ''));
 		$timestamp = time ();
-		if ($datetime !== false) {
-			$timestamp = $datetime->getTimestamp ();
-		}
+		// if ($datetime !== false) {
+			// $timestamp = $datetime->getTimestamp ();
+		// }
 		if (empty ($payload) || !\DataLib::isHexString ($hwId)) {
 			return $result;
 		}
@@ -232,7 +238,6 @@ class DataServer
 			containing type value pairs of the measured values.
 	*/
 	private function parsePayload (string $payload) : array {
-		# TODO: Pin number processing.
 		$result = [];
 		if (($payload = base64_decode ($payload)) === false || strlen ($payload) < 4 || $payload === "heartbeat") {
 			return $result;
@@ -240,24 +245,24 @@ class DataServer
 		$data = explode ('|', $payload);
 		foreach ($data as $key => $entry) {
 			if (!empty ($entry)) {
-				# $headEnd = strpos ($entry, ':');
-				# if ($headEnd !== false && $headEnd > 3) {
+				$headEnd = strpos ($entry, ':');
+				if ($headEnd !== false && $headEnd >= 3) {
 					$quantity = substr ($entry, 0, 3);
-					# $pin = substr ($entry, 3, $headEnd);
-					# $value = substr ($entry, $headEnd);
-					$value = substr ($entry, 3);
+					$pin = 0;
+					if ($headEnd > 3) {
+						$pin = substr ($entry, 3, $headEnd - 3);
+					}
+					if (!\DataLib::isHexString ($pin)) {
+						return $result;
+					}
+					$pin = hexdec ($pin);
+					$value = substr ($entry, $headEnd + 1);
 					$result [] = [
 						'quantity' => $quantity,
-						'value' => floatval ($value)
+						'pin' => $pin,
+						'value' => $value
 					];
-					/*
-						$result [] = [
-							'quantity' => $quantity,
-							'pin' => $pin,
-							'value' => $value
-						];
-					*/
-				# }
+				}
 			}
 		}
 		return $result;
@@ -270,7 +275,7 @@ class DataServer
 			$device = Device::fromId ($msg ['device']['hardware_id'])
 						?? Device::createToDb (
 							$msg ['device']['hardware_id'],
-							isset ($msg ['device']['name'] ? $msg ['device']['name'] : '')
+							isset ($msg ['device']['name']) ? $msg ['device']['name'] : ''
 						);
 		}
 		if (!isset ($msg ['msg']['time']) || $device === null) {
@@ -297,9 +302,8 @@ class DataServer
 				$sensor =
 					DeviceSensor::fromMeasurement ($device, $parameters [$entry ['quantity']], $entry ['pin'])
 					?? DeviceSensor::createToDb ($device, $parameters [$entry ['quantity']], $entry ['pin']);
-				
 				if ($sensor !== null && $param !== null) {
-					MonitoringData::createToDb ($sensor, $target, $param, $time, $entry ['value']);
+					$asd = MonitoringData::createToDb ($sensor, $target, $param, $time, $entry ['value']);
 				}
 			}
 		}
