@@ -41,7 +41,11 @@ function prepareCommunication () {
 }
 
 function receiveData (data) {
-	graphMan.addData (JSON.parse (data));
+	data = JSON.parse (data);
+	if (!data.device || !data.values || !Array.isArray (data.values)) {
+		return;
+	}
+	graphMan.addData (data);
 }
 
 function GraphManager (_allowNew, _domContainer) {
@@ -61,18 +65,18 @@ function GraphManager (_allowNew, _domContainer) {
 	};
 
 	this.addData = function (data) {
-		var i = 0, count = data.payload.length;
-		if (!graphs [data._id]) {
+		var i = 0, count = data.values.length;
+		if (!graphs [data.device]) {
 			if (!allowNew) {
 				return;
 			}
 			// self.newGraph (); // Do dis
 		}
-		var graph = graphs [data._id];
+		var graph = graphs [data.device];
 		for (; i < count; ++i) {
-			for (var value in data.payload [i]) {
+			for (var value in data.values [i]) {
 				graph.addType (value);
-				graph.addData (data._id, value, data.payload [i][value]);
+				graph.addData (data.device, value, data.values [i][value]);
 			}
 		}
 	};

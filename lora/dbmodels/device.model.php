@@ -78,6 +78,10 @@ class Device extends BaseModel
 		return self::query ([ 'device' => $this->_id ], DeviceSensor::class, true);
 	}
 
+	public function fetchData () : array {
+		return self::query ([ 'device' => $this->_id ], MonitoringData::class, true);
+	}
+
 	public function fetchTargetHistory () : array {
 		/*
 			FUCK THIS METHOD!

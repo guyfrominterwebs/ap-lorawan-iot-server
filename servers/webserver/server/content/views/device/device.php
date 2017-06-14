@@ -23,9 +23,15 @@ final class Content_Device extends \Lora\BaseAction
 		if ($req->has ('rt-view')) {
 			// TODO: RT view engage.
 		} else if ($req->has ('history-view')) {
-			$this->fetchData ($req, $id);
+			if ($device !== null) {
+				$this->mess->addData ($device->fetchData ());
+			}
+			// $this->fetchData ($req, $id);
 		} else if ($req->has ('madness')) {
-			$this->fetchData ($req, $id);
+			if ($device !== null) {
+				$this->mess->addData ($device->fetchData ());
+			}
+			// $this->fetchData ($req, $id);
 		}
 	}
 

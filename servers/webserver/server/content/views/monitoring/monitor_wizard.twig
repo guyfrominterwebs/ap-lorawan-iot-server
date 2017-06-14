@@ -7,7 +7,6 @@
 	{% if _cntx.data.error %}
 		{{ generators.print_error (_cntx.data.error, _cntx) }}
 	{% endif %}
-	{{ dump (_cntx.data.phase) }}
 	{% if _cntx.data.phase == 1 %}
 		<form action="{{ _cntx.public_pages ~ _cntx.page.name }}?{{ view.id }}" method="post">
 			<div class="form-entry">
@@ -15,7 +14,7 @@
 					Monitoring area name:
 				</div>
 				<div class="form-field">
-					<input type="text" name="name" autofocus><br>
+					<input type="text" name="area" autofocus><br>
 				</div>
 			</div>
 			<div class="form-entry">
@@ -25,8 +24,7 @@
 			</div>
 			<input type="hidden" name="step" value="{{ _cntx.data.phase }}">
 		</form>
-	{% endif %}
-	{% if _cntx.data.phase == 2 %}
+	{% elseif _cntx.data.phase == 2 %}
 		<form action="{{ _cntx.public_pages ~ _cntx.page.name }}" method="post">
 			<div class="form-entry">
 				<div class="form-text">
@@ -46,5 +44,9 @@
 			<input type="hidden" name="area" value="{{ _cntx.data.target._id }}">
 			<input type="hidden" name="step" value="{{ _cntx.data.phase }}">
 		</form>
+	{% elseif _cntx.data.phase == 3 %}
+		<p>Devices added to area.</p>
+		<a href="{{ _cntx.public_pages }}/monitoring?id={{ _cntx.data.target._id }}" class="button">Open modified area</a>
+		<a href="{{ _cntx.public_pages }}/monitoring" class="button">Back to area list</a>
 	{% endif %}
 </div>

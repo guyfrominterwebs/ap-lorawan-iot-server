@@ -22,7 +22,7 @@ function deviceHwId (int $index) : string {
 
 function randomDeviceHwId () : string {
 	$devices = getDeviceIds ();
-	return $devices [mt_rand (1, count ($devices))];
+	return $devices [mt_rand (1, count ($devices) - 1)];
 }
 
 function randomValue (int $min, int $max) {
