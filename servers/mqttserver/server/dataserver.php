@@ -111,7 +111,7 @@ class DataServer
 		}
 		$parsedMsg ['topic'] = $parsedTopic;
 		$this->storeData ($parsedMsg);
-		$this->broadcast ($parsedMsg ['msg'], $messages);
+		$this->broadcast ($parsedMsg, $messages);
 		return $messages;
 	}
 
@@ -204,7 +204,7 @@ class DataServer
 				];
 		$result ['msg'] = [
 					'time'				=> $timestamp,
-					'payload'			=> $payload
+					'values'			=> $payload
 				];
 		return $result;
 	}
@@ -289,8 +289,8 @@ class DataServer
 		if ($target === null) {
 			return false;
 		}
-		if (isset ($msg ['msg'], $msg ['msg']['payload']) && is_array ($msg ['msg']['payload'])) {
-			foreach ($msg ['msg']['payload'] as $entry) {
+		if (isset ($msg ['msg'], $msg ['msg']['values']) && is_array ($msg ['msg']['values'])) {
+			foreach ($msg ['msg']['values'] as $entry) {
 				if (!isset ($entry ['quantity'], $entry ['pin'], $entry ['value']) || isset ($parameters [$entry ['quantity']])) {
 					continue;
 				}
@@ -329,7 +329,10 @@ class DataServer
 			$messages [] = "Realtime connection established.";
 		}
 		$messages [] = "Broadcasting data.";
-		$data = InternalMSG::composeMsg (Command::DATA, $msg);
+		$payload = $msg ['msg'];
+		$payload ['device'] = $msg ['device']['hardware_id'];
+		$data = InternalMSG::composeMsg (Command::DATA, $payload);
+		var_dump ($data);
 		if (!$this->rt_client->send ($data)) {
 			if (!$this->rt_client->isConnected ()) {
 				$messages [] = "Realtime client connection error: ".$this->rt_client->lastError ();

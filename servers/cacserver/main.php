@@ -84,6 +84,7 @@ function broadcast (string $data, bool $last) {
 
 function construct_temperature (string $device, array $temperatures) : string {
 	$data = [
+		"time" => time (),
 		"device" => $device,
 		"values" => buildValues ($temperatures, 'TMP')
 	];
@@ -92,6 +93,7 @@ function construct_temperature (string $device, array $temperatures) : string {
 
 function construct_light (string $device, array $lights) : string {
 	$data = [
+		"time" => time (),
 		"device" => $device,
 		"values" => buildValues ($lights, 'LT.')
 	];
@@ -100,6 +102,7 @@ function construct_light (string $device, array $lights) : string {
 
 function construct_many (string $device, array $args) : string {
 	$data = [
+		"time" => time (),
 		"device" => $device,
 		"values" => [
 			[ "TMP" => 21 ],
@@ -112,7 +115,7 @@ function construct_many (string $device, array $args) : string {
 function buildValues (array $values, string $type) {
 	$result = [];
 	foreach ($values as $value) {
-		$result [] = [ $type => trim ($value, '\'"')];
+		$result [] = [ 'quantity' => $type, 'value' => trim ($value, '\'"')];
 	}
 	return $result;
 }

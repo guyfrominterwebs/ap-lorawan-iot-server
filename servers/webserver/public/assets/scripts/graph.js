@@ -42,7 +42,7 @@ function prepareCommunication () {
 
 function receiveData (data) {
 	data = JSON.parse (data);
-	if (!data.device || !data.values || !Array.isArray (data.values)) {
+	if (!data.time || !data.device || !data.values || !Array.isArray (data.values)) {
 		return;
 	}
 	graphMan.addData (data);
@@ -74,10 +74,8 @@ function GraphManager (_allowNew, _domContainer) {
 		}
 		var graph = graphs [data.device];
 		for (; i < count; ++i) {
-			for (var value in data.values [i]) {
-				graph.addType (value);
-				graph.addData (data.device, value, data.values [i][value]);
-			}
+			graph.addType (data.values [i]['quantity']);
+			graph.addData (data.device, data.values [i]['quantity'], data.values [i]['value']);
 		}
 	};
 
