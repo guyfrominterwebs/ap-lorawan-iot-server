@@ -26,5 +26,5 @@ function randomDeviceHwId () : string {
 }
 
 function randomValue (int $min, int $max) {
-	return mt_rand ($min, $max);
+	return mt_rand ($min, $max) + (mt_rand (0, 100) / 100);
 }
